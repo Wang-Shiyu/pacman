@@ -6,7 +6,7 @@ import edu.rice.comp504.model.paint.PacMan;
 public class ChaseStrategy implements IUpdateStrategy {
 
     /**
-     * Singleton object of current class.
+     * Singleton object of ChaseStrategy class.
      */
     private static ChaseStrategy INSTANCE;
 
@@ -20,7 +20,7 @@ public class ChaseStrategy implements IUpdateStrategy {
     }
 
     /**
-     * @return get the singleton of the class.
+     * @return get the singleton of ChaseStrategy class.
      */
     public static ChaseStrategy getInstance(PacMan pacman) {
         if (INSTANCE == null) {

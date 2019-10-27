@@ -6,7 +6,7 @@ import edu.rice.comp504.model.paint.PacMan;
 public class EscapeStrategy implements IUpdateStrategy {
 
     /**
-     * Singleton object of current class.
+     * Singleton object of EscapeStrategy class.
      */
     private static EscapeStrategy INSTANCE;
 
@@ -20,7 +20,7 @@ public class EscapeStrategy implements IUpdateStrategy {
     }
 
     /**
-     * @return get the singleton of the class.
+     * @return get the singleton of EscapeStrategy class.
      */
     public static EscapeStrategy getInstance(PacMan pacman) {
         if (INSTANCE == null) {

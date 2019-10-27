@@ -5,7 +5,7 @@ import edu.rice.comp504.model.paint.ACellObject;
 public class PacManMoveStrategy implements IUpdateStrategy {
 
     /**
-     * Singleton object of current class.
+     * Singleton object of PacManMoveStrategy class.
      */
     private static PacManMoveStrategy INSTANCE;
 
@@ -16,7 +16,7 @@ public class PacManMoveStrategy implements IUpdateStrategy {
     }
 
     /**
-     * @return get the singleton of the class.
+     * @return get the singleton of PacManMoveStrategy class.
      */
     public static PacManMoveStrategy getInstance() {
         if (INSTANCE == null) {
