@@ -14,7 +14,12 @@ public class UpdateCmd implements IPaintObjCmd {
      */
     private static UpdateCmd INSTANCE;
 
+    /**
+     * Property change support contains all the ACellObjects and they are used to detect collision or
+     * update the ACellObjects.
+     */
     private PropertyChangeSupport pcs;
+
 
     /**
      * Constructor.
@@ -32,10 +37,17 @@ public class UpdateCmd implements IPaintObjCmd {
         return INSTANCE;
     }
 
+    /**
+     * Property change support setter. Initialize the property change support field.
+     */
     public void setPcs(PropertyChangeSupport pcs) {
         this.pcs = pcs;
     }
 
+    /**
+     * Execute the command.
+     * @param context The receiver paint object on which the command is executed.
+     */
     @Override
     public void execute(ACellObject context) {
         // TODO: check hole(pacman, ghost)

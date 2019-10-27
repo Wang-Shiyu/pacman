@@ -11,6 +11,10 @@ public class InteractCmd implements IPaintObjCmd {
      */
     private static InteractCmd INSTANCE;
 
+    /**
+     * Property change support contains all the ACellObjects and they are used to detect collision or
+     * update the ACellObjects.
+     */
     private PropertyChangeSupport pcs;
 
     /**
@@ -29,6 +33,9 @@ public class InteractCmd implements IPaintObjCmd {
         return INSTANCE;
     }
 
+    /**
+     * Property change support setter. Initialize the property change support field.
+     */
     public void setPcs(PropertyChangeSupport pcs) {
         this.pcs = pcs;
     }
