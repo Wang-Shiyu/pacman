@@ -5,9 +5,39 @@
     <title>Pac Man</title>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/view.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div style="position:fixed; top:3em; left:0em;">
+<div style="position:relative; top:3em; left:0em;" align="center">
+    <h2 class="title">Welcome to World of Pacman!</h2>
+    <br>
+    <div>
+        Background Color
+        <select id="bgColor">
+            <option value="Black">Black</option>
+            <option value="Gray">Gray</option>
+            <option value="Green">Green</option>
+            <option value="Blue">Blue</option>
+        </select>
+        Fruit Type
+        <select id="Fruit">
+            <option value="Cherry">Cherry-1</option>
+            <option value="Strawberry">StrawBerry-2</option>
+        </select>
+        Number of lives
+        <select id="Life">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+    <br>
+    <div>
+        <button id="btn-start" class="button startButton">Start</button>
+        <button id="btn-reset" class="button resetButton">Reset</button>
+    </div>
     <canvas width="775" height="775" style="border: 1px solid #000000"></canvas>
 </div>
 </body>
