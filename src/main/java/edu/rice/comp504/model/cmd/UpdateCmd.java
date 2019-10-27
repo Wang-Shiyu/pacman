@@ -1,9 +1,9 @@
 package edu.rice.comp504.model.cmd;
 
-import edu.rice.comp504.model.paint.AMoveObject;
-import edu.rice.comp504.model.paint.GameBoard;
+import edu.rice.comp504.model.paint.ACellObject;
 import edu.rice.comp504.model.paint.Ghost;
 
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,53 +14,33 @@ public class UpdateCmd implements IPaintObjCmd {
      */
     private static UpdateCmd INSTANCE;
 
-    /**
-     * All the existing ghosts
-     */
-    private List<Ghost> ghosts;
-
-    /**
-     * instance of game board
-     */
-    private GameBoard gameBoard;
+    private PropertyChangeSupport pcs;
 
     /**
      * Constructor.
      */
-    private UpdateCmd(GameBoard board) {
-        ghosts = new ArrayList<>();
-        this.gameBoard = board;
+    private UpdateCmd() {
     }
 
     /**
      * @return get the singleton of the class.
      */
-    public static UpdateCmd getInstance(GameBoard board) {
+    public static UpdateCmd getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new UpdateCmd(board);
+            INSTANCE = new UpdateCmd();
         }
         return INSTANCE;
     }
 
+    public void setPcs(PropertyChangeSupport pcs) {
+        this.pcs = pcs;
+    }
+
     @Override
-    public void execute(AMoveObject context) {
+    public void execute(ACellObject context) {
+        // TODO: check hole(pacman, ghost)
         // TODO: update pacman/ghosts location
-        // gameBoard.detectWall(context)
-
-        // TODO: interact with food(food, big food)
-        // APaintObject obj = gameBoard.detectFood(context);
-
-        // TODO: if pac man eats big food, set canEatGhost & change ghost strategy
-        // check obj
-
-        // TODO: interact between Pac-man and ghosts
-        // TODO: update score/life in game board
-        // if(ghost.detectCollision(pac man)) {
-        //  if(canEatGhost) use PacManCatchGhostStrategy in pac man
-        //  else use GhostCatchPacManStrategy in ghost
-        // }
-
-        // TODO: clear cache
-        ghosts.clear();
+        // TODO: update time in ghost
+        // TODO: make sure new location is valid
     }
 }

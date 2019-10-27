@@ -9,6 +9,4 @@ public class GameParam {
     public static String mazeMap;
     public static double stepSize; // Pacman or ghosts' moving step size, eg: 0.02 cell per step
     public static int cellSize;
-
-
 }

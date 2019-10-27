@@ -2,7 +2,7 @@ package edu.rice.comp504.controller;
 
 import com.google.gson.Gson;
 import edu.rice.comp504.model.DispatcherAdapter;
-import edu.rice.comp504.model.paint.GameBoard;
+import edu.rice.comp504.model.GameHost;
 
 import static spark.Spark.*;
 
@@ -22,30 +22,26 @@ public class PacManController {
         staticFiles.location("/public");
 
         Gson gson = new Gson();
-        DispatcherAdapter dis = new DispatcherAdapter();
-
-        post("/move/:direction", (request, response) -> {
-            dis.move(request.params(":direction"));
-            return "OK";
-        });
+        GameHost game = new GameHost();
 
         get("/update", (request, response) -> {
-            return gson.toJson(dis.updatePacMamWorld());
-        });
-
-        get("/load", (request, response) -> {
-            return gson.toJson(dis.initGame());
+            return gson.toJson(game.updatePanManWorld());
         });
 
         get("/start", (request, response) -> {
-            dis.startGame();
+            game.startGame();
+            return "OK";
+        });
+
+        get("/reset", (request, response) -> {
+            game.resetGame();
             return "OK";
         });
 
         post("/inputevent", (request, response) -> {
-            String inputEvent = request.body();
-
-        })
+            game.move(request.body());
+            return "OK";
+        });
 
     }
 }

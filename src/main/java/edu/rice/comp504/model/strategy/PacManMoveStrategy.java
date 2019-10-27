@@ -1,6 +1,6 @@
 package edu.rice.comp504.model.strategy;
 
-import edu.rice.comp504.model.paint.AMoveObject;
+import edu.rice.comp504.model.paint.ACellObject;
 
 public class PacManMoveStrategy implements IUpdateStrategy {
 
@@ -31,8 +31,7 @@ public class PacManMoveStrategy implements IUpdateStrategy {
     }
 
     @Override
-    public void updateState(AMoveObject context) {
+    public void updateState(ACellObject context) {
         // TODO: pac man update location
-        // we also store a cache direction, when pac man can make a turn, update the velocity first then update location
     }
 }
