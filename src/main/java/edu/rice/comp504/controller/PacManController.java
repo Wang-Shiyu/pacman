@@ -44,8 +44,8 @@ public class PacManController {
 
         post("/inputevent", (request, response) -> {
             String inputEvent = request.body();
-
-        })
+            return "OK";
+        });
 
     }
 }

@@ -41,6 +41,8 @@ public abstract class AMoveObject implements PropertyChangeListener {
     private int nextMove;
     private int currentMove;
     private int lastMove;
+    protected boolean isTransposable;
+    protected boolean isMortal;
 
 
     /**
