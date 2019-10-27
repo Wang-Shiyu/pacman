@@ -33,9 +33,15 @@ public abstract class AMoveObject implements PropertyChangeListener {
      */
     private IUpdateStrategy updateStrategy;
 
+    /**
+     * These variables remember the current/last/next(intended) moving direction. Since user can not change the
+     * moving direction when there's wall in that direction, we need to remember the nextMove control signal
+     * and last move direction to revert it.
+     */
+    private int nextMove;
+    private int currentMove;
+    private int lastMove;
 
-    protected boolean isTransposable;
-    protected boolean isMortal;
 
     /**
      * Constructor

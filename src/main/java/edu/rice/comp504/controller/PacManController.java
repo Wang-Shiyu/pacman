@@ -31,7 +31,7 @@ public class PacManController {
 
         get("/update", (request, response) -> {
             return gson.toJson(dis.updatePacMamWorld());
-        } );
+        });
 
         get("/load", (request, response) -> {
             return gson.toJson(dis.initGame());
@@ -41,6 +41,11 @@ public class PacManController {
             dis.startGame();
             return "OK";
         });
+
+        post("/inputevent", (request, response) -> {
+            String inputEvent = request.body();
+
+        })
 
     }
 }
