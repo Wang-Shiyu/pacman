@@ -6,7 +6,7 @@ public class GhostInitStrategy implements IUpdateStrategy {
 
     private int switchLocationY;
     /**
-     * The name of the strategy.
+     * The name of GhostInitStrategy strategy.
      *
      * @return strategy name
      */
