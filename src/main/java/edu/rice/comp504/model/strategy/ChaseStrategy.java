@@ -1,6 +1,7 @@
 package edu.rice.comp504.model.strategy;
 
-import edu.rice.comp504.model.paint.AMoveObject;
+import edu.rice.comp504.model.paint.ACellObject;
+import edu.rice.comp504.model.paint.PacMan;
 
 public class ChaseStrategy implements IUpdateStrategy {
 
@@ -9,18 +10,21 @@ public class ChaseStrategy implements IUpdateStrategy {
      */
     private static ChaseStrategy INSTANCE;
 
+    private PacMan pacman;
+
     /**
      * Constructor.
      */
-    private ChaseStrategy() {
+    private ChaseStrategy(PacMan pacMan) {
+        this.pacman = pacMan;
     }
 
     /**
      * @return get the singleton of the class.
      */
-    public static ChaseStrategy getInstance() {
+    public static ChaseStrategy getInstance(PacMan pacman) {
         if (INSTANCE == null) {
-            INSTANCE = new ChaseStrategy();
+            INSTANCE = new ChaseStrategy(pacman);
         }
         return INSTANCE;
     }
@@ -31,7 +35,7 @@ public class ChaseStrategy implements IUpdateStrategy {
     }
 
     @Override
-    public void updateState(AMoveObject context) {
+    public void updateState(ACellObject context) {
         // TODO: ghost chase the Pac man
     }
 }

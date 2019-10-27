@@ -1,29 +1,35 @@
 package edu.rice.comp504.model.paint;
 
-import edu.rice.comp504.model.strategy.IInteractStrategy;
-import edu.rice.comp504.model.strategy.NullInteractStrategy;
+import edu.rice.comp504.model.strategy.IUpdateStrategy;
 
-import java.awt.*;
+import java.beans.PropertyChangeEvent;
 
 /**
  * when pac man eats big bean, it can chase ghost
  */
-public class BigFood extends APaintObject {
+public class BigFood extends ACellObject{
 
-    /**
-     * Constructor.
-     *
-     * @param loc              The location of the paintable in the grid(row,col)
-     * @param type             The object type (e.g. image, circle)
-     * @param interactStrategy The object interact strategy
-     */
-    public BigFood(Point loc, String type, IInteractStrategy interactStrategy) {
-        super(loc, "BigFood", NullInteractStrategy.getInstance());
+    public BigFood(String imageIcon, int score, String type, double locationX, double locationY, double vel, IUpdateStrategy updateStrategy) {
+        super(imageIcon, 20, "BigFood", locationX, locationY, vel, updateStrategy);
     }
 
     @Override
-    public boolean detectCollision(AMoveObject obj) {
-        // if true, eat
+    public boolean isOverlap(ACellObject object) {
         return false;
+    }
+
+    @Override
+    public void reset() {
+
+    }
+
+    /**
+     * This method gets called when a bound property is changed.
+     *
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
     }
 }

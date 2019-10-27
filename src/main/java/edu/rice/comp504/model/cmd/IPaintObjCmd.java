@@ -1,7 +1,6 @@
 package edu.rice.comp504.model.cmd;
 
-import edu.rice.comp504.model.paint.AMoveObject;
-import edu.rice.comp504.model.paint.APaintObject;
+import edu.rice.comp504.model.paint.ACellObject;
 
 /**
  * The IPaintObjCmd is an interface used to pass commands to objects in the PaintObjWorld.  The
@@ -13,5 +12,5 @@ public interface IPaintObjCmd {
      * Execute the command.
      * @param context The receiver paint object on which the command is executed.
      */
-    public void execute(AMoveObject context);
+    public void execute(ACellObject context);
 }

@@ -1,7 +1,5 @@
 package edu.rice.comp504.model;
 
-import edu.rice.comp504.model.paint.GameBoard;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -22,12 +20,12 @@ public class DispatcherAdapter {
      * Call the update method on all the paintobj objects to update their position in the paintobj world.
      */
     public PropertyChangeListener[] updatePacMamWorld() {
-        if (GameBoard.getInstance().isStart()) {
-            // TODO: send update cmd
-            // UpdateCmd.getInstance(GameBoard.getInstance())
-            // TODO: check if game ends() & update level
-            // GameBoard.getInstance().isWin() & GameBoard.getInstance().isLose()
-        }
+//        if (GameBoard.getInstance().isStart()) {
+//            // TODO: send update cmd
+//            // UpdateCmd.getInstance(GameBoard.getInstance())
+//            // TODO: check if game ends() & update level
+//            // GameBoard.getInstance().isWin() & GameBoard.getInstance().isLose()
+//        }
         return null;
     }
 
@@ -43,7 +41,7 @@ public class DispatcherAdapter {
      */
     public PropertyChangeListener[] initGame() {
         // TODO: init game board for rendering, add listener
-        addListener(GameBoard.getInstance());
+//        addListener(GameBoard.getInstance());
         // TODO: init ghosts based on level, add listener
 
         // TODO: init pacman, add listener (please keep this order since firePropertyChange will use this order)
@@ -54,7 +52,7 @@ public class DispatcherAdapter {
      * all objects all allowed to move according to their strategy when game starts
      */
     public void startGame() {
-        GameBoard.getInstance().setStart(true);
+//        GameBoard.getInstance().setStart(true);
     }
 
     /**
@@ -65,4 +63,7 @@ public class DispatcherAdapter {
     private void addListener(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
     }
+
+
+
 }

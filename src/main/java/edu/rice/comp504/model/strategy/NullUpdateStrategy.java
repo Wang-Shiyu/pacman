@@ -1,6 +1,6 @@
 package edu.rice.comp504.model.strategy;
 
-import edu.rice.comp504.model.paint.AMoveObject;
+import edu.rice.comp504.model.paint.ACellObject;
 
 /**
  * for all the stationary paint objects that don't move
@@ -12,7 +12,7 @@ public class NullUpdateStrategy implements IUpdateStrategy {
     }
 
     @Override
-    public void updateState(AMoveObject context) {
+    public void updateState(ACellObject context) {
 
     }
 }
