@@ -5,6 +5,7 @@ var app;
 
 const pixelPerUnit = 31;
 
+var ghostImg, pacmanImg, cherryImg, strawberryImg;
 /**
  * Create the paint object world app for a canvas
  * @param canvas The canvas to draw paintable canvas objects on
@@ -37,6 +38,13 @@ function createApp(canvas) {
     const drawPacManWorld = function (data) {
         // TODO: check is start
         drawGameBoard(data[0]);
+        drawImage(ghostImg,155, 31, 0);
+        drawImage(ghostImg,217, 31, 0);
+        drawImage(pacmanImg,93, 31, 0);
+        drawImage(cherryImg,62, 93, 0);
+        drawImage(cherryImg,248, 155, 0);
+        drawImage(cherryImg,527, 341, 0);
+        drawImage(cherryImg,217, 465, 0);
     };
 
     const drawGameBoard = function (data) {
@@ -63,6 +71,16 @@ function createApp(canvas) {
         drawCircle(x, y, 3, "white");
     };
 
+    const drawImage = function (img, x, y, dir) {
+        let angle = Math.PI * dir / 2;
+        c.save();
+        c.translate(x + 15.5,y + 15.5);
+        c.rotate(angle);
+        if (angle > Math.PI / 2 && angle < Math.PI * 3 / 2) c.scale(1, -1);
+        c.drawImage(img, -15.5, -15.5, 31, 31);
+        c.restore();
+    }
+
     let clear = function () {
         c.fillStyle = "black";
         c.fillRect(0, 0, canvas.width, canvas.height);
@@ -73,6 +91,7 @@ function createApp(canvas) {
     return {
         drawCircle: drawCircle,
         drawPacManWorld: drawPacManWorld,
+        drawImage: drawImage,
         clear: clear,
         dims: {height: canvas.height, width: canvas.width}
     }
@@ -80,6 +99,16 @@ function createApp(canvas) {
 
 
 window.onload = function () {
+    ghostImg = new Image();
+    pacmanImg = new Image();
+    cherryImg = new Image();
+    strawberryImg = new Image();
+
+    ghostImg.src = "pinkGhost.gif";
+    pacmanImg.src = "pacman.png";
+    cherryImg.src = "cherry.png";
+    strawberryImg.src = "strawberry.png";
+
     app = createApp(document.querySelector("canvas"));
 
     clear();
