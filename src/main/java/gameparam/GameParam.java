@@ -1,4 +1,4 @@
-package gameParam;
+package gameparam;
 
 public class GameParam {
     public static double ghostSpeed;

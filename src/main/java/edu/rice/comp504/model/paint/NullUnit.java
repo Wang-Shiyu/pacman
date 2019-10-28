@@ -5,7 +5,7 @@ import edu.rice.comp504.model.strategy.IUpdateStrategy;
 import java.beans.PropertyChangeEvent;
 
 /**
- * Empty unit in the game board
+ * Empty unit in the game board.
  */
 public class NullUnit extends ACellObject {
 

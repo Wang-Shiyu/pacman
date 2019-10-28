@@ -37,7 +37,7 @@ public class DispatcherAdapter {
     }
 
     /**
-     * initialize game board for front end rendering
+     * initialize game board for front end rendering.
      */
     public PropertyChangeListener[] initGame() {
         // TODO: init game board for rendering, add listener
@@ -49,7 +49,7 @@ public class DispatcherAdapter {
     }
 
     /**
-     * all objects all allowed to move according to their strategy when game starts
+     * all objects all allowed to move according to their strategy when game starts.
      */
     public void startGame() {
 //        GameBoard.getInstance().setStart(true);
@@ -63,7 +63,5 @@ public class DispatcherAdapter {
     private void addListener(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
     }
-
-
 
 }

@@ -4,6 +4,9 @@ import edu.rice.comp504.model.strategy.IUpdateStrategy;
 
 import java.beans.PropertyChangeEvent;
 
+/**
+ * Wall that limit the free spaces for Pacman to move.
+ */
 public class WallUnit extends ACellObject {
     public WallUnit(String imageIcon, int score, String type, double locationX, double locationY, double vel, IUpdateStrategy updateStrategy) {
         super(imageIcon, 0, "WallUnit", locationX, locationY, vel, updateStrategy);

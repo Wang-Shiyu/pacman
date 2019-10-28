@@ -4,9 +4,22 @@ import edu.rice.comp504.model.strategy.IUpdateStrategy;
 
 import java.beans.PropertyChangeEvent;
 
+/**
+ * Pacman.
+ */
 public class PacMan extends ACellObject {
     private int remainingLife;
 
+    /**
+     * Constructor.
+     * @param imageIcon image
+     * @param score score
+     * @param type type
+     * @param locationX locationX
+     * @param locationY locationY
+     * @param vel velocity
+     * @param updateStrategy strategy
+     */
     public PacMan(String imageIcon, int score, String type, double locationX, double locationY, double vel, IUpdateStrategy updateStrategy) {
         super(imageIcon, 0, "PacMan", locationX, locationY, vel, updateStrategy);
     }

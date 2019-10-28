@@ -6,11 +6,15 @@ import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * The abstract class for all objects used in the Pacman game.
+ * It contains properties that apply to all game objects.
+ */
 public abstract class ACellObject implements PropertyChangeListener {
 
     enum Direction {
         UP, DOWN, LEFT, RIGHT, STOP;
-    };
+    }
 
     private String imageIcon;
     // score for the food
@@ -27,15 +31,24 @@ public abstract class ACellObject implements PropertyChangeListener {
     private double initY;
     private double vel;
 
-    private Direction nextMove, lastMove, currentMove;
+    private Direction nextMove;
+    private Direction lastMove;
+    private Direction currentMove;
 
-    /**
-     * update strategy
-     */
     private IUpdateStrategy updateStrategy;
 
     private int timeCounter;
 
+    /**
+     * Constructor.
+     * @param imageIcon imageIcon
+     * @param score score
+     * @param type type
+     * @param locationX locationX
+     * @param locationY locationY
+     * @param vel velocity
+     * @param updateStrategy strategy
+     */
     public ACellObject(String imageIcon, int score, String type, double locationX, double locationY,
                        double vel, IUpdateStrategy updateStrategy) {
         this.imageIcon = imageIcon;

@@ -4,6 +4,9 @@ import edu.rice.comp504.model.strategy.IUpdateStrategy;
 
 import java.beans.PropertyChangeEvent;
 
+/**
+ * The white dot food that Pacman can eat to earn credits.
+ */
 public class Food extends ACellObject {
 
     public Food(String imageIcon, int score, String type, double locationX, double locationY, double vel, IUpdateStrategy updateStrategy) {

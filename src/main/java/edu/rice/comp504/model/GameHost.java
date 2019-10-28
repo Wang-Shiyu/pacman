@@ -3,9 +3,8 @@ package edu.rice.comp504.model;
 
 import edu.rice.comp504.model.cmd.InteractCmd;
 import edu.rice.comp504.model.cmd.UpdateCmd;
-import gameParam.GameParam;
+import gameparam.GameParam;
 
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class GameHost {
@@ -13,7 +12,7 @@ public class GameHost {
 
     enum Status {
         UNKNOWN, PASS, OVER, INIT, START, WIN;
-    };
+    }
 
     int level;
     Status gameStatus;
@@ -30,7 +29,7 @@ public class GameHost {
     }
 
     /**
-     * Reset the game when the game starts from fresh or reset from Game Over status
+     * Reset the game when the game starts from fresh or reset from Game Over status.
      */
     public void resetGame() {
         this.level = 1;
@@ -38,6 +37,10 @@ public class GameHost {
         loadGameObject();
     }
 
+    /**
+     * Update Pacman World.
+     * @return returnType
+     */
     public ReturnType updatePanManWorld() {
         // TODO: send update cmd
         UpdateCmd.getInstance().setPcs(pcs);
@@ -57,14 +60,17 @@ public class GameHost {
         // TODO: Send a KeyboardInputCmd to Pacman when keyboard evt is triggered
     }
 
+    /**
+     * Start Game.
+     */
     public void startGame() {
         // TODO: check previous status
-        if(gameStatus == Status.INIT) {
+        if (gameStatus == Status.INIT) {
             // first time
-        } else if(gameStatus == Status.PASS) {
+        } else if (gameStatus == Status.PASS) {
             // next level
 //            levelInit();
-        } else if(gameStatus == Status.OVER) {
+        } else if (gameStatus == Status.OVER) {
             // reset
             // new game
         }
@@ -72,12 +78,15 @@ public class GameHost {
         gameStatus = Status.START;
     }
 
-    private void loadGameObject () {
+    /**
+     * Load game Object.
+     */
+    private void loadGameObject() {
         // clear all listener and reload
     }
 
     /**
-     * Initialize level related game variables
+     * Initialize level related game variables.
      */
     public void levelInit() {
         switch (level) {
@@ -87,9 +96,15 @@ public class GameHost {
             case 2:
                 break;
                 //And so on
+            default:
+                break;
         }
     }
 
+    /**
+     * Getter for game status.
+     * @return gameStatus.
+     */
     public Status getGameStatus() {
         return gameStatus;
     }
