@@ -3,9 +3,18 @@ package edu.rice.comp504.model;
 
 import edu.rice.comp504.model.cmd.InteractCmd;
 import edu.rice.comp504.model.cmd.UpdateCmd;
+import edu.rice.comp504.model.paint.ACellObject;
+import edu.rice.comp504.model.paint.Food;
+import edu.rice.comp504.model.paint.WallUnit;
 import gameparam.GameParam;
 
+import java.awt.*;
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.net.URL;
 
 public class GameHost {
     private PropertyChangeSupport pcs;
@@ -18,6 +27,7 @@ public class GameHost {
     Status gameStatus;
     int timeCounter;
     int score;
+    ACellObject[][] board;
     //And so on
 
     /**
@@ -26,6 +36,7 @@ public class GameHost {
     public GameHost() {
         pcs = new PropertyChangeSupport(this);
         gameStatus = Status.INIT;
+        board = new ACellObject[25][25];
     }
 
     /**
@@ -76,6 +87,49 @@ public class GameHost {
         }
         loadGameObject();
         gameStatus = Status.START;
+    }
+
+    /**
+     * Init the game board.
+     */
+    public PropertyChangeListener[] initGmae() {
+        // TODO: init all items in the board: wall, food, big food and null
+        File file = getFileFromResources("public/maze.txt");
+        try {
+            FileReader reader = new FileReader(file);
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+            int row = 0, col = 0;
+            while ((line = br.readLine()) != null) {
+                col = 0;
+                for (char c : line.toCharArray()) {
+                    if (c == '1') {
+                        board[row][col] = new WallUnit("",0, null, row, col, 0, null);
+                    } else {
+                        board[row][col] = new Food("",0, null, row, col, 0, null);
+                    }
+                    pcs.addPropertyChangeListener(board[row][col]);
+                    col++;
+                }
+                row++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pcs.getPropertyChangeListeners();
+    }
+
+    private File getFileFromResources(String fileName) {
+
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        URL resource = classLoader.getResource(fileName);
+        if (resource == null) {
+            throw new IllegalArgumentException("file is not found!");
+        } else {
+            return new File(resource.getFile());
+        }
+
     }
 
     /**

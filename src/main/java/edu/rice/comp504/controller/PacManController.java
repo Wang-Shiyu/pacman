@@ -28,9 +28,12 @@ public class PacManController {
             return gson.toJson(game.updatePanManWorld());
         });
 
+        get("/init", (request, response) -> {
+            return gson.toJson(game.initGmae());
+        });
+
         get("/start", (request, response) -> {
-            game.startGame();
-            return "OK";
+            return "start";
         });
 
         get("/reset", (request, response) -> {

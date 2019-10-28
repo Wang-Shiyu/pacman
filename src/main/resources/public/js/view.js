@@ -37,7 +37,7 @@ function createApp(canvas) {
 
     const drawPacManWorld = function (data) {
         // TODO: check is start
-        drawGameBoard(data[0]);
+        drawGameBoard(data);
         drawImage(ghostImg,155, 31, 0);
         drawImage(ghostImg,217, 31, 0);
         drawImage(pacmanImg,93, 31, 0);
@@ -48,17 +48,15 @@ function createApp(canvas) {
     };
 
     const drawGameBoard = function (data) {
-        data.board.forEach((line) => {
-            line.forEach((item) => {
-                const coordinate = item.coordinate;
-                const x = coordinate.x * pixelPerUnit;
-                const y = coordinate.y * pixelPerUnit;
-                if (item.type === "Food") {
-                    drawFood(y + (pixelPerUnit + 1) / 2, x + (pixelPerUnit + 1) / 2);
-                } else if (item.type === "WallUnit") {
-                    drawWall(y, x);
-                }
-            });
+        data.forEach((item) => {
+            const coordinate = item.coordinate;
+            const x = item.locationX * pixelPerUnit;
+            const y = item.locationY * pixelPerUnit;
+            if (item.type === "Food") {
+                drawFood(y + (pixelPerUnit + 1) / 2, x + (pixelPerUnit + 1) / 2);
+            } else if (item.type === "WallUnit") {
+                drawWall(y, x);
+            }
         });
     };
 
@@ -113,14 +111,14 @@ window.onload = function () {
 
     clear();
     setInterval(updatePacManWorld, 100);
-    loadGame();
+    $("#btn-start").click(loadGame);
 };
 
 /**
  * load game
  */
 function loadGame() {
-    $.get("/load", function (data) {
+    $.get("/init", function (data) {
         app.drawPacManWorld(data);
     }, "json");
 }
