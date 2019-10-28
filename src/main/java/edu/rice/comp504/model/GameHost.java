@@ -11,9 +11,7 @@ import gameparam.GameParam;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.net.URL;
 
 public class GameHost {
@@ -94,12 +92,12 @@ public class GameHost {
      */
     public PropertyChangeListener[] initGmae() {
         // TODO: init all items in the board: wall, food, big food and null
-        File file = getFileFromResources("public/maze.txt");
+        InputStream file = getFileFromResources("public/maze.txt");
         try {
-            FileReader reader = new FileReader(file);
-            BufferedReader br = new BufferedReader(reader);
+            BufferedReader br = new BufferedReader(new InputStreamReader(file));
             String line;
-            int row = 0, col = 0;
+            int row = 0;
+            int col = 0;
             while ((line = br.readLine()) != null) {
                 col = 0;
                 for (char c : line.toCharArray()) {
@@ -119,17 +117,9 @@ public class GameHost {
         return pcs.getPropertyChangeListeners();
     }
 
-    private File getFileFromResources(String fileName) {
-
+    private InputStream getFileFromResources(String fileName) {
         ClassLoader classLoader = getClass().getClassLoader();
-
-        URL resource = classLoader.getResource(fileName);
-        if (resource == null) {
-            throw new IllegalArgumentException("file is not found!");
-        } else {
-            return new File(resource.getFile());
-        }
-
+        return classLoader.getResourceAsStream(fileName);
     }
 
     /**
