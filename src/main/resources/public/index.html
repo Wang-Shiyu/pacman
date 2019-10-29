@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div style="position:relative; top:3em; left:0em;" align="center">
-    <h2 class="title">Welcome to World of Pacman!</h2>
+<div style="position:relative; top:1em; left:0em;" align="center" class="grid-container">
+    <div>
+    <h2 class="title">Welcome to Pacman!</h2>
     <br>
     <div>
+        <div class="dropdown">
         Background Color
         <select id="bgColor">
             <option value="Black">Black</option>
@@ -19,11 +21,17 @@
             <option value="Green">Green</option>
             <option value="Blue">Blue</option>
         </select>
+        </div>
+        <br>
+        <div class="dropdown">
         Fruit Type
         <select id="Fruit">
             <option value="Cherry">Cherry-1</option>
             <option value="Strawberry">StrawBerry-2</option>
         </select>
+        </div>
+        <br>
+        <div class="dropdown">
         Number of lives
         <select id="Life">
             <option value="1">1</option>
@@ -32,13 +40,32 @@
             <option value="4">4</option>
             <option value="5">5</option>
         </select>
+        </div>
     </div>
     <br>
     <div>
         <button id="btn-start" class="button startButton">Start</button>
         <button id="btn-reset" class="button resetButton">Reset</button>
     </div>
-    <canvas width="775" height="775" style="border: 1px solid #000000"></canvas>
+    </div>
+    <div class="canvas">
+    <canvas width="775" height="620" style="border: 1px solid #000000"></canvas>
+    </div>
+    <div class="statecolumn">
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="state">
+            Level : 1
+        </div>
+        <div class="state">
+            Number of Lives Left: 2
+        </div>
+        <div class="state">
+            Score : 0
+        </div>
+    </div>
 </div>
 </body>
 </html>
