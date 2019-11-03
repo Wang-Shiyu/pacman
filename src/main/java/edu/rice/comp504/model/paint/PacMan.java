@@ -29,7 +29,8 @@ public class PacMan extends ACellObject {
 
     @Override
     public boolean isOverlap(ACellObject object) {
-        return false;
+        return Math.abs(object.getLocationX() - this.getLocationX()) < 1 &&
+                Math.abs(object.getLocationY() - this.getLocationY()) < 1;
     }
 
     @Override
