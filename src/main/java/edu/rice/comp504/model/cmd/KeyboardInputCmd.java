@@ -10,7 +10,7 @@ public class KeyboardInputCmd implements IPaintObjCmd {
     /**
      * Singleton object of current class.
      */
-    private static UpdateCmd INSTANCE;
+    private static KeyboardInputCmd INSTANCE;
 
 
     /**
@@ -29,6 +29,16 @@ public class KeyboardInputCmd implements IPaintObjCmd {
      */
     public void setMove(ACellObject.Direction move) {
         this.move = move;
+    }
+
+    /**
+     * @return get the singleton of the class.
+     */
+    public static KeyboardInputCmd getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new KeyboardInputCmd();
+        }
+        return INSTANCE;
     }
 
     /**

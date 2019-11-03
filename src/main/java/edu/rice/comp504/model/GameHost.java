@@ -1,10 +1,13 @@
 package edu.rice.comp504.model;
 
 
+import edu.rice.comp504.model.cmd.IPaintObjCmd;
 import edu.rice.comp504.model.cmd.InteractCmd;
+import edu.rice.comp504.model.cmd.KeyboardInputCmd;
 import edu.rice.comp504.model.cmd.UpdateCmd;
 import edu.rice.comp504.model.paint.ACellObject;
 import edu.rice.comp504.model.paint.Food;
+import edu.rice.comp504.model.paint.PacMan;
 import edu.rice.comp504.model.paint.WallUnit;
 import gameparam.GameParam;
 
@@ -67,7 +70,28 @@ public class GameHost {
      */
     public void move(String direction) {
         // TODO: Send a KeyboardInputCmd to Pacman when keyboard evt is triggered
+        ACellObject.Direction move;
 
+        //TODO: Decode the direction string
+        switch (direction){
+            case "up":
+                move = ACellObject.Direction.UP;
+                break;
+            case "down":
+                move = ACellObject.Direction.DOWN;
+                break;
+            case "left":
+                move = ACellObject.Direction.LEFT;
+                break;
+            case "right":
+                move = ACellObject.Direction.RIGHT;
+                break;
+            default:
+                move = ACellObject.Direction.STOP;
+                System.out.print("Error: Receive move from Controller, not recognized");
+        }
+        KeyboardInputCmd keyboardInputCmd = KeyboardInputCmd.getInstance();
+        keyboardInputCmd.setMove(move);
     }
 
     /**
