@@ -1,10 +1,35 @@
 package edu.rice.comp504.model.cmd;
 
 import edu.rice.comp504.model.paint.ACellObject;
+import edu.rice.comp504.model.paint.PacMan;
 
 import javax.swing.*;
 
 public class KeyboardInputCmd implements IPaintObjCmd {
+
+    /**
+     * Singleton object of current class.
+     */
+    private static UpdateCmd INSTANCE;
+
+
+    /**
+     * Store the next move in the CMD and pass it to the Pacman through Keyboard CMD
+     */
+    private ACellObject.Direction move;
+
+    /**
+     * Constructor.
+     */
+    private KeyboardInputCmd() {
+    }
+
+    /**
+     * Initialize the move field in the Keyboard CMD.
+     */
+    public void setMove(ACellObject.Direction move) {
+        this.move = move;
+    }
 
     /**
      * Execute the command.
@@ -13,5 +38,7 @@ public class KeyboardInputCmd implements IPaintObjCmd {
     @Override
     public void execute(ACellObject context) {
         // TODO: cache direction as intended velocity for pac man
+        PacMan pacman  = (PacMan) context;
+        pacman.setNextMove(move);
     }
 }

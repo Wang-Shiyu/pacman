@@ -12,8 +12,8 @@ import java.beans.PropertyChangeSupport;
  */
 public abstract class ACellObject implements PropertyChangeListener {
 
-    enum Direction {
-        UP, DOWN, LEFT, RIGHT, STOP;
+    public enum Direction {
+        UP, DOWN, LEFT, RIGHT, STOP
     }
 
     private String imageIcon;
@@ -85,23 +85,50 @@ public abstract class ACellObject implements PropertyChangeListener {
         this.setLocation(preLocationX, preLocationY);
     }
 
-    public void computeNextLocation(double velX, double velY) {
-        this.locationX += velX;
-        this.locationY += velY;
+    /**
+     * Make a move according to the current moving direction.
+     * This method also store the last valid location before the move.
+     */
+    public void computeNextLocation() {
+        /*
+        Store the last valid location in case of reverting it.
+         */
+        preLocationX = locationX;
+        preLocationY = locationY;
+
+        /*
+        Make a move according to the current moving direction
+         */
+        switch (currentMove){
+            case UP:
+                moveUp();
+                break;
+            case DOWN:
+                moveDown();
+                break;
+            case LEFT:
+                moveLeft();
+                break;
+            case RIGHT:
+                moveRight();
+                break;
+        }
     }
 
     public void moveUp() {
-
+        this.locationY -= vel;
     }
 
     public void moveDown() {
-
+        this.locationY += vel;
     }
 
     public void moveLeft() {
+        this.locationX -= vel;
     }
 
     public void moveRight() {
+        this.locationX += vel;
     }
     // location control end
 

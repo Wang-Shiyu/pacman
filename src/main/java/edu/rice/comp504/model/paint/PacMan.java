@@ -1,5 +1,6 @@
 package edu.rice.comp504.model.paint;
 
+import edu.rice.comp504.model.cmd.IPaintObjCmd;
 import edu.rice.comp504.model.strategy.IUpdateStrategy;
 
 import java.beans.PropertyChangeEvent;
@@ -12,12 +13,13 @@ public class PacMan extends ACellObject {
 
     /**
      * Constructor.
-     * @param imageIcon image
-     * @param score score
-     * @param type type
-     * @param locationX locationX
-     * @param locationY locationY
-     * @param vel velocity
+     *
+     * @param imageIcon      image
+     * @param score          score
+     * @param type           type
+     * @param locationX      locationX
+     * @param locationY      locationY
+     * @param vel            velocity
      * @param updateStrategy strategy
      */
     public PacMan(String imageIcon, int score, String type, double locationX, double locationY, double vel, IUpdateStrategy updateStrategy) {
@@ -43,7 +45,9 @@ public class PacMan extends ACellObject {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        /* Send the CMD from the new value stored in the event */
+        IPaintObjCmd cmd = (IPaintObjCmd) evt.getNewValue();
+        cmd.execute(this);
     }
 
     public int getRemainingLife() {

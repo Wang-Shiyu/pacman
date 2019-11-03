@@ -2,6 +2,7 @@ package edu.rice.comp504.model.cmd;
 
 import edu.rice.comp504.model.paint.ACellObject;
 import edu.rice.comp504.model.paint.Ghost;
+import edu.rice.comp504.model.paint.PacMan;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -50,8 +51,22 @@ public class UpdateCmd implements IPaintObjCmd {
      */
     @Override
     public void execute(ACellObject context) {
+
+        /*
+        Check whether the moving object is Pacman or Ghost.
+         */
+
         // TODO: check hole(pacman, ghost)
         // TODO: update pacman/ghosts location
+        /*
+        Try to move the moving Pacman or Ghost. Revert the move later if it is not valid.
+        Backup the current move and location to enable revert.
+         */
+        context.setLastMove(context.getCurrentMove());
+        context.setCurrentMove(context.getNextMove());
+
+        context.computeNextLocation(); // This method also store the last valid location before the move.
+
         // TODO: update time in ghost
         // TODO: make sure new location is valid
     }
