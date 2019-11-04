@@ -13,16 +13,6 @@ public class KeyboardInputCmd implements IPaintObjCmd {
     private static KeyboardInputCmd INSTANCE;
 
     /**
-     * @return get the singleton of the class.
-     */
-    public static KeyboardInputCmd getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new KeyboardInputCmd();
-        }
-        return INSTANCE;
-    }
-
-    /**
      * Store the next move in the CMD and pass it to the Pacman through Keyboard CMD
      */
     private ACellObject.Direction move;
@@ -38,6 +28,16 @@ public class KeyboardInputCmd implements IPaintObjCmd {
      */
     public void setMove(ACellObject.Direction move) {
         this.move = move;
+    }
+
+    /**
+     * @return get the singleton of the class.
+     */
+    public static KeyboardInputCmd getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new KeyboardInputCmd();
+        }
+        return INSTANCE;
     }
 
     /**

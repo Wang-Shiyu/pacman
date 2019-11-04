@@ -6,6 +6,10 @@ import edu.rice.comp504.model.cmd.UpdateCmd;
 import edu.rice.comp504.model.paint.*;
 import edu.rice.comp504.model.strategy.GhostInitStrategy;
 import edu.rice.comp504.model.strategy.PacManMoveStrategy;
+import edu.rice.comp504.model.paint.ACellObject;
+import edu.rice.comp504.model.paint.Food;
+import edu.rice.comp504.model.paint.PacMan;
+import edu.rice.comp504.model.paint.WallUnit;
 import gameparam.GameParam;
 
 import java.beans.PropertyChangeListener;
@@ -77,17 +81,29 @@ public class GameHost {
         // TODO: Send a KeyboardInputCmd to Pacman when keyboard evt is triggered
         if(gameStatus != Status.START) return;
         String dir = direction.split("=")[1];
-        ACellObject.Direction d = ACellObject.Direction.STOP;
-        if ("up".equals(dir)) {
-            d = ACellObject.Direction.UP;
-        } else if ("left".equals(dir)) {
-            d = ACellObject.Direction.LEFT;
-        } else if ("right".equals(dir)) {
-            d = ACellObject.Direction.RIGHT;
-        } else if ("down".equals(dir)) {
-            d = ACellObject.Direction.DOWN;
+
+        ACellObject.Direction move;
+
+        //TODO: Decode the direction string
+        switch (dir){
+            case "up":
+                move = ACellObject.Direction.UP;
+                break;
+            case "down":
+                move = ACellObject.Direction.DOWN;
+                break;
+            case "left":
+                move = ACellObject.Direction.LEFT;
+                break;
+            case "right":
+                move = ACellObject.Direction.RIGHT;
+                break;
+            default:
+                move = ACellObject.Direction.STOP;
+                System.out.print("Error: Receive move from Controller, not recognized");
         }
-        KeyboardInputCmd.getInstance().setMove(d);
+        KeyboardInputCmd keyboardInputCmd = KeyboardInputCmd.getInstance();
+        keyboardInputCmd.setMove(move);
         pcs.firePropertyChange("pacman", null, KeyboardInputCmd.getInstance());
     }
 
