@@ -34,6 +34,8 @@ public abstract class ACellObject implements PropertyChangeListener {
     private double preLocationY;
     private double initX;
     private double initY;
+    @Getter
+    @Setter
     private double vel;
 
     private Direction nextMove;

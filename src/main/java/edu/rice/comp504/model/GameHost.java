@@ -183,11 +183,15 @@ public class GameHost {
                         board[col][row] = new WallUnit("", 0, null, col, row, 0, null);
                         pcs.addPropertyChangeListener("Wall", board[col][row]);
                     } else if (c == '0') {
-                        board[col][row] = new Food("", 0, null, col, row, 0, null);
+                        board[col][row] = new Food("", 10, null, col, row, 0, null, false);
                         pcs.addPropertyChangeListener("Food", board[col][row]);
                     } else if (c == '2') {
                         board[col][row] = new DoorUnit("", 0, null, col, row, 0, null);
                         pcs.addPropertyChangeListener("Door", board[col][row]);
+                    } else if (c == '3') {
+                        // BigFood
+                        board[col][row] = new Food("", 20, null, col, row, 0, null, true);
+                        pcs.addPropertyChangeListener("Food", board[col][row]);
                     } else if (c == '9') {
                         board[col][row] = new NullUnit("", 0, null, col, row, 0, null);
                         pcs.addPropertyChangeListener("Null", board[col][row]);

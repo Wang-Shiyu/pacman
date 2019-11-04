@@ -64,7 +64,11 @@ function createApp(canvas) {
             const x = item.locationX * pixelPerUnit;
             const y = item.locationY * pixelPerUnit;
             if (item.type === "Food") {
-                drawFood(x + (pixelPerUnit + 1) / 2, y + (pixelPerUnit + 1) / 2);
+                if (item.bigFood) {
+                    drawBigFood(x + (pixelPerUnit + 1) / 2, y + (pixelPerUnit + 1) / 2);
+                } else {
+                    drawFood(x + (pixelPerUnit + 1) / 2, y + (pixelPerUnit + 1) / 2);
+                }
             } else if (item.type === "WallUnit") {
                 drawWall(x, y, 'blue');
             } else if (item.type === "DoorUnit") {
@@ -110,6 +114,10 @@ function createApp(canvas) {
 
     const drawFood = function (x, y) {
         drawCircle(x, y, 3, "white");
+    };
+
+    const drawBigFood = function (x, y) {
+        drawCircle(x, y, 8, "white");
     };
 
     const drawImage = function (img, x, y, dir) {

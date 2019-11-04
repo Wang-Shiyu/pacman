@@ -1,6 +1,9 @@
 package edu.rice.comp504.model.paint;
 
 import edu.rice.comp504.model.strategy.IUpdateStrategy;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.beans.PropertyChangeEvent;
 
@@ -9,8 +12,13 @@ import java.beans.PropertyChangeEvent;
  */
 public class Food extends ACellObject {
 
-    public Food(String imageIcon, int score, String type, double locationX, double locationY, double vel, IUpdateStrategy updateStrategy) {
-        super(imageIcon, 10, "Food", locationX, locationY, vel, updateStrategy);
+    @Setter
+    @Getter
+    private boolean bigFood;
+
+    public Food(String imageIcon, int score, String type, double locationX, double locationY, double vel, IUpdateStrategy updateStrategy, boolean bigFood) {
+        super(imageIcon, score, "Food", locationX, locationY, vel, updateStrategy);
+        this.bigFood = bigFood;
     }
 
     @Override
