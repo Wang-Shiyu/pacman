@@ -1,6 +1,7 @@
 package edu.rice.comp504.model;
 
 
+import edu.rice.comp504.model.cmd.InteractCmd;
 import edu.rice.comp504.model.cmd.KeyboardInputCmd;
 import edu.rice.comp504.model.cmd.UpdateCmd;
 import edu.rice.comp504.model.paint.*;
@@ -30,6 +31,8 @@ public class GameHost {
     Status gameStatus;
     int timeCounter;
     int score;
+    int prevFoodCount;
+    int prevBigFoodCount;
     ACellObject[][] board;
     //And so on
 
@@ -40,6 +43,9 @@ public class GameHost {
         pcs = new PropertyChangeSupport(this);
         gameStatus = Status.INIT;
         board = new ACellObject[25][25];
+        prevBigFoodCount = 0;
+        prevFoodCount = 0;
+//        resetGame();
     }
 
     /**
@@ -48,7 +54,9 @@ public class GameHost {
     public void resetGame() {
         this.level = 1;
         this.timeCounter = 0;
-        loadGameObject();
+        this.score = 0;
+        this.gameStatus = Status.INIT;
+        initGame();
     }
 
     /**
@@ -58,20 +66,43 @@ public class GameHost {
      */
     public ReturnType updatePanManWorld() {
         if (gameStatus == Status.START) {
+            // TODO: check life. set OVER
+            PacMan pacMan = (PacMan) pcs.getPropertyChangeListeners("pacman")[0];
+            if (pacMan.getRemainingLife() == 0) {
+                gameStatus = Status.OVER;
+                new ReturnType(score, gameStatus, getRemainingLife(), level);
+            }
+            // TODO: check dots, update score & set pass
+            int currentFoodCount = pcs.getPropertyChangeListeners("Food").length;
+            int currentBigFoodCount = pcs.getPropertyChangeListeners("BigFood").length;
+            score += (prevFoodCount - currentFoodCount) * GameParam.foodScore;
+            score += (prevBigFoodCount - currentBigFoodCount) * GameParam.bigFoodScore;
+            if (currentFoodCount == 0 && currentBigFoodCount == 0) {
+                if (level == 3) {
+                    gameStatus = Status.WIN;
+                } else {
+                    gameStatus = Status.PASS;
+                }
+                new ReturnType(score, gameStatus, getRemainingLife(), level);
+            }
+
             // TODO: send update cmd
             UpdateCmd.getInstance().setPcs(pcs);
             pcs.firePropertyChange("pacman", null, UpdateCmd.getInstance());
 //        pcs.firePropertyChange("ghost", null, UpdateCmd.getInstance());
 
             // TODO: send interact cmd
-//        InteractCmd.getInstance().setPcs(pcs);
-//        pcs.firePropertyChange("pacman", null, InteractCmd.getInstance());
+            InteractCmd.getInstance().setPcs(pcs);
+            pcs.firePropertyChange("pacman", null, InteractCmd.getInstance());
 //        pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 
-            // TODO: check life. set OVER
-            // TODO: check dots, set pass
         }
-        return new ReturnType(0, gameStatus, 3);
+        return new ReturnType(score, gameStatus, getRemainingLife(), level);
+    }
+
+    private int getRemainingLife() {
+        PacMan pacMan = (PacMan) pcs.getPropertyChangeListeners("pacman")[0];
+        return pacMan.getRemainingLife();
     }
 
     /**
@@ -79,13 +110,13 @@ public class GameHost {
      */
     public void move(String direction) {
         // TODO: Send a KeyboardInputCmd to Pacman when keyboard evt is triggered
-        if(gameStatus != Status.START) return;
+        if (gameStatus != Status.START) return;
         String dir = direction.split("=")[1];
 
         ACellObject.Direction move;
 
         //TODO: Decode the direction string
-        switch (dir){
+        switch (dir) {
             case "up":
                 move = ACellObject.Direction.UP;
                 break;
@@ -117,19 +148,25 @@ public class GameHost {
             gameStatus = Status.START;
         } else if (gameStatus == Status.PASS) {
             // next level
+            level++;
+            initGame();
 //            levelInit();
         } else if (gameStatus == Status.OVER) {
             // reset
-            // new game
+            resetGame();
+        } else if (gameStatus == Status.WIN) {
+            return;
         }
-        loadGameObject();
+//        loadGameObject();
         gameStatus = Status.START;
     }
 
     /**
      * Init the game board.
      */
-    public PropertyChangeListener[] initGmae() {
+    public PropertyChangeListener[] initGame() {
+        // clear all listener
+        clearListener();
         // TODO: init all items in the board: wall, food, big food and null
         InputStream file = getFileFromResources("public/maze.txt");
         try {
@@ -146,6 +183,7 @@ public class GameHost {
                     } else if (c == '0') {
                         board[col][row] = new Food("", 0, null, col, row, 0, null);
                         pcs.addPropertyChangeListener("Food", board[col][row]);
+                        prevFoodCount++;
                     } else if (c == '2') {
                         board[col][row] = new DoorUnit("", 0, null, col, row, 0, null);
                         pcs.addPropertyChangeListener("Door", board[col][row]);
@@ -166,8 +204,29 @@ public class GameHost {
         return getPropertyChangeListenerList();
     }
 
+    private void clearListener() {
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("Wall")) {
+            pcs.removePropertyChangeListener("Wall", listener);
+        }
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("Food")) {
+            pcs.removePropertyChangeListener("Food", listener);
+        }
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("Door")) {
+            pcs.removePropertyChangeListener("Door", listener);
+        }
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("Null")) {
+            pcs.removePropertyChangeListener("Null", listener);
+        }
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("ghost")) {
+            pcs.removePropertyChangeListener("ghost", listener);
+        }
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("pacman")) {
+            pcs.removePropertyChangeListener("pacman", listener);
+        }
+    }
+
     private void initGhosts() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < level + 2; i++) {
             Ghost ghost = new Ghost("", 200, null,
                     GameParam.GHOST_INIT_X[i], GameParam.GHOST_INIT_Y, GameParam.ghostSpeed,
                     new GhostInitStrategy(), GameParam.GHOST_RELEASE_TIME[i]);
@@ -236,12 +295,14 @@ public class GameHost {
         private Status status;
         // pacman.getRemainingLife()
         private int remainingLife;
+        private int level;
 
-        public ReturnType(int score, Status status, int remainingLife) {
+        public ReturnType(int score, Status status, int remainingLife, int level) {
             this.list = getPropertyChangeListenerList();
             this.score = score;
             this.status = status;
             this.remainingLife = remainingLife;
+            this.level = level;
         }
     }
 }

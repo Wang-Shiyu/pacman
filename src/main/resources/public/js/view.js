@@ -150,6 +150,7 @@ window.onload = function () {
     monitorInput();
     setInterval(updatePacManWorld, 1000 / fps);
     $("#btn-start").click(startGame);
+    $("#btn-reset").click(resetGame);
 };
 
 /**
@@ -171,12 +172,27 @@ function startGame() {
 }
 
 /**
+ * reset game
+ */
+function resetGame() {
+    $.get("/reset", function (data) {
+    }, "json");
+}
+
+
+/**
  *  Update the balls in the ball world.
  */
 function updatePacManWorld() {
     $.get("/update", function (data) {
-        if(data.status === "START") {
+        if(data.status === "START" || data.status === "INIT") {
+            if(data.status === "INIT") {
+                // to make pacman head right after reset
+                previousDir = 0;
+            }
             app.updatePacManWorld(data);
+        } else {
+            previousDir = 0;
         }
     }, "json");
 }

@@ -2,6 +2,7 @@ package edu.rice.comp504.model.cmd;
 
 import edu.rice.comp504.model.paint.ACellObject;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class InteractCmd implements IPaintObjCmd {
@@ -48,10 +49,25 @@ public class InteractCmd implements IPaintObjCmd {
     @Override
     public void execute(ACellObject context) {
         // TODO: interact with food(food, big food)
+        checkFood(context, pcs.getPropertyChangeListeners("Food"));
+        boolean eatBigFood = checkBigFood(pcs.getPropertyChangeListeners("BigFood"));
 
         // TODO: if pac man eats big food, set canEatGhost & change ghost strategy
 
         // TODO: interact between Pac-man and ghosts
         // TODO: update score/life in game board
+    }
+
+    private void checkFood(ACellObject context, PropertyChangeListener[] propertyChangeListeners) {
+        for (PropertyChangeListener propertyChangeListener : propertyChangeListeners) {
+            ACellObject food = (ACellObject) propertyChangeListener;
+            if (context.isOverlap(food)) {
+                pcs.removePropertyChangeListener("Food", propertyChangeListener);
+            }
+        }
+    }
+
+    private boolean checkBigFood(PropertyChangeListener[] propertyChangeListeners) {
+        return false;
     }
 }

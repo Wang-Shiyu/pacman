@@ -26,6 +26,7 @@ public class PacMan extends ACellObject {
      */
     public PacMan(String imageIcon, int score, String type, double locationX, double locationY, double vel, IUpdateStrategy updateStrategy) {
         super(imageIcon, 0, "PacMan", locationX, locationY, vel, updateStrategy);
+        this.remainingLife = GameParam.pacmanMaxLives;
     }
 
 

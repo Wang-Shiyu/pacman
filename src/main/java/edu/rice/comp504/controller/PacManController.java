@@ -30,7 +30,7 @@ public class PacManController {
         });
 
         get("/init", (request, response) -> {
-            return gson.toJson(game.initGmae());
+            return gson.toJson(game.initGame());
         });
 
         get("/start", (request, response) -> {
