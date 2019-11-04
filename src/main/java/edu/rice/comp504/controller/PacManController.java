@@ -34,6 +34,7 @@ public class PacManController {
         });
 
         get("/start", (request, response) -> {
+            game.startGame();
             return "start";
         });
 

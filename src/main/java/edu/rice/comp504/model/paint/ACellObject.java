@@ -1,8 +1,10 @@
 package edu.rice.comp504.model.paint;
 
 import edu.rice.comp504.model.strategy.IUpdateStrategy;
+import gameparam.GameParam;
 
 import java.awt.*;
+import java.awt.font.GlyphMetrics;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -41,12 +43,13 @@ public abstract class ACellObject implements PropertyChangeListener {
 
     /**
      * Constructor.
-     * @param imageIcon imageIcon
-     * @param score score
-     * @param type type
-     * @param locationX locationX
-     * @param locationY locationY
-     * @param vel velocity
+     *
+     * @param imageIcon      imageIcon
+     * @param score          score
+     * @param type           type
+     * @param locationX      locationX
+     * @param locationY      locationY
+     * @param vel            velocity
      * @param updateStrategy strategy
      */
     public ACellObject(String imageIcon, int score, String type, double locationX, double locationY,
@@ -60,6 +63,9 @@ public abstract class ACellObject implements PropertyChangeListener {
         this.updateStrategy = updateStrategy;
         this.initX = locationX;
         this.initY = locationY;
+        this.nextMove = Direction.STOP;
+        this.currentMove = Direction.STOP;
+        this.lastMove = Direction.STOP;
     }
 
     public abstract boolean isOverlap(ACellObject object);
@@ -99,7 +105,7 @@ public abstract class ACellObject implements PropertyChangeListener {
         /*
         Make a move according to the current moving direction
          */
-        switch (currentMove){
+        switch (currentMove) {
             case UP:
                 moveUp();
                 break;
@@ -113,6 +119,19 @@ public abstract class ACellObject implements PropertyChangeListener {
                 moveRight();
                 break;
         }
+        roundupLocation();
+        // check hole
+        if (this.getLocationX() > GameParam.pixelPerUnit * GameParam.unitPerCol && getCurrentMove() == Direction.RIGHT) {
+            setLocation(0, 31);
+        } else if (this.getLocationX() < - GameParam.pixelPerUnit / 2 && getCurrentMove() == Direction.LEFT) {
+            setLocation(GameParam.pixelPerUnit * (GameParam.unitPerCol - 1), 15 * GameParam.pixelPerUnit);
+        }
+    }
+
+    private void roundupLocation() {
+        double x = Math.round(this.getLocationX() * 100.0) / 100.0;
+        double y = Math.round(this.getLocationY() * 100.0) / 100.0;
+        setLocation(x, y);
     }
 
     public void moveUp() {
@@ -172,5 +191,13 @@ public abstract class ACellObject implements PropertyChangeListener {
 
     public void setCurrentMove(Direction currentMove) {
         this.currentMove = currentMove;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

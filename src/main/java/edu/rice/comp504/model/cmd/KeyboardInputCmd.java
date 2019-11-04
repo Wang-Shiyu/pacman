@@ -10,8 +10,17 @@ public class KeyboardInputCmd implements IPaintObjCmd {
     /**
      * Singleton object of current class.
      */
-    private static UpdateCmd INSTANCE;
+    private static KeyboardInputCmd INSTANCE;
 
+    /**
+     * @return get the singleton of the class.
+     */
+    public static KeyboardInputCmd getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new KeyboardInputCmd();
+        }
+        return INSTANCE;
+    }
 
     /**
      * Store the next move in the CMD and pass it to the Pacman through Keyboard CMD

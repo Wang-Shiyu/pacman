@@ -1,18 +1,19 @@
 package edu.rice.comp504.model;
 
 
-import edu.rice.comp504.model.cmd.InteractCmd;
+import edu.rice.comp504.model.cmd.KeyboardInputCmd;
 import edu.rice.comp504.model.cmd.UpdateCmd;
-import edu.rice.comp504.model.paint.ACellObject;
-import edu.rice.comp504.model.paint.Food;
-import edu.rice.comp504.model.paint.WallUnit;
+import edu.rice.comp504.model.paint.*;
+import edu.rice.comp504.model.strategy.GhostInitStrategy;
+import edu.rice.comp504.model.strategy.PacManMoveStrategy;
 import gameparam.GameParam;
 
-import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.*;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GameHost {
     private PropertyChangeSupport pcs;
@@ -48,18 +49,25 @@ public class GameHost {
 
     /**
      * Update Pacman World.
+     *
      * @return returnType
      */
     public ReturnType updatePanManWorld() {
-        // TODO: send update cmd
-        UpdateCmd.getInstance().setPcs(pcs);
+        if (gameStatus == Status.START) {
+            // TODO: send update cmd
+            UpdateCmd.getInstance().setPcs(pcs);
+            pcs.firePropertyChange("pacman", null, UpdateCmd.getInstance());
+//        pcs.firePropertyChange("ghost", null, UpdateCmd.getInstance());
 
-        // TODO: send interact cmd
-        InteractCmd.getInstance().setPcs(pcs);
+            // TODO: send interact cmd
+//        InteractCmd.getInstance().setPcs(pcs);
+//        pcs.firePropertyChange("pacman", null, InteractCmd.getInstance());
+//        pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 
-        // TODO: check life. set OVER
-        // TODO: check dots, set pass
-        return null;
+            // TODO: check life. set OVER
+            // TODO: check dots, set pass
+        }
+        return new ReturnType(0, gameStatus, 3);
     }
 
     /**
@@ -67,7 +75,20 @@ public class GameHost {
      */
     public void move(String direction) {
         // TODO: Send a KeyboardInputCmd to Pacman when keyboard evt is triggered
-
+        if(gameStatus != Status.START) return;
+        String dir = direction.split("=")[1];
+        ACellObject.Direction d = ACellObject.Direction.STOP;
+        if ("up".equals(dir)) {
+            d = ACellObject.Direction.UP;
+        } else if ("left".equals(dir)) {
+            d = ACellObject.Direction.LEFT;
+        } else if ("right".equals(dir)) {
+            d = ACellObject.Direction.RIGHT;
+        } else if ("down".equals(dir)) {
+            d = ACellObject.Direction.DOWN;
+        }
+        KeyboardInputCmd.getInstance().setMove(d);
+        pcs.firePropertyChange("pacman", null, KeyboardInputCmd.getInstance());
     }
 
     /**
@@ -77,6 +98,7 @@ public class GameHost {
         // TODO: check previous status
         if (gameStatus == Status.INIT) {
             // first time
+            gameStatus = Status.START;
         } else if (gameStatus == Status.PASS) {
             // next level
 //            levelInit();
@@ -103,11 +125,18 @@ public class GameHost {
                 col = 0;
                 for (char c : line.toCharArray()) {
                     if (c == '1') {
-                        board[row][col] = new WallUnit("",0, null, row, col, 0, null);
-                    } else {
-                        board[row][col] = new Food("",0, null, row, col, 0, null);
+                        board[col][row] = new WallUnit("", 0, null, col, row, 0, null);
+                        pcs.addPropertyChangeListener("Wall", board[col][row]);
+                    } else if (c == '0') {
+                        board[col][row] = new Food("", 0, null, col, row, 0, null);
+                        pcs.addPropertyChangeListener("Food", board[col][row]);
+                    } else if (c == '2') {
+                        board[col][row] = new DoorUnit("", 0, null, col, row, 0, null);
+                        pcs.addPropertyChangeListener("Door", board[col][row]);
+                    } else if (c == '9') {
+                        board[col][row] = new NullUnit("", 0, null, col, row, 0, null);
+                        pcs.addPropertyChangeListener("Null", board[col][row]);
                     }
-                    pcs.addPropertyChangeListener(board[row][col]);
                     col++;
                 }
                 row++;
@@ -115,7 +144,26 @@ public class GameHost {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return pcs.getPropertyChangeListeners();
+        // init pacman and ghosts
+        initPacMan();
+        initGhosts();
+        return getPropertyChangeListenerList();
+    }
+
+    private void initGhosts() {
+        for (int i = 0; i < 5; i++) {
+            Ghost ghost = new Ghost("", 200, null,
+                    GameParam.GHOST_INIT_X[i], GameParam.GHOST_INIT_Y, GameParam.ghostSpeed,
+                    new GhostInitStrategy(), GameParam.GHOST_RELEASE_TIME[i]);
+            pcs.addPropertyChangeListener("ghost", ghost);
+        }
+    }
+
+    private void initPacMan() {
+        PacMan pacMan = new PacMan("", 0, null,
+                GameParam.PACMAN_INIT_X, GameParam.PACMAN_INIT_Y,
+                GameParam.pacmanSpeed, PacManMoveStrategy.getInstance());
+        pcs.addPropertyChangeListener("pacman", pacMan);
     }
 
     private InputStream getFileFromResources(String fileName) {
@@ -140,7 +188,7 @@ public class GameHost {
                 break;
             case 2:
                 break;
-                //And so on
+            //And so on
             default:
                 break;
         }
@@ -148,21 +196,33 @@ public class GameHost {
 
     /**
      * Getter for game status.
+     *
      * @return gameStatus.
      */
     public Status getGameStatus() {
         return gameStatus;
     }
 
+    private PropertyChangeListener[] getPropertyChangeListenerList() {
+        List<PropertyChangeListener> list = new ArrayList<>();
+        Collections.addAll(list, pcs.getPropertyChangeListeners("Wall"));
+        Collections.addAll(list, pcs.getPropertyChangeListeners("Food"));
+        Collections.addAll(list, pcs.getPropertyChangeListeners("Door"));
+        Collections.addAll(list, pcs.getPropertyChangeListeners("Null"));
+        Collections.addAll(list, pcs.getPropertyChangeListeners("pacman"));
+        Collections.addAll(list, pcs.getPropertyChangeListeners("ghost"));
+        return list.toArray(new PropertyChangeListener[0]);
+    }
+
     class ReturnType {
-        private PropertyChangeSupport pcs;
+        private PropertyChangeListener[] list;
         private int score;
         private Status status;
         // pacman.getRemainingLife()
         private int remainingLife;
 
-        public ReturnType(PropertyChangeSupport pcs, int score, Status status, int remainingLife) {
-            this.pcs = pcs;
+        public ReturnType(int score, Status status, int remainingLife) {
+            this.list = getPropertyChangeListenerList();
             this.score = score;
             this.status = status;
             this.remainingLife = remainingLife;

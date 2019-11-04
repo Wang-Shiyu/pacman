@@ -7,6 +7,7 @@ import edu.rice.comp504.model.paint.PacMan;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UpdateCmd implements IPaintObjCmd {
@@ -50,7 +51,10 @@ public class UpdateCmd implements IPaintObjCmd {
      * Check if moving object overlaps any wall.
      */
     private boolean overlapWithWall(ACellObject context){
-        for (PropertyChangeListener pcl: pcs.getPropertyChangeListeners("Wall")){
+        List<PropertyChangeListener> propertyChangeListenerList = new ArrayList<>();
+        Collections.addAll(propertyChangeListenerList, pcs.getPropertyChangeListeners("Wall"));
+        Collections.addAll(propertyChangeListenerList, pcs.getPropertyChangeListeners("Door"));
+        for (PropertyChangeListener pcl: propertyChangeListenerList){
             // TODO: WHAT is the property name of Wall?
             /*
             Loop all the moving objects in the pcs to check if any overlaps with walls
