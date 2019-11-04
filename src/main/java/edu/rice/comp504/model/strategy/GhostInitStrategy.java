@@ -1,10 +1,16 @@
 package edu.rice.comp504.model.strategy;
 
 import edu.rice.comp504.model.paint.ACellObject;
+import edu.rice.comp504.model.paint.Ghost;
+import edu.rice.comp504.model.paint.PacMan;
+import gameparam.TimeCounter;
 
 public class GhostInitStrategy implements IUpdateStrategy {
 
     private int switchLocationY;
+    private PacMan pacMan;
+    private ACellObject[][] board;
+
     /**
      * The name of GhostInitStrategy strategy.
      *
@@ -15,6 +21,12 @@ public class GhostInitStrategy implements IUpdateStrategy {
         return "GhostInit";
     }
 
+    public GhostInitStrategy(int locationY, PacMan pacMan, ACellObject[][] board) {
+        this.switchLocationY = locationY;
+        this.pacMan = pacMan;
+        this.board = board;
+    }
+
     /**
      * Update the state of the paint object.
      *
@@ -22,7 +34,19 @@ public class GhostInitStrategy implements IUpdateStrategy {
      */
     @Override
     public void updateState(ACellObject context) {
-        // TODO: check time, if(TRUE) move up.
-        // TODO: check location Y, switch to normal strategy
+        // Compare the time to the preset release time
+        Ghost ghost = (Ghost) context;
+        if (TimeCounter.time >= ghost.getReleaseTime()) {
+            ghost.setCanCollideDoor(true);
+        }
+        if (ghost.isCanCollideDoor()) {
+            ghost.setCurrentMove(ACellObject.Direction.UP);
+            ghost.computeNextLocation();
+        }
+        // Check if the ghost has crossed the door. If so, switch to ChaseStrategy
+        if (ghost.getLocationY() < switchLocationY) {
+            ghost.setUpdateStrategy(ChaseStrategy.getInstance(pacMan, board));
+            ghost.setCurrentMove(ACellObject.Direction.LEFT);
+        }
     }
 }

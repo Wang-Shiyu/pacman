@@ -1,7 +1,6 @@
 package edu.rice.comp504.controller;
 
 import com.google.gson.Gson;
-import edu.rice.comp504.model.DispatcherAdapter;
 import edu.rice.comp504.model.GameHost;
 
 import static spark.Spark.*;
@@ -29,12 +28,8 @@ public class PacManController {
             return gson.toJson(game.updatePanManWorld());
         });
 
-        get("/init", (request, response) -> {
-            return gson.toJson(game.initGmae());
-        });
-
         get("/start", (request, response) -> {
-            return "start";
+            return gson.toJson(game.startGame());
         });
 
         get("/reset", (request, response) -> {

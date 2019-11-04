@@ -4,8 +4,13 @@
 var app;
 
 const pixelPerUnit = 31;
+const fps = 60;
+var previousDir = 0;
+
+var intervalId;
 
 var ghostImg, pacmanImg, cherryImg, strawberryImg;
+
 /**
  * Create the paint object world app for a canvas
  * @param canvas The canvas to draw paintable canvas objects on
@@ -13,6 +18,7 @@ var ghostImg, pacmanImg, cherryImg, strawberryImg;
  */
 function createApp(canvas) {
     const c = canvas.getContext("2d");
+
     /**
      * Draw a circle
      * @param x  The x location coordinate
@@ -30,25 +36,26 @@ function createApp(canvas) {
 
     const updatePacManWorld = function (data) {
         clear();
-        data.forEach(item => {
-        });
+        drawPacManWorld(data);
     };
 
     const drawPacManWorld = function (data) {
-        // TODO: check is start
-        drawGameBoard(data);
-        drawImage(ghostImg,155, 31, 0);
-        drawImage(ghostImg,217, 31, 2);
-        drawImage(ghostImg,465, 372, 0);
-        drawImage(ghostImg,217, 31, 0);
-        drawImage(ghostImg,558, 155,0);
-        drawImage(ghostImg,155, 558,2);
-        drawImage(pacmanImg,93, 31, 0);
-        drawImage(cherryImg,62, 93, 0);
-        drawImage(cherryImg,248, 155, 0);
-        drawImage(cherryImg,527, 372, 0);
-        drawImage(cherryImg,217, 465, 0);
-        drawImage(cherryImg,186, 558, 0);
+        if (data.status === "START") {
+            drawGameBoard(data.list);
+            updateScore(data.score);
+        }
+        // drawImage(ghostImg, 155, 31, 0);
+        // drawImage(ghostImg, 217, 31, 2);
+        // drawImage(ghostImg, 465, 372, 0);
+        // drawImage(ghostImg, 217, 31, 0);
+        // drawImage(ghostImg, 558, 155, 0);
+        // drawImage(ghostImg, 155, 558, 2);
+        // drawImage(pacmanImg,93, 31, 0);
+        // drawImage(cherryImg, 62, 93, 0);
+        // drawImage(cherryImg, 248, 155, 0);
+        // drawImage(cherryImg, 527, 372, 0);
+        // drawImage(cherryImg, 217, 465, 0);
+        // drawImage(cherryImg, 186, 558, 0);
     };
 
     const drawGameBoard = function (data) {
@@ -57,15 +64,47 @@ function createApp(canvas) {
             const x = item.locationX * pixelPerUnit;
             const y = item.locationY * pixelPerUnit;
             if (item.type === "Food") {
-                drawFood(y + (pixelPerUnit + 1) / 2, x + (pixelPerUnit + 1) / 2);
+                drawFood(x + (pixelPerUnit + 1) / 2, y + (pixelPerUnit + 1) / 2);
             } else if (item.type === "WallUnit") {
-                drawWall(y, x);
+                drawWall(x, y, 'blue');
+            } else if (item.type === "DoorUnit") {
+                drawWall(x, y, 'white');
+            } else if (item.type === "PacMan") {
+                drawPacMan(item);
+            } else if (item.type === "Ghost") {
+                drawGhost(item);
             }
         });
     };
 
-    const drawWall = function (x, y) {
-        c.fillStyle = "blue";
+    const updateScore = function (data) {
+        $("#score").text("Score: " + data);
+    };
+
+    const drawGhost = function (data) {
+        drawImage(ghostImg, data.locationX, data.locationY, 0);
+    };
+
+    const drawPacMan = function (data) {
+        if(data.currentMove === 'RIGHT') {
+            drawImage(pacmanImg, data.locationX, data.locationY, 0);
+            previousDir = 0;
+        } else if(data.currentMove === 'LEFT') {
+            drawImage(pacmanImg, data.locationX, data.locationY, 90);
+            previousDir = 90;
+        } else if(data.currentMove === 'UP') {
+            drawImage(pacmanImg, data.locationX, data.locationY, 135);
+            previousDir = 135;
+        } else if(data.currentMove === 'DOWN') {
+            drawImage(pacmanImg, data.locationX, data.locationY, 45);
+            previousDir = 45;
+        } else {
+            drawImage(pacmanImg, data.locationX, data.locationY, previousDir);
+        }
+    };
+
+    const drawWall = function (x, y, color) {
+        c.fillStyle = color;
         c.fillRect(x, y, pixelPerUnit, pixelPerUnit);
     };
 
@@ -76,12 +115,12 @@ function createApp(canvas) {
     const drawImage = function (img, x, y, dir) {
         let angle = Math.PI * dir / 2;
         c.save();
-        c.translate(x + 15.5,y + 15.5);
+        c.translate(x + 15.5, y + 15.5);
         c.rotate(angle);
         if (angle > Math.PI / 2 && angle < Math.PI * 3 / 2) c.scale(1, -1);
         c.drawImage(img, -15.5, -15.5, 31, 31);
         c.restore();
-    }
+    };
 
     let clear = function () {
         c.fillStyle = "black";
@@ -94,6 +133,7 @@ function createApp(canvas) {
         drawCircle: drawCircle,
         drawPacManWorld: drawPacManWorld,
         drawImage: drawImage,
+        updatePacManWorld: updatePacManWorld,
         clear: clear,
         dims: {height: canvas.height, width: canvas.width}
     }
@@ -112,9 +152,11 @@ window.onload = function () {
     strawberryImg.src = "strawberry.png";
 
     app = createApp(document.querySelector("canvas"));
-    clear();
-    setInterval(updatePacManWorld, 100);
-    $("#btn-start").click(loadGame);
+
+    app.clear();
+
+    $("#btn-start").click(startGame);
+    $("#btn-reset").click(resetGame);
 };
 
 /**
@@ -126,12 +168,43 @@ function loadGame() {
     }, "json");
 }
 
+
+/**
+ * start game
+ */
+function startGame() {
+    $.get("/start", function (data) {
+        app.drawPacManWorld(data);
+        if (intervalId == null) {
+            intervalId = setInterval(updatePacManWorld, 1000 / fps);
+        }
+        monitorInput();
+    }, "json");
+}
+
+/**
+ * reset game
+ */
+function resetGame() {
+    $.get("/reset", function (data) {
+    }, "json");
+}
+
+
 /**
  *  Update the balls in the ball world.
  */
 function updatePacManWorld() {
     $.get("/update", function (data) {
-        // app.updatePacManWorld(data);
+        if(data.status === "START" || data.status === "INIT") {
+            if(data.status === "INIT") {
+                // to make pacman head right after reset
+                previousDir = 0;
+            }
+            app.updatePacManWorld(data);
+        } else {
+            previousDir = 0;
+        }
     }, "json");
 }
 
@@ -141,4 +214,34 @@ function updatePacManWorld() {
 function clear() {
     $.get("/clear");
     app.clear();
+}
+
+/**
+ * send user input.
+ */
+function send(direction) {
+    $.post("/inputevent", {direction: direction}, function (data) {
+    }, "json");
+}
+
+/**
+ * Monitor input event
+ */
+function monitorInput() {
+    $("body").keydown(function (event) {
+        switch (event.keyCode) {
+            case 37:
+                send("left");
+                break;
+            case 38:
+                send("up");
+                break;
+            case 39:
+                send("right");
+                break;
+            case 40:
+                send("down");
+                break;
+        }
+    });
 }
