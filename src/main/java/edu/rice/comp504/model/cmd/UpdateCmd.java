@@ -3,6 +3,7 @@ package edu.rice.comp504.model.cmd;
 import edu.rice.comp504.model.paint.ACellObject;
 import edu.rice.comp504.model.paint.Ghost;
 import edu.rice.comp504.model.paint.PacMan;
+import edu.rice.comp504.model.strategy.ChaseStrategy;
 import edu.rice.comp504.model.strategy.PacManMoveStrategy;
 
 import java.beans.PropertyChangeListener;
@@ -81,12 +82,12 @@ public class UpdateCmd implements IPaintObjCmd {
 
         // TODO: check hole(pacman, ghost)
         if (context instanceof PacMan) {
-            PacManMoveStrategy.getInstance().updateState(context);
+            context.getUpdateStrategy().updateState(context);
         } else if (context instanceof Ghost) {
-
+            context.getUpdateStrategy().updateState(context);
         }
 
-        if (overlapWithWall(context)){
+        if (overlapWithWall(context)) {
             //Invalid move, Revert location and current move
             context.revertLocation();
             context.setNextMove(context.getCurrentMove());

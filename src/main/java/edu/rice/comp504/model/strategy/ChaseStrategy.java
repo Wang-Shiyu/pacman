@@ -1,6 +1,7 @@
 package edu.rice.comp504.model.strategy;
 
 import edu.rice.comp504.model.paint.ACellObject;
+import edu.rice.comp504.model.paint.Ghost;
 import edu.rice.comp504.model.paint.PacMan;
 
 public class ChaseStrategy implements IUpdateStrategy {

@@ -3,6 +3,8 @@ package edu.rice.comp504.model.paint;
 import edu.rice.comp504.model.strategy.IUpdateStrategy;
 import gameparam.GameParam;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
 import java.awt.font.GlyphMetrics;
@@ -38,6 +40,8 @@ public abstract class ACellObject implements PropertyChangeListener {
     private Direction lastMove;
     private Direction currentMove;
 
+    @Getter
+    @Setter
     private IUpdateStrategy updateStrategy;
 
     private int timeCounter;

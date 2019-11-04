@@ -18,6 +18,7 @@ public class GameParam {
     public final static int PACMAN_INIT_Y = 31 * 4;
     public final static int PACMAN_INIT_X = 31 * 12;
     public final static int GHOST_INIT_Y = 31 * 12;
+    public final static int DOOR_Y = 31 * 11;
     public final static int GHOST_INIT_X[] = {31 * 10, 31 * 11, 31 * 12, 31 * 13, 31 * 14};
-    public final static int GHOST_RELEASE_TIME[] = {50, 150, 250, 350, 450};
+    public final static int GHOST_RELEASE_TIME[] = {5, 15, 35, 20500, 40500};
 }

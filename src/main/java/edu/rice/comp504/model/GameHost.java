@@ -12,6 +12,7 @@ import edu.rice.comp504.model.paint.Food;
 import edu.rice.comp504.model.paint.PacMan;
 import edu.rice.comp504.model.paint.WallUnit;
 import gameparam.GameParam;
+import gameparam.TimeCounter;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import static gameparam.GameParam.DOOR_Y;
 
 public class GameHost {
     private PropertyChangeSupport pcs;
@@ -30,7 +33,6 @@ public class GameHost {
 
     private int level;
     private Status gameStatus;
-    private int timeCounter;
     private int score;
     private ACellObject[][] board;
     private PacMan pacMan;
@@ -54,7 +56,6 @@ public class GameHost {
      */
     public void resetGame() {
         this.level = 1;
-        this.timeCounter = 0;
         this.score = 0;
         this.gameStatus = Status.INIT;
         initGame();
@@ -66,6 +67,7 @@ public class GameHost {
      * @return returnType
      */
     public ReturnType updatePanManWorld() {
+        TimeCounter.time += 1.0 / GameParam.fps;
         if (gameStatus == Status.START) {
             if (pacMan.getRemainingLife() == 0) {
                 gameStatus = Status.OVER;
@@ -86,11 +88,13 @@ public class GameHost {
             // TODO: send update cmd
             UpdateCmd.getInstance().setPcs(pcs);
             pcs.firePropertyChange("pacman", null, UpdateCmd.getInstance());
+            pcs.firePropertyChange("ghost", null, UpdateCmd.getInstance());
 //        pcs.firePropertyChange("ghost", null, UpdateCmd.getInstance());
 
             // TODO: send interact cmd
             InteractCmd.getInstance().setPcs(pcs);
             pcs.firePropertyChange("pacman", null, InteractCmd.getInstance());
+            pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 //        pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 
             // TODO: check life. set OVER
@@ -195,7 +199,7 @@ public class GameHost {
         // init pacman and ghosts
         initPacMan();
         initGhosts();
-        timeCounter = 0;
+        TimeCounter.time = 0;
         return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
     }
 
@@ -226,7 +230,7 @@ public class GameHost {
         for (int i = 0; i < level + 2; i++) {
             Ghost ghost = new Ghost("", 200, null,
                     GameParam.GHOST_INIT_X[i], GameParam.GHOST_INIT_Y, GameParam.ghostSpeed,
-                    new GhostInitStrategy(), GameParam.GHOST_RELEASE_TIME[i]);
+                    new GhostInitStrategy(GameParam.DOOR_Y - GameParam.pixelPerUnit, pacMan), GameParam.GHOST_RELEASE_TIME[i]);
             this.ghosts.add(ghost);
             pcs.addPropertyChangeListener("ghost", ghost);
         }
