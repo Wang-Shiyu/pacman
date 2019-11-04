@@ -161,6 +161,7 @@ public class GameHost {
      * Init the game board.
      */
     public ReturnType initGame() {
+        clear();
         // TODO: init all items in the board: wall, food, big food and null
         InputStream file = getFileFromResources("public/maze.txt");
         try {
@@ -198,7 +199,7 @@ public class GameHost {
         return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
     }
 
-    private void clearListener() {
+    private void clear() {
         for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("Wall")) {
             pcs.removePropertyChangeListener("Wall", listener);
         }
@@ -217,6 +218,8 @@ public class GameHost {
         for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("pacman")) {
             pcs.removePropertyChangeListener("pacman", listener);
         }
+        pacMan = null;
+        ghosts = new LinkedList<>();
     }
 
     private void initGhosts() {
