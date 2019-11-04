@@ -25,6 +25,10 @@ public class ChaseStrategy implements IUpdateStrategy {
         this.board = board;
     }
 
+    public static void cleanStrategy() {
+        INSTANCE = null;
+    }
+
     /**
      * @return get the singleton of ChaseStrategy class.
      */
@@ -51,7 +55,9 @@ public class ChaseStrategy implements IUpdateStrategy {
                 path.pollFirst();
                 if (!path.isEmpty()) {
                     ACellObject.Direction direction = convertDirection(ghost, path.getFirst());
-                    ghost.setCurrentMove(direction);
+                    ghost.setLastMove(context.getCurrentMove());
+                    ghost.setNextMove(direction);
+                    ghost.setCurrentMove(ghost.getNextMove());
                     ghost.computeNextLocation();
                 }
             }
@@ -82,6 +88,8 @@ public class ChaseStrategy implements IUpdateStrategy {
         int pacmanRow = (int) Math.round(pacMan.getLocationY() / 31);
         Point pacmanLoc = new Point(pacmanCol, pacmanRow);
         System.out.println(pacmanLoc);
+        System.out.println(ghostCol);
+        System.out.println(ghostRow);
 
         Queue<Deque<Point>> queue = new LinkedList<>();
 

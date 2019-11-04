@@ -5,6 +5,7 @@ import edu.rice.comp504.model.cmd.InteractCmd;
 import edu.rice.comp504.model.cmd.KeyboardInputCmd;
 import edu.rice.comp504.model.cmd.UpdateCmd;
 import edu.rice.comp504.model.paint.*;
+import edu.rice.comp504.model.strategy.ChaseStrategy;
 import edu.rice.comp504.model.strategy.GhostInitStrategy;
 import edu.rice.comp504.model.strategy.PacManMoveStrategy;
 import edu.rice.comp504.model.paint.ACellObject;
@@ -227,6 +228,7 @@ public class GameHost {
         pacMan = null;
         ghosts = new LinkedList<>();
         board = new ACellObject[25][25];
+        ChaseStrategy.cleanStrategy();
     }
 
     private void initGhosts() {

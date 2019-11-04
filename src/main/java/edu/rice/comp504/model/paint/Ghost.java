@@ -2,6 +2,7 @@ package edu.rice.comp504.model.paint;
 
 import edu.rice.comp504.model.cmd.IPaintObjCmd;
 import edu.rice.comp504.model.strategy.IUpdateStrategy;
+import gameparam.GameParam;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -45,8 +46,17 @@ public class Ghost extends ACellObject {
 
     @Override
     public boolean isOverlap(ACellObject object) {
-        return Math.abs(object.getLocationX() - this.getLocationX()) < 1 &&
-                Math.abs(object.getLocationY() - this.getLocationY()) < 1;
+        if (object instanceof DoorUnit && canCollideDoor) {
+            return false;
+        }
+        if (object instanceof WallUnit) {
+            double x = object.getLocationX() * GameParam.pixelPerUnit;
+            double y = object.getLocationY() * GameParam.pixelPerUnit;
+            return Math.abs(x - this.getLocationX()) < GameParam.pixelPerUnit &&
+                    Math.abs(y - this.getLocationY()) < GameParam.pixelPerUnit;
+        }
+        return Math.abs(object.getLocationX() - this.getLocationX()) < GameParam.pixelPerUnit &&
+                Math.abs(object.getLocationY() - this.getLocationY()) < GameParam.pixelPerUnit;
     }
 
     @Override
