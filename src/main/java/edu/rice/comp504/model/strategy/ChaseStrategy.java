@@ -1,8 +1,10 @@
 package edu.rice.comp504.model.strategy;
 
-import edu.rice.comp504.model.paint.ACellObject;
-import edu.rice.comp504.model.paint.Ghost;
-import edu.rice.comp504.model.paint.PacMan;
+import edu.rice.comp504.model.paint.*;
+import gameparam.TimeCounter;
+
+import java.util.*;
+import java.awt.Point;
 
 public class ChaseStrategy implements IUpdateStrategy {
 
@@ -13,19 +15,22 @@ public class ChaseStrategy implements IUpdateStrategy {
 
     private PacMan pacman;
 
+    private ACellObject[][] board;
+
     /**
      * Constructor.
      */
-    private ChaseStrategy(PacMan pacMan) {
+    private ChaseStrategy(PacMan pacMan, ACellObject[][] board) {
         this.pacman = pacMan;
+        this.board = board;
     }
 
     /**
      * @return get the singleton of ChaseStrategy class.
      */
-    public static ChaseStrategy getInstance(PacMan pacman) {
+    public static ChaseStrategy getInstance(PacMan pacman, ACellObject[][] board) {
         if (INSTANCE == null) {
-            INSTANCE = new ChaseStrategy(pacman);
+            INSTANCE = new ChaseStrategy(pacman, board);
         }
         return INSTANCE;
     }
@@ -38,5 +43,82 @@ public class ChaseStrategy implements IUpdateStrategy {
     @Override
     public void updateState(ACellObject context) {
         // TODO: ghost chase the Pac man
+        if (context instanceof Ghost) {
+            Ghost ghost = (Ghost) context;
+            Deque<Point> path = bfs(ghost, pacman);
+            //System.out.println(path);
+            if (path != null) {
+                path.pollFirst();
+                if (!path.isEmpty()) {
+                    ACellObject.Direction direction = convertDirection(ghost, path.getFirst());
+                    ghost.setCurrentMove(direction);
+                    ghost.computeNextLocation();
+                }
+            }
+        }
+    }
+
+    private ACellObject.Direction convertDirection(Ghost ghost, Point target) {
+        int ghostCol = (int) Math.round(ghost.getLocationX() / 31);
+        int ghostRow = (int) Math.round(ghost.getLocationY() / 31);
+
+        if (target.x - ghostCol < 0) {
+            return ACellObject.Direction.LEFT;
+        } else if (target.x - ghostCol > 0) {
+            return ACellObject.Direction.RIGHT;
+        } else if (target.y - ghostRow < 0) {
+            return ACellObject.Direction.UP;
+        } else if (target.y - ghostRow > 0) {
+            return ACellObject.Direction.DOWN;
+        }
+
+        return ACellObject.Direction.STOP;
+    }
+
+    private Deque<Point> bfs(Ghost ghost, PacMan pacMan) {
+        int ghostCol = (int) Math.round(ghost.getLocationX() / 31);
+        int ghostRow = (int) Math.round(ghost.getLocationY() / 31);
+        int pacmanCol = (int) Math.round(pacMan.getLocationX() / 31);
+        int pacmanRow = (int) Math.round(pacMan.getLocationY() / 31);
+        Point pacmanLoc = new Point(pacmanCol, pacmanRow);
+        System.out.println(pacmanLoc);
+
+        Queue<Deque<Point>> queue = new LinkedList<>();
+
+        Deque<Point> firstPath = new ArrayDeque<>();
+        firstPath.add(new Point(ghostCol, ghostRow));
+
+        queue.add(firstPath);
+
+        Set<Point> visited = new HashSet<>();
+        visited.add(firstPath.getLast());
+
+        int[] offsetX = new int[] {0, 1, 0, -1};
+        int[] offsetY = new int[] {1, 0, -1, 0};
+
+        while (!queue.isEmpty()) {
+            Deque<Point> path = queue.poll();
+            Point lastPoint = path.getLast();
+            if (lastPoint.equals(pacmanLoc)) {
+                return path;
+            }
+            for (int i = 0; i < 4; i++) {
+                Point newLoc = new Point(lastPoint.x + offsetX[i], lastPoint.y + offsetY[i]);
+                if (visited.contains(newLoc)) {
+                    continue;
+                }
+                visited.add(newLoc);
+                if (board[newLoc.x][newLoc.y] instanceof WallUnit
+                    || board[newLoc.x][newLoc.y] instanceof DoorUnit) {
+                    continue;
+                }
+                Deque<Point> newPath = new ArrayDeque<>();
+                newPath.addAll(path);
+                newPath.addLast(newLoc);
+                queue.add(newPath);
+            }
+        }
+
+        return null;
     }
 }

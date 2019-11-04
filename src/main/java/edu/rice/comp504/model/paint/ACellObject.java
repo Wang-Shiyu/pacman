@@ -92,7 +92,7 @@ public abstract class ACellObject implements PropertyChangeListener {
         return this.locationY;
     }
 
-    public void revertLocation() {
+    public void  revertLocation() {
         this.setLocation(preLocationX, preLocationY);
     }
 

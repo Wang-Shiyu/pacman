@@ -13,6 +13,7 @@ import edu.rice.comp504.model.paint.PacMan;
 import edu.rice.comp504.model.paint.WallUnit;
 import gameparam.GameParam;
 import gameparam.TimeCounter;
+import lombok.Data;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import static gameparam.GameParam.DOOR_Y;
 
+@Data
 public class GameHost {
     private PropertyChangeSupport pcs;
 
@@ -224,13 +226,14 @@ public class GameHost {
         }
         pacMan = null;
         ghosts = new LinkedList<>();
+        board = new ACellObject[25][25];
     }
 
     private void initGhosts() {
-        for (int i = 0; i < level + 2; i++) {
+        for (int i = 0; i < 1; i++) {
             Ghost ghost = new Ghost("", 200, null,
                     GameParam.GHOST_INIT_X[i], GameParam.GHOST_INIT_Y, GameParam.ghostSpeed,
-                    new GhostInitStrategy(GameParam.DOOR_Y - GameParam.pixelPerUnit, pacMan), GameParam.GHOST_RELEASE_TIME[i]);
+                    new GhostInitStrategy(GameParam.DOOR_Y - GameParam.pixelPerUnit, pacMan, board), GameParam.GHOST_RELEASE_TIME[i]);
             this.ghosts.add(ghost);
             pcs.addPropertyChangeListener("ghost", ghost);
         }
