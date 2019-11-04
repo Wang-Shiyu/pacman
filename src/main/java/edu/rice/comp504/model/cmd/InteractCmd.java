@@ -51,6 +51,8 @@ public class InteractCmd implements IPaintObjCmd {
     @Override
     public void execute(ACellObject context) {
         // TODO: interact with food(food, big food)
+        checkFood(context, pcs.getPropertyChangeListeners("Food"));
+        boolean eatBigFood = checkBigFood(pcs.getPropertyChangeListeners("BigFood"));
 
         if (context instanceof PacMan) {
             PacMan pacMan = (PacMan) context;
@@ -68,5 +70,18 @@ public class InteractCmd implements IPaintObjCmd {
 
         // TODO: interact between Pac-man and ghosts
         // TODO: update score/life in game board
+    }
+
+    private void checkFood(ACellObject context, PropertyChangeListener[] propertyChangeListeners) {
+        for (PropertyChangeListener propertyChangeListener : propertyChangeListeners) {
+            ACellObject food = (ACellObject) propertyChangeListener;
+            if (context.isOverlap(food)) {
+                pcs.removePropertyChangeListener("Food", propertyChangeListener);
+            }
+        }
+    }
+
+    private boolean checkBigFood(PropertyChangeListener[] propertyChangeListeners) {
+        return false;
     }
 }

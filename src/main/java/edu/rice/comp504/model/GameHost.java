@@ -12,9 +12,6 @@ import edu.rice.comp504.model.paint.Food;
 import edu.rice.comp504.model.paint.PacMan;
 import edu.rice.comp504.model.paint.WallUnit;
 import gameparam.GameParam;
-import gameparam.TimeCounter;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -49,6 +46,7 @@ public class GameHost {
         board = new ACellObject[25][25];
         ghosts = new LinkedList<>();
         score = 0;
+        level = 1;
     }
 
     /**
@@ -57,7 +55,9 @@ public class GameHost {
     public void resetGame() {
         this.level = 1;
         this.timeCounter = 0;
-        loadGameObject();
+        this.score = 0;
+        this.gameStatus = Status.INIT;
+        initGame();
     }
 
     /**
@@ -67,6 +67,22 @@ public class GameHost {
      */
     public ReturnType updatePanManWorld() {
         if (gameStatus == Status.START) {
+            if (pacMan.getRemainingLife() == 0) {
+                gameStatus = Status.OVER;
+                new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
+            }
+            // TODO: check dots, update score & set pass
+            int currentFoodCount = pcs.getPropertyChangeListeners("Food").length;
+            int currentBigFoodCount = pcs.getPropertyChangeListeners("BigFood").length;
+            if (currentFoodCount == 0 && currentBigFoodCount == 0) {
+                if (level == 3) {
+                    gameStatus = Status.WIN;
+                } else {
+                    gameStatus = Status.PASS;
+                }
+                new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
+            }
+
             // TODO: send update cmd
             UpdateCmd.getInstance().setPcs(pcs);
             pcs.firePropertyChange("pacman", null, UpdateCmd.getInstance());
@@ -80,7 +96,7 @@ public class GameHost {
             // TODO: check life. set OVER
             // TODO: check dots, set pass
         }
-        return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife());
+        return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
     }
 
     /**
@@ -88,13 +104,13 @@ public class GameHost {
      */
     public void move(String direction) {
         // TODO: Send a KeyboardInputCmd to Pacman when keyboard evt is triggered
-        if(gameStatus != Status.START) return;
+        if (gameStatus != Status.START) return;
         String dir = direction.split("=")[1];
 
         ACellObject.Direction move;
 
         //TODO: Decode the direction string
-        switch (dir){
+        switch (dir) {
             case "up":
                 move = ACellObject.Direction.UP;
                 break;
@@ -127,12 +143,16 @@ public class GameHost {
             return initGame();
         } else if (gameStatus == Status.PASS) {
             // next level
+            level++;
+            return initGame();
 //            levelInit();
         } else if (gameStatus == Status.OVER) {
             // reset
-            // new game
+            resetGame();
+        } else if (gameStatus == Status.WIN) {
+            return null;
         }
-        loadGameObject();
+//        loadGameObject();
         gameStatus = Status.START;
         return null;
     }
@@ -175,11 +195,32 @@ public class GameHost {
         initPacMan();
         initGhosts();
         timeCounter = 0;
-        return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife());
+        return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
+    }
+
+    private void clearListener() {
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("Wall")) {
+            pcs.removePropertyChangeListener("Wall", listener);
+        }
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("Food")) {
+            pcs.removePropertyChangeListener("Food", listener);
+        }
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("Door")) {
+            pcs.removePropertyChangeListener("Door", listener);
+        }
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("Null")) {
+            pcs.removePropertyChangeListener("Null", listener);
+        }
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("ghost")) {
+            pcs.removePropertyChangeListener("ghost", listener);
+        }
+        for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("pacman")) {
+            pcs.removePropertyChangeListener("pacman", listener);
+        }
     }
 
     private void initGhosts() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < level + 2; i++) {
             Ghost ghost = new Ghost("", 200, null,
                     GameParam.GHOST_INIT_X[i], GameParam.GHOST_INIT_Y, GameParam.ghostSpeed,
                     new GhostInitStrategy(), GameParam.GHOST_RELEASE_TIME[i]);
@@ -250,12 +291,14 @@ public class GameHost {
         private Status status;
         // pacman.getRemainingLife()
         private int remainingLife;
+        private int level;
 
-        public ReturnType(int score, Status status, int remainingLife) {
+        public ReturnType(int score, Status status, int remainingLife, int level) {
             this.list = getPropertyChangeListenerList();
             this.score = score;
             this.status = status;
             this.remainingLife = remainingLife;
+            this.level = level;
         }
     }
 }
