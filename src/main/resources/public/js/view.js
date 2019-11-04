@@ -13,7 +13,6 @@ var ghostImg, pacmanImg, cherryImg, strawberryImg;
  */
 function createApp(canvas) {
     const c = canvas.getContext("2d");
-
     /**
      * Draw a circle
      * @param x  The x location coordinate
@@ -113,7 +112,6 @@ window.onload = function () {
     strawberryImg.src = "strawberry.png";
 
     app = createApp(document.querySelector("canvas"));
-
     clear();
     setInterval(updatePacManWorld, 100);
     $("#btn-start").click(loadGame);
