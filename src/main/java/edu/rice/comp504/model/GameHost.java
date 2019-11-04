@@ -1,6 +1,7 @@
 package edu.rice.comp504.model;
 
 
+import edu.rice.comp504.model.cmd.InteractCmd;
 import edu.rice.comp504.model.cmd.KeyboardInputCmd;
 import edu.rice.comp504.model.cmd.UpdateCmd;
 import edu.rice.comp504.model.paint.*;
@@ -11,12 +12,16 @@ import edu.rice.comp504.model.paint.Food;
 import edu.rice.comp504.model.paint.PacMan;
 import edu.rice.comp504.model.paint.WallUnit;
 import gameparam.GameParam;
+import gameparam.TimeCounter;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GameHost {
@@ -26,11 +31,13 @@ public class GameHost {
         UNKNOWN, PASS, OVER, INIT, START, WIN;
     }
 
-    int level;
-    Status gameStatus;
-    int timeCounter;
-    int score;
-    ACellObject[][] board;
+    private int level;
+    private Status gameStatus;
+    private int timeCounter;
+    private int score;
+    private ACellObject[][] board;
+    private PacMan pacMan;
+    private List<Ghost> ghosts;
     //And so on
 
     /**
@@ -40,6 +47,8 @@ public class GameHost {
         pcs = new PropertyChangeSupport(this);
         gameStatus = Status.INIT;
         board = new ACellObject[25][25];
+        ghosts = new LinkedList<>();
+        score = 0;
     }
 
     /**
@@ -64,14 +73,14 @@ public class GameHost {
 //        pcs.firePropertyChange("ghost", null, UpdateCmd.getInstance());
 
             // TODO: send interact cmd
-//        InteractCmd.getInstance().setPcs(pcs);
-//        pcs.firePropertyChange("pacman", null, InteractCmd.getInstance());
+            InteractCmd.getInstance().setPcs(pcs);
+            pcs.firePropertyChange("pacman", null, InteractCmd.getInstance());
 //        pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 
             // TODO: check life. set OVER
             // TODO: check dots, set pass
         }
-        return new ReturnType(0, gameStatus, 3);
+        return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife());
     }
 
     /**
@@ -110,11 +119,12 @@ public class GameHost {
     /**
      * Start Game.
      */
-    public void startGame() {
+    public ReturnType startGame() {
         // TODO: check previous status
         if (gameStatus == Status.INIT) {
             // first time
             gameStatus = Status.START;
+            return initGame();
         } else if (gameStatus == Status.PASS) {
             // next level
 //            levelInit();
@@ -124,12 +134,13 @@ public class GameHost {
         }
         loadGameObject();
         gameStatus = Status.START;
+        return null;
     }
 
     /**
      * Init the game board.
      */
-    public PropertyChangeListener[] initGmae() {
+    public ReturnType initGame() {
         // TODO: init all items in the board: wall, food, big food and null
         InputStream file = getFileFromResources("public/maze.txt");
         try {
@@ -163,7 +174,8 @@ public class GameHost {
         // init pacman and ghosts
         initPacMan();
         initGhosts();
-        return getPropertyChangeListenerList();
+        timeCounter = 0;
+        return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife());
     }
 
     private void initGhosts() {
@@ -171,6 +183,7 @@ public class GameHost {
             Ghost ghost = new Ghost("", 200, null,
                     GameParam.GHOST_INIT_X[i], GameParam.GHOST_INIT_Y, GameParam.ghostSpeed,
                     new GhostInitStrategy(), GameParam.GHOST_RELEASE_TIME[i]);
+            this.ghosts.add(ghost);
             pcs.addPropertyChangeListener("ghost", ghost);
         }
     }
@@ -179,6 +192,7 @@ public class GameHost {
         PacMan pacMan = new PacMan("", 0, null,
                 GameParam.PACMAN_INIT_X, GameParam.PACMAN_INIT_Y,
                 GameParam.pacmanSpeed, PacManMoveStrategy.getInstance());
+        this.pacMan = pacMan;
         pcs.addPropertyChangeListener("pacman", pacMan);
     }
 

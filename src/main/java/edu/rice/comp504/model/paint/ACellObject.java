@@ -2,6 +2,7 @@ package edu.rice.comp504.model.paint;
 
 import edu.rice.comp504.model.strategy.IUpdateStrategy;
 import gameparam.GameParam;
+import lombok.Data;
 
 import java.awt.*;
 import java.awt.font.GlyphMetrics;

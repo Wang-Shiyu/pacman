@@ -1,6 +1,7 @@
 package gameparam;
 
 public class GameParam {
+    public final static int fps = 60;
     public final static int pixelPerUnit = 31;
     public final static int unitPerRow = 20;
     public final static int unitPerCol = 25;

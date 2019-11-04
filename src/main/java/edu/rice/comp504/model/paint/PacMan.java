@@ -26,8 +26,8 @@ public class PacMan extends ACellObject {
      */
     public PacMan(String imageIcon, int score, String type, double locationX, double locationY, double vel, IUpdateStrategy updateStrategy) {
         super(imageIcon, 0, "PacMan", locationX, locationY, vel, updateStrategy);
+        remainingLife = 3;
     }
-
 
     @Override
     public boolean isOverlap(ACellObject object) {
