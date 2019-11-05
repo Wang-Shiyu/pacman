@@ -11,7 +11,7 @@ import lombok.Setter;
 import java.beans.PropertyChangeEvent;
 
 /**
- * The ghost that will chase and eat Pacman.
+ * The pink ghost that will chase and eat Pacman.
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -103,16 +103,21 @@ public class GameHost {
 //        pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 
             // TODO: display fruits
+            System.out.println(TimeCounter.getTime());
             if (TimeCounter.timeOut()) {
                 TimeCounter.cancel();
+
                 int randomChange = getRnd(0, pcs.getPropertyChangeListeners("Null").length);
                 int i = 0;
-                System.out.println("null chain" + randomChange);
+                System.out.println("null cell number" + pcs.getPropertyChangeListeners("Null").length + "score" + pacMan.getScore());
                 for (PropertyChangeListener pcl : pcs.getPropertyChangeListeners("Null")) {
                     if (i == randomChange) {
-                        System.out.println("which null" + i);
+                        System.out.println("which null cell " + i);
                         ((Food) pcl).setType("Food");
+                        ((Food) pcl).setScore(1000);
                         ((Food) pcl).setFruit();
+                        pcs.removePropertyChangeListener("Null", pcl);
+                        pcs.addPropertyChangeListener("Food", pcl);
                         break;
                     }
                     i++;
@@ -226,7 +231,7 @@ public class GameHost {
         initPacMan();
         initGhosts();
         TimeCounter.reset();
-        TimeCounter.setBoundary(600);
+        TimeCounter.setBoundary(5.0);
         return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
     }
 

@@ -73,8 +73,8 @@ public class InteractCmd implements IPaintObjCmd {
             for (PropertyChangeListener pcl : pcs.getPropertyChangeListeners("Food")) {
                 Food food = (Food) pcl;
                 if (pacMan.isOverlap(food)) {
-                    pcs.removePropertyChangeListener("Food", pcl);
                     ((Food) pcl).setType("Null");
+                    pcs.removePropertyChangeListener("Food", pcl);
                     pcs.addPropertyChangeListener("Null", pcl);
                     pacMan.setScore(pacMan.getScore() + food.getScore());
                     if (food.isBigFood()) {
