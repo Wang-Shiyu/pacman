@@ -9,7 +9,7 @@ public class TimeCounter {
     }
 
     public static void setBoundary(double boundary) {
-        boundary = boundary;
+        TimeCounter.boundary = boundary;
     }
 
     public static boolean timeOut() {

@@ -104,21 +104,15 @@ public class GameHost {
 
             // TODO: display fruits
             if (TimeCounter.timeOut()) {
-                int randomChange = getRnd(0, Math.max(
-                        pcs.getPropertyChangeListeners("Null").length,
-                        pcs.getPropertyChangeListeners("Food").length));
+                TimeCounter.cancel();
+                int randomChange = getRnd(0, pcs.getPropertyChangeListeners("Null").length);
                 int i = 0;
+                System.out.println("null chain" + randomChange);
                 for (PropertyChangeListener pcl : pcs.getPropertyChangeListeners("Null")) {
                     if (i == randomChange) {
-
-                        break;
-                    }
-                    i++;
-                }
-                i = 0;
-                for (PropertyChangeListener pcl : pcs.getPropertyChangeListeners("Null")) {
-                    if (i == randomChange) {
-
+                        System.out.println("which null" + i);
+                        ((Food) pcl).setType("Food");
+                        ((Food) pcl).setFruit();
                         break;
                     }
                     i++;

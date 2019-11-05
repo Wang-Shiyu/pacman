@@ -74,6 +74,8 @@ public class InteractCmd implements IPaintObjCmd {
                 Food food = (Food) pcl;
                 if (pacMan.isOverlap(food)) {
                     pcs.removePropertyChangeListener("Food", pcl);
+                    ((Food) pcl).setType("Null");
+                    pcs.addPropertyChangeListener("Null", pcl);
                     pacMan.setScore(pacMan.getScore() + food.getScore());
                     if (food.isBigFood()) {
                         // Make ghosts weak and change strategy
