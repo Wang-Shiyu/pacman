@@ -37,6 +37,14 @@ public class Food extends ACellObject {
         this.fruit = true;
     }
 
+    public boolean isBigFood() {
+        return bigFood;
+    }
+
+    public boolean isFruit() {
+        return fruit;
+    }
+
     /**
      * This method gets called when a bound property is changed.
      *

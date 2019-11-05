@@ -80,6 +80,26 @@ public class Ghost extends ACellObject {
         this.eaten = eaten;
     }
 
+    public void setCanCollideDoor(boolean canCollideDoor) {
+        this.canCollideDoor = canCollideDoor;
+    }
+
+    public void setReturning(boolean returning) {
+        this.returning = returning;
+    }
+
+    public boolean isCanCollideDoor() {
+        return canCollideDoor;
+    }
+
+    public boolean isReturning() {
+        return returning;
+    }
+
+    public int getReleaseTime() {
+        return releaseTime;
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         /* Send the CMD from the new value stored in the event */
