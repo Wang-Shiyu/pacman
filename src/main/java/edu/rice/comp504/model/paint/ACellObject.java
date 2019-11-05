@@ -34,6 +34,8 @@ public abstract class ACellObject implements PropertyChangeListener {
     private double preLocationY;
     private double initX;
     private double initY;
+    @Getter
+    @Setter
     private double vel;
 
     private Direction nextMove;
@@ -128,7 +130,7 @@ public abstract class ACellObject implements PropertyChangeListener {
         // check hole
         if (this.getLocationX() > GameParam.pixelPerUnit * GameParam.unitPerCol && getCurrentMove() == Direction.RIGHT) {
             setLocation(0, 31);
-        } else if (this.getLocationX() < - GameParam.pixelPerUnit / 2 && getCurrentMove() == Direction.LEFT) {
+        } else if (this.getLocationX() < - GameParam.pixelPerUnit / 2.0 && getCurrentMove() == Direction.LEFT) {
             setLocation(GameParam.pixelPerUnit * (GameParam.unitPerCol - 1), 15 * GameParam.pixelPerUnit);
         }
     }

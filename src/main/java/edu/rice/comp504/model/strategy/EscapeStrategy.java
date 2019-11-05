@@ -12,21 +12,28 @@ public class EscapeStrategy implements IUpdateStrategy {
 
     private PacMan pacman;
 
+    private ACellObject[][] board;
+
     /**
      * Constructor.
      */
-    private EscapeStrategy(PacMan pacman) {
+    private EscapeStrategy(PacMan pacman, ACellObject[][] board) {
         this.pacman = pacman;
+        this.board = board;
     }
 
     /**
      * @return get the singleton of EscapeStrategy class.
      */
-    public static EscapeStrategy getInstance(PacMan pacman) {
+    public static EscapeStrategy getInstance(PacMan pacman, ACellObject[][] board) {
         if (INSTANCE == null) {
-            INSTANCE = new EscapeStrategy(pacman);
+            INSTANCE = new EscapeStrategy(pacman, board);
         }
         return INSTANCE;
+    }
+
+    public static void cleanStrategy() {
+        INSTANCE = null;
     }
 
     @Override

@@ -5,6 +5,7 @@ import edu.rice.comp504.model.cmd.InteractCmd;
 import edu.rice.comp504.model.cmd.KeyboardInputCmd;
 import edu.rice.comp504.model.cmd.UpdateCmd;
 import edu.rice.comp504.model.paint.*;
+import edu.rice.comp504.model.strategy.ChaseStrategy;
 import edu.rice.comp504.model.strategy.GhostInitStrategy;
 import edu.rice.comp504.model.strategy.PacManMoveStrategy;
 import edu.rice.comp504.model.paint.ACellObject;
@@ -182,11 +183,15 @@ public class GameHost {
                         board[col][row] = new WallUnit("", 0, null, col, row, 0, null);
                         pcs.addPropertyChangeListener("Wall", board[col][row]);
                     } else if (c == '0') {
-                        board[col][row] = new Food("", 0, null, col, row, 0, null);
+                        board[col][row] = new Food("", 10, null, col, row, 0, null, false);
                         pcs.addPropertyChangeListener("Food", board[col][row]);
                     } else if (c == '2') {
                         board[col][row] = new DoorUnit("", 0, null, col, row, 0, null);
                         pcs.addPropertyChangeListener("Door", board[col][row]);
+                    } else if (c == '3') {
+                        // BigFood
+                        board[col][row] = new Food("", 20, null, col, row, 0, null, true);
+                        pcs.addPropertyChangeListener("Food", board[col][row]);
                     } else if (c == '9') {
                         board[col][row] = new NullUnit("", 0, null, col, row, 0, null);
                         pcs.addPropertyChangeListener("Null", board[col][row]);
@@ -227,6 +232,7 @@ public class GameHost {
         pacMan = null;
         ghosts = new LinkedList<>();
         board = new ACellObject[25][25];
+        ChaseStrategy.cleanStrategy();
     }
 
     private void initGhosts() {

@@ -2,10 +2,14 @@ package edu.rice.comp504.model.cmd;
 
 import edu.rice.comp504.model.paint.ACellObject;
 import edu.rice.comp504.model.paint.Food;
+import edu.rice.comp504.model.paint.Ghost;
 import edu.rice.comp504.model.paint.PacMan;
+import edu.rice.comp504.model.strategy.EscapeStrategy;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.LinkedList;
+import java.util.List;
 
 public class InteractCmd implements IPaintObjCmd {
 
@@ -59,6 +63,32 @@ public class InteractCmd implements IPaintObjCmd {
                 if (pacMan.isOverlap(food)) {
                     pcs.removePropertyChangeListener("Food", pcl);
                     pacMan.setScore(pacMan.getScore() + food.getScore());
+                    if (food.isBigFood()) {
+                        // Make ghosts weak
+                        for (Ghost g : findGhosts()) {
+                            
+                        }
+                    }
+                }
+            }
+
+            // Interact with Ghost
+            for (PropertyChangeListener pcl : pcs.getPropertyChangeListeners("ghost")) {
+                Ghost ghost = (Ghost) pcl;
+                if (pacMan.isOverlap(ghost)) {
+                    if (ghost.isWeak()) {
+                        // Ghost will be eaten and go back to jail
+                        ghost.setEaten(true);
+                        ghost.setReturning(true);
+                    } else {
+                        // Pacman will die
+                        pacMan.setRemainingLife(pacMan.getRemainingLife() - 1);
+                        pacMan.reset();
+                        for (Ghost g : findGhosts()) {
+                            g.reset();
+                        }
+                        break;
+                    }
                 }
             }
         }
@@ -67,5 +97,14 @@ public class InteractCmd implements IPaintObjCmd {
 
         // TODO: interact between Pac-man and ghosts
         // TODO: update score/life in game board
+    }
+
+    private List<Ghost> findGhosts() {
+        List<Ghost> ghosts = new LinkedList<>();
+        for (PropertyChangeListener pcl : pcs.getPropertyChangeListeners("ghost")) {
+            Ghost ghost = (Ghost) pcl;
+            ghosts.add(ghost);
+        }
+        return ghosts;
     }
 }

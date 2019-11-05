@@ -33,8 +33,7 @@ public class PacMan extends ACellObject {
     public boolean isOverlap(ACellObject object) {
 //        double currentX = this.getLocationX() + GameParam.pixelPerUnit / 2;
 //        double currentY = this.getLocationY() + GameParam.pixelPerUnit / 2;
-        if (object instanceof BigFood
-                || object instanceof Food
+        if (object instanceof Food
                 || object instanceof WallUnit) {
             double x = object.getLocationX() * GameParam.pixelPerUnit;
             double y = object.getLocationY() * GameParam.pixelPerUnit;
@@ -47,7 +46,7 @@ public class PacMan extends ACellObject {
 
     @Override
     public void reset() {
-
+        this.setLocation(GameParam.PACMAN_INIT_X, GameParam.PACMAN_INIT_Y);
     }
 
     /**
