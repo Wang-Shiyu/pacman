@@ -80,7 +80,7 @@ public class InteractCmd implements IPaintObjCmd {
                         for (Ghost g : findGhosts()) {
                             EscapeStrategy.cleanStrategy();
                             g.setWeak(true);
-                            g.setUpdateStrategy(EscapeStrategy.getInstance(pacMan, board, TimeCounter.time));
+                            g.setUpdateStrategy(EscapeStrategy.getInstance(pacMan, board, TimeCounter.getTime()));
                         }
                     }
                 }
