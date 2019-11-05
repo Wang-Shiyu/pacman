@@ -207,4 +207,12 @@ public abstract class ACellObject implements PropertyChangeListener {
     public void setType(String type) {
         this.type = type;
     }
+
+    public IUpdateStrategy getUpdateStrategy() {
+        return updateStrategy;
+    }
+
+    public void setUpdateStrategy(IUpdateStrategy updateStrategy) {
+        this.updateStrategy = updateStrategy;
+    }
 }

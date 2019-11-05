@@ -95,7 +95,7 @@ public class GameHost {
 //        pcs.firePropertyChange("ghost", null, UpdateCmd.getInstance());
 
             // TODO: send interact cmd
-            InteractCmd.getInstance().setPcs(pcs);
+            InteractCmd.getInstance().setPcs(pcs).setBoard(board);
             pcs.firePropertyChange("pacman", null, InteractCmd.getInstance());
             pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 //        pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());

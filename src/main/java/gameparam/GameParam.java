@@ -21,4 +21,5 @@ public class GameParam {
     public final static int DOOR_Y = 31 * 11;
     public final static int GHOST_INIT_X[] = {31 * 10, 31 * 11, 31 * 12, 31 * 13, 31 * 14};
     public final static int GHOST_RELEASE_TIME[] = {2, 7, 15, 20500, 40500};
+    public final static int GHOST_ESCAPE_TIME = 5;
 }

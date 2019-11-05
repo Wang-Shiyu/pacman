@@ -5,6 +5,7 @@ import edu.rice.comp504.model.paint.Food;
 import edu.rice.comp504.model.paint.Ghost;
 import edu.rice.comp504.model.paint.PacMan;
 import edu.rice.comp504.model.strategy.EscapeStrategy;
+import gameparam.TimeCounter;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -25,6 +26,11 @@ public class InteractCmd implements IPaintObjCmd {
     private PropertyChangeSupport pcs;
 
     /**
+     * the actual game board.
+     */
+    private ACellObject[][] board;
+
+    /**
      * Constructor.
      */
     private InteractCmd() {
@@ -43,8 +49,14 @@ public class InteractCmd implements IPaintObjCmd {
     /**
      * Property change support setter. Initialize the property change support field.
      */
-    public void setPcs(PropertyChangeSupport pcs) {
+    public InteractCmd setPcs(PropertyChangeSupport pcs) {
         this.pcs = pcs;
+        return INSTANCE;
+    }
+
+    public InteractCmd setBoard(ACellObject[][] board) {
+        this.board = board;
+        return INSTANCE;
     }
 
     /**
@@ -64,9 +76,11 @@ public class InteractCmd implements IPaintObjCmd {
                     pcs.removePropertyChangeListener("Food", pcl);
                     pacMan.setScore(pacMan.getScore() + food.getScore());
                     if (food.isBigFood()) {
-                        // Make ghosts weak
+                        // Make ghosts weak and change strategy
                         for (Ghost g : findGhosts()) {
-                            
+                            EscapeStrategy.cleanStrategy();
+                            g.setWeak(true);
+                            g.setUpdateStrategy(EscapeStrategy.getInstance(pacMan, board, TimeCounter.time));
                         }
                     }
                 }
