@@ -44,18 +44,8 @@ function createApp(canvas) {
             drawGameBoard(data.list);
             updateScore(data.score);
         }
-        // drawImage(ghostImg, 155, 31, 0);
-        // drawImage(ghostImg, 217, 31, 2);
-        // drawImage(ghostImg, 465, 372, 0);
-        // drawImage(ghostImg, 217, 31, 0);
-        // drawImage(ghostImg, 558, 155, 0);
-        // drawImage(ghostImg, 155, 558, 2);
-        // drawImage(pacmanImg,93, 31, 0);
-        // drawImage(cherryImg, 62, 93, 0);
-        // drawImage(cherryImg, 248, 155, 0);
-        // drawImage(cherryImg, 527, 372, 0);
-        // drawImage(cherryImg, 217, 465, 0);
-        // drawImage(cherryImg, 186, 558, 0);
+        updateLevel(data.level);
+        updateLife(data.remainingLife);
     };
 
     const drawGameBoard = function (data) {
@@ -83,6 +73,14 @@ function createApp(canvas) {
 
     const updateScore = function (data) {
         $("#score").text("Score: " + data);
+    };
+
+    const updateLife = function (data) {
+        $("#lifeno").text("Number of Lives Left: " + data);
+    };
+
+    const updateLevel = function (data) {
+        $("#level").text("Level :" + data);
     };
 
     const drawGhost = function (data) {
