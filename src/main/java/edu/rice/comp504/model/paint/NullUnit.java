@@ -9,9 +9,11 @@ import java.beans.PropertyChangeEvent;
  */
 public class NullUnit extends ACellObject {
 
+    private boolean fruit;
 
     public NullUnit(String imageIcon, int score, String type, double locationX, double locationY, double vel, IUpdateStrategy updateStrategy) {
         super(imageIcon, score, "type", locationX, locationY, vel, updateStrategy);
+        this.fruit = false;
     }
 
     @Override
@@ -33,5 +35,9 @@ public class NullUnit extends ACellObject {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    public void setFruit() {
+        this.fruit = true;
     }
 }

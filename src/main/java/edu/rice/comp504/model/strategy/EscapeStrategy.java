@@ -57,7 +57,7 @@ public class EscapeStrategy implements IUpdateStrategy {
     public void updateState(ACellObject context) {
         // TODO: ghost escape away from pac man when it eats big bean
         Ghost ghost = (Ghost) context;
-        if (TimeCounter.time >= endTime) {
+        if (TimeCounter.getTime() >= endTime) {
             // change to chase
             ghost.setWeak(false);
             ghost.setUpdateStrategy(ChaseStrategy.getInstance(pacman, board));

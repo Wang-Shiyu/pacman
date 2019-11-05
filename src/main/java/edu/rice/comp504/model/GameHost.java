@@ -19,6 +19,7 @@ import lombok.Data;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.*;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -70,8 +71,9 @@ public class GameHost {
      * @return returnType
      */
     public ReturnType updatePanManWorld() {
-        TimeCounter.time += 1.0 / GameParam.fps;
         if (gameStatus == Status.START) {
+            TimeCounter.start();
+            // TODO: check life. set OVER
             if (pacMan.getRemainingLife() == 0) {
                 gameStatus = Status.OVER;
                 new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
@@ -100,8 +102,31 @@ public class GameHost {
             pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 //        pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 
-            // TODO: check life. set OVER
-            // TODO: check dots, set pass
+            // TODO: display fruits
+            if (TimeCounter.timeOut()) {
+                int randomChange = getRnd(0, Math.max(
+                        pcs.getPropertyChangeListeners("Null").length,
+                        pcs.getPropertyChangeListeners("Food").length));
+                int i = 0;
+                for (PropertyChangeListener pcl : pcs.getPropertyChangeListeners("Null")) {
+                    if (i == randomChange) {
+
+                        break;
+                    }
+                    i++;
+                }
+                i = 0;
+                for (PropertyChangeListener pcl : pcs.getPropertyChangeListeners("Null")) {
+                    if (i == randomChange) {
+
+                        break;
+                    }
+                    i++;
+                }
+            }
+
+        } else {
+            TimeCounter.cancel();
         }
         return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
     }
@@ -206,7 +231,8 @@ public class GameHost {
         // init pacman and ghosts
         initPacMan();
         initGhosts();
-        TimeCounter.time = 0;
+        TimeCounter.reset();
+        TimeCounter.setBoundary(600);
         return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
     }
 
@@ -308,7 +334,7 @@ public class GameHost {
         // pacman.getRemainingLife()
         private int remainingLife;
         private int level;
-
+        private boolean timeout;
         public ReturnType(int score, Status status, int remainingLife, int level) {
             this.list = getPropertyChangeListenerList();
             this.score = score;
@@ -317,4 +343,14 @@ public class GameHost {
             this.level = level;
         }
     }
+    /**
+     * Generate a random number.
+     * @param base  The mininum value
+     * @param limit The maximum number from the base
+     * @return A randomly number
+     */
+    private int getRnd(int base, int limit) {
+        return (int)Math.floor(Math.random() * limit + base);
+    }
+
 }

@@ -36,7 +36,7 @@ public class GhostInitStrategy implements IUpdateStrategy {
     public void updateState(ACellObject context) {
         // Compare the time to the preset release time
         Ghost ghost = (Ghost) context;
-        if (TimeCounter.time >= ghost.getReleaseTime()) {
+        if (TimeCounter.getTime() >= ghost.getReleaseTime()) {
             ghost.setCanCollideDoor(true);
         }
         if (ghost.isCanCollideDoor()) {
