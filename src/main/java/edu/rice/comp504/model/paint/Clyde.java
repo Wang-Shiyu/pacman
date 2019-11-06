@@ -1,21 +1,17 @@
 package edu.rice.comp504.model.paint;
 
-import edu.rice.comp504.model.cmd.IPaintObjCmd;
 import edu.rice.comp504.model.strategy.IUpdateStrategy;
-import gameparam.GameParam;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.beans.PropertyChangeEvent;
 
 /**
- * The pink ghost that will chase and eat Pacman.
+ * The orange ghost that will avoid Pacman.
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Ghost extends ACellObject {
+public class Clyde extends ACellObject{
     protected boolean weak;
     protected boolean eaten;
     protected boolean returning;
@@ -34,7 +30,7 @@ public class Ghost extends ACellObject {
      * @param updateStrategy strategy
      * @param releaseTime releaseTime
      */
-    public Ghost(String imageIcon, int score, String type, double locationX, double locationY, double vel,
+    public Clyde(String imageIcon, int score, String type, double locationX, double locationY, double vel,
                  IUpdateStrategy updateStrategy, int releaseTime) {
         super(imageIcon, score, "Ghost", locationX, locationY, vel, updateStrategy);
         this.releaseTime = releaseTime;
@@ -43,27 +39,6 @@ public class Ghost extends ACellObject {
         this.weak = false;
         this.eaten = false;
     }
-
-    @Override
-    public boolean isOverlap(ACellObject object) {
-        if (object instanceof DoorUnit && canCollideDoor) {
-            return false;
-        }
-        if (object instanceof WallUnit) {
-            double x = object.getLocationX() * GameParam.pixelPerUnit;
-            double y = object.getLocationY() * GameParam.pixelPerUnit;
-            return Math.abs(x - this.getLocationX()) < GameParam.pixelPerUnit &&
-                    Math.abs(y - this.getLocationY()) < GameParam.pixelPerUnit;
-        }
-        return Math.abs(object.getLocationX() - this.getLocationX()) < GameParam.pixelPerUnit &&
-                Math.abs(object.getLocationY() - this.getLocationY()) < GameParam.pixelPerUnit;
-    }
-
-    @Override
-    public void reset() {
-
-    }
-
     public boolean isWeak() {
         return weak;
     }
@@ -99,11 +74,18 @@ public class Ghost extends ACellObject {
     public int getReleaseTime() {
         return releaseTime;
     }
+    @Override
+    public boolean isOverlap(ACellObject object) {
+        return false;
+    }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        /* Send the CMD from the new value stored in the event */
-        IPaintObjCmd cmd = (IPaintObjCmd) evt.getNewValue();
-        cmd.execute(this);
+    public void reset() {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+
     }
 }
