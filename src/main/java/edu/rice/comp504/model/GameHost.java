@@ -105,7 +105,6 @@ public class GameHost {
             // TODO: display fruits
             System.out.println(TimeCounter.getTime());
             if (TimeCounter.timeOut()) {
-
                 int randomChange = getRnd(0, pcs.getPropertyChangeListeners("Null").length);
                 int i = 0;
                 System.out.println("null cell number" + pcs.getPropertyChangeListeners("Null").length + "score" + pacMan.getScore());
