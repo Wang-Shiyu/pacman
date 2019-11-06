@@ -57,8 +57,8 @@ function createApp(canvas) {
                 if (item.bigFood) {
                     drawBigFood(x + (pixelPerUnit + 1) / 2, y + (pixelPerUnit + 1) / 2);
                 } else if (item.fruit) {
-                    console.log(item.fruit);
-                    drawImage(cherryImg, data.locationX, data.locationY, 0);
+                    // console.log(item.fruit);
+                    drawImage(cherryImg, x, y, 0);
                 } else {
                     drawFood(x + (pixelPerUnit + 1) / 2, y + (pixelPerUnit + 1) / 2);
                 }
