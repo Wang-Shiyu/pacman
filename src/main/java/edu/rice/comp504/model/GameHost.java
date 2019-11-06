@@ -154,10 +154,11 @@ public class GameHost {
     /**
      * Start Game.
      */
-    public ReturnType startGame() {
+    public ReturnType startGame(String body) {
         // TODO: check previous status
         if (gameStatus == Status.INIT) {
             // first time
+            GameParam.pacmanMaxLives = Integer.parseInt(String.valueOf(body.charAt(5)));
             gameStatus = Status.START;
             return initGame();
         } else if (gameStatus == Status.PASS) {
@@ -217,6 +218,8 @@ public class GameHost {
             e.printStackTrace();
         }
         // init pacman and ghosts
+
+        //GameParam.pacmanMaxLives =
         initPacMan();
         initGhosts();
 //        loadCache();

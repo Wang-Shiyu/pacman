@@ -28,8 +28,8 @@ public class PacManController {
             return gson.toJson(game.updatePanManWorld());
         });
 
-        get("/start", (request, response) -> {
-            return gson.toJson(game.startGame());
+        post("/start", (request, response) -> {
+            return gson.toJson(game.startGame(request.body()));
         });
 
         get("/reset", (request, response) -> {

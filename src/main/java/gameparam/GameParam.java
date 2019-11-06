@@ -16,7 +16,7 @@ public class GameParam {
     public static double bigFoodScore = 20;
     public static String boardColor;
     public static String fruitType;
-    public final static int pacmanMaxLives = 3;
+    public static int pacmanMaxLives = 3;
     public static String mazeMap;
     public static int cellSize;
     public final static int PACMAN_INIT_Y = 31 * 4;
