@@ -49,7 +49,7 @@ public class GameHost {
     public GameHost() {
         pcs = new PropertyChangeSupport(this);
         gameStatus = Status.INIT;
-        board = new ACellObject[25][25];
+        board = new ACellObject[GameParam.unitPerRow][GameParam.unitPerCol];
         ghosts = new LinkedList<>();
         score = 0;
         level = 1;
@@ -99,7 +99,7 @@ public class GameHost {
             // TODO: send interact cmd
             InteractCmd.getInstance().setPcs(pcs).setBoard(board);
             pcs.firePropertyChange("pacman", null, InteractCmd.getInstance());
-            pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
+//            pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 //        pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 
             // TODO: display fruits
@@ -175,6 +175,7 @@ public class GameHost {
         } else if (gameStatus == Status.PASS) {
             // next level
             level++;
+            gameStatus = Status.START;
             return initGame();
 //            levelInit();
         } else if (gameStatus == Status.OVER) {
@@ -261,7 +262,7 @@ public class GameHost {
     }
 
     private void initGhosts() {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < level; i++) {
             Ghost ghost = new Ghost("", 200, null,
                     GameParam.GHOST_INIT_X[i], GameParam.GHOST_INIT_Y, GameParam.ghostSpeed,
                     new GhostInitStrategy(GameParam.DOOR_Y - GameParam.pixelPerUnit, pacMan, board), GameParam.GHOST_RELEASE_TIME[i]);
