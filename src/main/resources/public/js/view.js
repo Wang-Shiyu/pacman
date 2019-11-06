@@ -7,9 +7,10 @@ const pixelPerUnit = 31;
 const fps = 60;
 var previousDir = 0;
 var count = 0;
+var pacCount = 0;
 var intervalId;
 
-var eyeImg, ghostImg, whiteGhostImg, blueGhostImg, pacmanImg, cherryImg, strawberryImg;
+var eyeImg, ghostImg, whiteGhostImg, blueGhostImg, pacmanImg, pacmanImg2, cherryImg, strawberryImg;
 
 /**
  * Create the paint object world app for a canvas
@@ -92,8 +93,8 @@ function createApp(canvas) {
         } else if (data.returning == true) {
             drawImage(eyeImg, data.locationX, data.locationY, 0);
         } else {
-            count++;
-            if (count % 6 < 3) {
+            count = (++count) % 6;
+            if (count < 3) {
                 drawImage(blueGhostImg, data.locationX, data.locationY, 0);
             }  else {
                 drawImage(whiteGhostImg, data.locationX, data.locationY, 0);
@@ -102,20 +103,24 @@ function createApp(canvas) {
     };
 
     const drawPacMan = function (data) {
+        pacCount = (++pacCount) % 8;
+        var pacmanSrc;
+        if (pacCount < 4) pacmanSrc = pacmanImg;
+            else pacmanSrc = pacmanImg2;
         if(data.currentMove === 'RIGHT') {
-            drawImage(pacmanImg, data.locationX, data.locationY, 0);
+            drawImage(pacmanSrc, data.locationX, data.locationY, 0);
             previousDir = 0;
         } else if(data.currentMove === 'LEFT') {
-            drawImage(pacmanImg, data.locationX, data.locationY, 90);
+            drawImage(pacmanSrc, data.locationX, data.locationY, 90);
             previousDir = 90;
         } else if(data.currentMove === 'UP') {
-            drawImage(pacmanImg, data.locationX, data.locationY, 135);
+            drawImage(pacmanSrc, data.locationX, data.locationY, 135);
             previousDir = 135;
         } else if(data.currentMove === 'DOWN') {
-            drawImage(pacmanImg, data.locationX, data.locationY, 45);
+            drawImage(pacmanSrc, data.locationX, data.locationY, 45);
             previousDir = 45;
         } else {
-            drawImage(pacmanImg, data.locationX, data.locationY, previousDir);
+            drawImage(pacmanSrc, data.locationX, data.locationY, previousDir);
         }
     };
 
@@ -168,11 +173,13 @@ window.onload = function () {
     cherryImg = new Image();
     strawberryImg = new Image();
     eyeImg = new Image();
+    pacmanImg2 = new Image();
 
     ghostImg.src = "pinkGhost.gif";
     blueGhostImg.src = "blueGhost.png";
     whiteGhostImg.src = "whiteGhost.png"
     pacmanImg.src = "pacman.png";
+    pacmanImg2.src = "dot.png";
     cherryImg.src = "cherry.png";
     strawberryImg.src = "strawberry.png";
     eyeImg.src = "eyes.png";
