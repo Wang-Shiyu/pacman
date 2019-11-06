@@ -3,9 +3,11 @@ package gameparam;
 public class TimeCounter {
     private static double time;
     private static double boundary;
+    private static double counter;
 
     public static void start() {
         time += 1.0 / GameParam.fps;
+        counter += 1.0 / GameParam.fps;
     }
 
     public static void setBoundary(double boundary) {
@@ -13,16 +15,16 @@ public class TimeCounter {
     }
 
     public static boolean timeOut() {
-        return time > boundary;
+        boolean res = counter > boundary;
+        if(res)
+            counter = 0;
+        return res;
     }
 
     public static void reset() {
         time = 0;
         boundary = 0;
-    }
-
-    public static void cancel() {
-        time = 0;
+        counter = 0;
     }
 
     public static double getTime() {

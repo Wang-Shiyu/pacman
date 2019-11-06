@@ -105,7 +105,6 @@ public class GameHost {
             // TODO: display fruits
             System.out.println(TimeCounter.getTime());
             if (TimeCounter.timeOut()) {
-                TimeCounter.cancel();
 
                 int randomChange = getRnd(0, pcs.getPropertyChangeListeners("Null").length);
                 int i = 0;
@@ -124,8 +123,6 @@ public class GameHost {
                 }
             }
 
-        } else {
-            TimeCounter.cancel();
         }
         return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
     }
