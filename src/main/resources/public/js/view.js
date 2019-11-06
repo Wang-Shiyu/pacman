@@ -132,7 +132,7 @@ function createApp(canvas) {
     };
 
     let clear = function () {
-        c.fillStyle = "black";
+        c.fillStyle = $('#bgColor').val().toString();;
         c.fillRect(0, 0, canvas.width, canvas.height);
         // c.clearRect(0, 0, canvas.width, canvas.height);
     };
@@ -182,7 +182,9 @@ function loadGame() {
  * start game
  */
 function startGame() {
-    $.get("/start", function (data) {
+    let fruit = $('#Fruit').val().toString();
+    let life = $('#Life').val().toString();
+    $.post("/start", {fruit: fruit, life: life}, function (data) {
         app.drawPacManWorld(data);
         if (intervalId == null) {
             intervalId = setInterval(updatePacManWorld, 1000 / fps);
