@@ -6,10 +6,10 @@ var app;
 const pixelPerUnit = 31;
 const fps = 60;
 var previousDir = 0;
-
+var count = 0;
 var intervalId;
 
-var ghostImg, pacmanImg, cherryImg, strawberryImg;
+var eyeImg, ghostImg, whiteGhostImg, blueGhostImg, pacmanImg, cherryImg, strawberryImg;
 
 /**
  * Create the paint object world app for a canvas
@@ -57,8 +57,8 @@ function createApp(canvas) {
                 if (item.bigFood) {
                     drawBigFood(x + (pixelPerUnit + 1) / 2, y + (pixelPerUnit + 1) / 2);
                 } else if (item.fruit) {
-                    console.log(item.fruit);
-                    drawImage(cherryImg, data.locationX, data.locationY, 0);
+                    // console.log(item.fruit);
+                    drawImage(cherryImg, x, y, 0);
                 } else {
                     drawFood(x + (pixelPerUnit + 1) / 2, y + (pixelPerUnit + 1) / 2);
                 }
@@ -87,7 +87,18 @@ function createApp(canvas) {
     };
 
     const drawGhost = function (data) {
-        drawImage(ghostImg, data.locationX, data.locationY, 0);
+        if (data.weak == false) {
+            drawImage(ghostImg, data.locationX, data.locationY, 0);
+        } else if (data.returning == true) {
+            drawImage(eyeImg, data.locationX, data.locationY, 0);
+        } else {
+            count++;
+            if (count % 6 < 3) {
+                drawImage(blueGhostImg, data.locationX, data.locationY, 0);
+            }  else {
+                drawImage(whiteGhostImg, data.locationX, data.locationY, 0);
+            }
+        }
     };
 
     const drawPacMan = function (data) {
@@ -151,14 +162,20 @@ function createApp(canvas) {
 
 window.onload = function () {
     ghostImg = new Image();
+    blueGhostImg = new Image();
+    whiteGhostImg = new Image();
     pacmanImg = new Image();
     cherryImg = new Image();
     strawberryImg = new Image();
+    eyeImg = new Image();
 
     ghostImg.src = "pinkGhost.gif";
+    blueGhostImg.src = "blueGhost.png";
+    whiteGhostImg.src = "whiteGhost.png"
     pacmanImg.src = "pacman.png";
     cherryImg.src = "cherry.png";
     strawberryImg.src = "strawberry.png";
+    eyeImg.src = "eyes.png";
 
     app = createApp(document.querySelector("canvas"));
 
@@ -182,9 +199,8 @@ function loadGame() {
  * start game
  */
 function startGame() {
-    let fruit = $('#Fruit').val().toString();
     let life = $('#Life').val().toString();
-    $.post("/start", {fruit: fruit, life: life}, function (data) {
+    $.post("/start", {life: life}, function (data) {
         app.drawPacManWorld(data);
         if (intervalId == null) {
             intervalId = setInterval(updatePacManWorld, 1000 / fps);
