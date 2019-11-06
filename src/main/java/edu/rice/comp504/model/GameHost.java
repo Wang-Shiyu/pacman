@@ -224,7 +224,7 @@ public class GameHost {
         initGhosts();
 //        loadCache();
         TimeCounter.reset();
-        TimeCounter.setBoundary(5.0);
+        TimeCounter.setBoundary(20.0);
         return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
     }
 
