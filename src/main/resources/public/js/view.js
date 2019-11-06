@@ -182,9 +182,8 @@ function loadGame() {
  * start game
  */
 function startGame() {
-    let fruit = $('#Fruit').val().toString();
     let life = $('#Life').val().toString();
-    $.post("/start", {fruit: fruit, life: life}, function (data) {
+    $.post("/start", {life: life}, function (data) {
         app.drawPacManWorld(data);
         if (intervalId == null) {
             intervalId = setInterval(updatePacManWorld, 1000 / fps);

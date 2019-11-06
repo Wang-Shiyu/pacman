@@ -167,9 +167,7 @@ public class GameHost {
         // TODO: check previous status
         if (gameStatus == Status.INIT) {
             // first time
-            String[] values = body.split("&");
-            GameParam.fruitType = values[0].substring(6);
-            GameParam.pacmanMaxLives = Integer.parseInt(String.valueOf(values[1].charAt(5)));
+            GameParam.pacmanMaxLives = Integer.parseInt(String.valueOf(body.charAt(5)));
             gameStatus = Status.START;
             return initGame();
         } else if (gameStatus == Status.PASS) {
