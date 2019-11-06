@@ -200,21 +200,21 @@ public class GameHost {
                 col = 0;
                 for (char c : line.toCharArray()) {
                     if (c == '1') {
-                        board[col][row] = new WallUnit("", 0, null, col, row, 0, null);
-                        pcs.addPropertyChangeListener("Wall", board[col][row]);
+                        board[row][col] = new WallUnit("", 0, null, col, row, 0, null);
+                        pcs.addPropertyChangeListener("Wall", board[row][col]);
                     } else if (c == '0') {
-                        board[col][row] = new Food("", 10, null, col, row, 0, null, false);
-                        pcs.addPropertyChangeListener("Food", board[col][row]);
+                        board[row][col] = new Food("", 10, null, col, row, 0, null, false);
+                        pcs.addPropertyChangeListener("Food", board[row][col]);
                     } else if (c == '2') {
-                        board[col][row] = new DoorUnit("", 0, null, col, row, 0, null);
-                        pcs.addPropertyChangeListener("Door", board[col][row]);
+                        board[row][col] = new DoorUnit("", 0, null, col, row, 0, null);
+                        pcs.addPropertyChangeListener("Door", board[row][col]);
                     } else if (c == '3') {
                         // BigFood
-                        board[col][row] = new Food("", 20, null, col, row, 0, null, true);
-                        pcs.addPropertyChangeListener("Food", board[col][row]);
+                        board[row][col] = new Food("", 20, null, col, row, 0, null, true);
+                        pcs.addPropertyChangeListener("Food", board[row][col]);
                     } else if (c == '9') {
-                        board[col][row] = new NullUnit("", 0, null, col, row, 0, null);
-                        pcs.addPropertyChangeListener("Null", board[col][row]);
+                        board[row][col] = new NullUnit("", 0, null, col, row, 0, null);
+                        pcs.addPropertyChangeListener("Null", board[row][col]);
                     }
                     col++;
                 }
@@ -226,10 +226,44 @@ public class GameHost {
         // init pacman and ghosts
         initPacMan();
         initGhosts();
+//        loadCache();
         TimeCounter.reset();
         TimeCounter.setBoundary(600);
         return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
     }
+
+//    private void loadCache() {
+//        if(GameParam.cache == null) {
+//            System.out.println("load cache");
+//            GameParam.cache = new HashMap<>();
+//            InputStream file = getFileFromResources("public/cache.txt");
+//            int count = 0;
+//            try {
+//                BufferedReader br = new BufferedReader(new InputStreamReader(file));
+//                String line;
+//                while ((line = br.readLine()) != null) {
+//                    count ++;
+//                    String[] tokens = line.split("\\|");
+//                    String key = tokens[0];
+//                    String val = tokens[1];
+//                    Deque<Point> ps = new LinkedList<>();
+//                    for(String p : val.split("\\s")) {
+//                        if(p.length() > 0) {
+//                            String newV = p.substring(1, p.length()-1);
+//                            int x = Integer.parseInt(newV.split(",")[0]);
+//                            int y = Integer.parseInt(newV.split(",")[1]);
+//                            ps.addLast(new Point(x, y));
+//                        }
+//                    }
+//                    System.out.println(count);
+//                    cache.put(key, ps);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        System.out.println("finish");
+//    }
 
     private void clear() {
         for (PropertyChangeListener listener : pcs.getPropertyChangeListeners("Wall")) {
@@ -252,7 +286,7 @@ public class GameHost {
         }
         pacMan = null;
         ghosts = new LinkedList<>();
-        board = new ACellObject[25][25];
+        board = new ACellObject[GameParam.unitPerRow][GameParam.unitPerCol];
         ChaseStrategy.cleanStrategy();
     }
 

@@ -118,8 +118,8 @@ public class ChaseStrategy implements IUpdateStrategy {
                 if (visited.contains(newLoc) || outsideBoard(newLoc)) {
                     continue;
                 }
-                if (board[newLoc.x][newLoc.y] instanceof WallUnit
-                        || board[newLoc.x][newLoc.y] instanceof DoorUnit) {
+                if (board[newLoc.y][newLoc.x] instanceof WallUnit
+                        || board[newLoc.y][newLoc.x] instanceof DoorUnit) {
                     continue;
                 }
                 visited.add(newLoc);

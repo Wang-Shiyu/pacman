@@ -1,5 +1,9 @@
 package gameparam;
 
+import java.awt.*;
+import java.util.Deque;
+import java.util.Map;
+
 public class GameParam {
     public final static int fps = 60;
     public final static int pixelPerUnit = 31;
@@ -7,7 +11,7 @@ public class GameParam {
     public final static int unitPerCol = 25;
     public final static double stepSize = 0.05 * pixelPerUnit; // Pacman or ghosts' moving step size, eg: 0.02 cell per step
     public static double ghostSpeed = 1 * stepSize;
-    public static double pacmanSpeed = 1 * stepSize;
+    public static double pacmanSpeed = 2 * stepSize;
     public static double foodScore = 10;
     public static double bigFoodScore = 20;
     public static String boardColor;
@@ -22,4 +26,5 @@ public class GameParam {
     public final static int GHOST_INIT_X[] = {31 * 10, 31 * 11, 31 * 12, 31 * 13, 31 * 14};
     public final static int GHOST_RELEASE_TIME[] = {2, 7, 15, 20500, 40500};
     public final static int GHOST_ESCAPE_TIME = 5;
+    public static Map<String, Deque<Point>> cache;
 }
