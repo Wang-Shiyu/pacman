@@ -103,24 +103,15 @@ public class GameHost {
 //        pcs.firePropertyChange("ghost", null, InteractCmd.getInstance());
 
             // TODO: display fruits
-            System.out.println(TimeCounter.getTime());
+//            System.out.println(TimeCounter.getTime());
             if (TimeCounter.timeOut()) {
-
                 int randomChange = getRnd(0, pcs.getPropertyChangeListeners("Null").length);
-                int i = 0;
-                System.out.println("null cell number" + pcs.getPropertyChangeListeners("Null").length + "score" + pacMan.getScore());
-                for (PropertyChangeListener pcl : pcs.getPropertyChangeListeners("Null")) {
-                    if (i == randomChange) {
-                        System.out.println("which null cell " + i);
-                        ((Food) pcl).setType("Food");
-                        ((Food) pcl).setScore(1000);
-                        ((Food) pcl).setFruit();
-                        pcs.removePropertyChangeListener("Null", pcl);
-                        pcs.addPropertyChangeListener("Food", pcl);
-                        break;
-                    }
-                    i++;
-                }
+                PropertyChangeListener pcl = pcs.getPropertyChangeListeners("Null")[randomChange];
+                ((Food) pcl).setType("Food");
+                ((Food) pcl).setScore(1000);
+                ((Food) pcl).setFruit();
+                pcs.removePropertyChangeListener("Null", pcl);
+                pcs.addPropertyChangeListener("Food", pcl);
             }
 
         }
@@ -233,7 +224,7 @@ public class GameHost {
         initGhosts();
 //        loadCache();
         TimeCounter.reset();
-        TimeCounter.setBoundary(5.0);
+        TimeCounter.setBoundary(20.0);
         return new ReturnType(pacMan.getScore(), gameStatus, pacMan.getRemainingLife(), level);
     }
 
@@ -369,6 +360,7 @@ public class GameHost {
         private int remainingLife;
         private int level;
         private boolean timeout;
+
         public ReturnType(int score, Status status, int remainingLife, int level) {
             this.list = getPropertyChangeListenerList();
             this.score = score;
@@ -377,14 +369,16 @@ public class GameHost {
             this.level = level;
         }
     }
+
     /**
      * Generate a random number.
+     *
      * @param base  The mininum value
      * @param limit The maximum number from the base
      * @return A randomly number
      */
     private int getRnd(int base, int limit) {
-        return (int)Math.floor(Math.random() * limit + base);
+        return (int) Math.floor(Math.random() * limit + base);
     }
 
 }
