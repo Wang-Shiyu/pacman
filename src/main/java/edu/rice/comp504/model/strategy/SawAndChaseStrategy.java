@@ -66,9 +66,9 @@ public class SawAndChaseStrategy implements IUpdateStrategy {
 
         if (pacmanCol == ghostCol) {
             if (pacmanRow > ghostRow) {
-                return ACellObject.Direction.UP;
-            } else {
                 return ACellObject.Direction.DOWN;
+            } else {
+                return ACellObject.Direction.UP;
             }
         } else if (pacmanRow == ghostRow) {
             if (pacmanCol > ghostCol) {
