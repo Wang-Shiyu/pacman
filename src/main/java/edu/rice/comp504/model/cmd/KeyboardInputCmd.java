@@ -4,7 +4,9 @@ import edu.rice.comp504.model.paint.ACellObject;
 import edu.rice.comp504.model.paint.PacMan;
 
 import javax.swing.*;
-
+/**
+ * KeyboardInput cmd that handles object interactions.
+ */
 public class KeyboardInputCmd implements IPaintObjCmd {
 
     /**

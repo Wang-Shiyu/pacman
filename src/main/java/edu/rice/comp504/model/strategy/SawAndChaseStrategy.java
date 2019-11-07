@@ -4,6 +4,9 @@ import edu.rice.comp504.model.paint.ACellObject;
 import edu.rice.comp504.model.paint.Ghost;
 import edu.rice.comp504.model.paint.PacMan;
 
+/**
+ * SawAndChaseStrategy.
+ */
 public class SawAndChaseStrategy implements IUpdateStrategy {
 
     /**
