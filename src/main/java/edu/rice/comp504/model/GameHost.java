@@ -80,8 +80,14 @@ public class GameHost {
             }
             // TODO: check dots, update score & set pass
             int currentFoodCount = pcs.getPropertyChangeListeners("Food").length;
+            int currentFruitCount = 0;
+            for (PropertyChangeListener pcl : pcs.getPropertyChangeListeners("Food")) {
+                if (((Food) pcl).isFruit()) {
+                    currentFruitCount++;
+                }
+            }
             int currentBigFoodCount = pcs.getPropertyChangeListeners("BigFood").length;
-            if (currentFoodCount == 0 && currentBigFoodCount == 0) {
+            if (currentFoodCount  - currentFruitCount == 0 && currentBigFoodCount == 0) {
                 if (level == 3) {
                     gameStatus = Status.WIN;
                 } else {
