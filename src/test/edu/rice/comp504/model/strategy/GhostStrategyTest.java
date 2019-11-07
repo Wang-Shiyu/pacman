@@ -5,6 +5,7 @@ import edu.rice.comp504.model.paint.*;
 import gameparam.GameParam;
 import junit.framework.TestCase;
 
+import java.awt.*;
 import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -194,7 +195,7 @@ public class GhostStrategyTest extends TestCase {
     }
 
     public void testGhostReturnStrategy(){
-        IUpdateStrategy re = new GhostReturnStrategy();
+        IUpdateStrategy re = new GhostReturnStrategy(new Point(0,0),pacMan, board);
         re.getName();
         //pacMan.setUpdateStrategy(chase);
         pacMan.setLocation(10*31,10*31);
@@ -210,7 +211,7 @@ public class GhostStrategyTest extends TestCase {
                 re.updateState(g);
             }
         }
-        assertEquals("Test Ghost Return strategy", ACellObject.Direction.STOP, ghosts.get(0).getCurrentMove());
+        assertEquals("Test Ghost Return strategy", ACellObject.Direction.UP, ghosts.get(0).getCurrentMove());
     }
 
     public void testNullUpdateStrategy(){
