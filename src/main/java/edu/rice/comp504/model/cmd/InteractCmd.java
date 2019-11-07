@@ -15,6 +15,9 @@ import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Interact cmd that handles object interactions.
+ */
 public class InteractCmd implements IPaintObjCmd {
 
     /**

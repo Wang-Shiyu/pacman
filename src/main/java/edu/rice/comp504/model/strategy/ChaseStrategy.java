@@ -7,6 +7,9 @@ import lombok.Getter;
 import java.util.*;
 import java.awt.Point;
 
+/**
+ * Use bfs to chase pacman(big latency in heroku).
+ */
 public class ChaseStrategy implements IUpdateStrategy {
 
     /**

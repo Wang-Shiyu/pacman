@@ -27,6 +27,9 @@ import java.util.List;
 
 import static gameparam.GameParam.DOOR_Y;
 
+/**
+ * Host for the whole game.
+ */
 @Data
 public class GameHost {
     private PropertyChangeSupport pcs;

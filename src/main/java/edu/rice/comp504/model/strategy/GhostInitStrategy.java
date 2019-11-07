@@ -6,6 +6,9 @@ import edu.rice.comp504.model.paint.PacMan;
 import gameparam.GameParam;
 import gameparam.TimeCounter;
 
+/**
+ * handle release from jail.
+ */
 public class GhostInitStrategy implements IUpdateStrategy {
 
     private int switchLocationY;

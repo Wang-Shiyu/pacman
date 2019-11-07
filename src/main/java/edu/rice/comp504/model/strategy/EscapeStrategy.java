@@ -10,6 +10,9 @@ import lombok.Getter;
 
 import java.util.*;
 
+/**
+ * Escape strategy.
+ */
 public class EscapeStrategy implements IUpdateStrategy {
 
     /**

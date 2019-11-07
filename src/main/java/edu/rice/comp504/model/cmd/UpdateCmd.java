@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Update cmd that handles object location update.
+ */
 public class UpdateCmd implements IPaintObjCmd {
 
     /**

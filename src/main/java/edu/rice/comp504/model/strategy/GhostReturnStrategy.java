@@ -7,6 +7,9 @@ import lombok.Getter;
 import java.awt.*;
 import java.util.*;
 
+/**
+ * handle eye back to jail.
+ */
 public class GhostReturnStrategy implements IUpdateStrategy {
     private static Point door;
 

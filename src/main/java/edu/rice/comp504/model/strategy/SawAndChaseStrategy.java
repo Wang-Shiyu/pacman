@@ -4,6 +4,9 @@ import edu.rice.comp504.model.paint.ACellObject;
 import edu.rice.comp504.model.paint.Ghost;
 import edu.rice.comp504.model.paint.PacMan;
 
+/**
+ * SawAndChaseStrategy.
+ */
 public class SawAndChaseStrategy implements IUpdateStrategy {
 
     /**
@@ -66,9 +69,9 @@ public class SawAndChaseStrategy implements IUpdateStrategy {
 
         if (pacmanCol == ghostCol) {
             if (pacmanRow > ghostRow) {
-                return ACellObject.Direction.UP;
-            } else {
                 return ACellObject.Direction.DOWN;
+            } else {
+                return ACellObject.Direction.UP;
             }
         } else if (pacmanRow == ghostRow) {
             if (pacmanCol > ghostCol) {
