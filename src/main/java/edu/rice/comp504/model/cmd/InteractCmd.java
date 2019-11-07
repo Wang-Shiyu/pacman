@@ -5,8 +5,11 @@ import edu.rice.comp504.model.paint.Food;
 import edu.rice.comp504.model.paint.Ghost;
 import edu.rice.comp504.model.paint.PacMan;
 import edu.rice.comp504.model.strategy.EscapeStrategy;
+import edu.rice.comp504.model.strategy.GhostReturnStrategy;
+import gameparam.GameParam;
 import gameparam.TimeCounter;
 
+import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.LinkedList;
@@ -100,6 +103,8 @@ public class InteractCmd implements IPaintObjCmd {
                         // Ghost will be eaten and go back to jail
                         ghost.setEaten(true);
                         ghost.setReturning(true);
+                        ghost.setUpdateStrategy(
+                                new GhostReturnStrategy(new Point(GameParam.GHOST_INIT_X[2], GameParam.PACMAN_INIT_Y), pacMan, board));
                     } else {
                         // Pacman will die
                         pacMan.setRemainingLife(pacMan.getRemainingLife() - 1);

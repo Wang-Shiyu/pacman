@@ -32,7 +32,9 @@ public abstract class ACellObject implements PropertyChangeListener {
     private double locationY;
     private double preLocationX;
     private double preLocationY;
+    @Getter
     private double initX;
+    @Getter
     private double initY;
     @Getter
     @Setter

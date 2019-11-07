@@ -1,30 +1,37 @@
 package edu.rice.comp504.model.strategy;
 
-import edu.rice.comp504.model.paint.ACellObject;
-import edu.rice.comp504.model.paint.DoorUnit;
-import edu.rice.comp504.model.paint.Ghost;
-import edu.rice.comp504.model.paint.WallUnit;
+import edu.rice.comp504.model.paint.*;
+import gameparam.GameParam;
+import lombok.Getter;
 
 import java.awt.*;
 import java.util.*;
 
 public class GhostReturnStrategy implements IUpdateStrategy {
-    private static DoorUnit doorUnit;
-    private static ACellObject[][] board;
+    private static Point door;
+
+    @Getter
+    private ACellObject[][] board;
+
+    @Getter
+    private PacMan pacMan;
+
+    private Deque<Point> cachePath;
+    private boolean hasPath;
+
     /**
      * Constructor.
      */
-    public GhostReturnStrategy(DoorUnit doorUnit, ACellObject[][] board) {
-        GhostReturnStrategy.doorUnit = doorUnit;
-        GhostReturnStrategy.board = board;
+    public GhostReturnStrategy(Point door, PacMan pacMan, ACellObject[][] board) {
+        GhostReturnStrategy.door = door;
+        this.board = board;
+        this.pacMan = pacMan;
+        this.hasPath = false;
     }
 
-    private Deque<Point> eyeBack(DoorUnit doorUnit, Ghost ghost) {
+    private Deque<Point> eyeBack(Point door, Ghost ghost) {
         int ghostCol = (int) Math.round(ghost.getLocationX() / 31);
         int ghostRow = (int) Math.round(ghost.getLocationY() / 31);
-        int doorCol = (int) Math.round(doorUnit.getLocationX() / 31);
-        int doorRow = (int) Math.round(doorUnit.getLocationY() / 31);
-        Point door = new Point(doorCol, doorRow);
         Queue<Deque<Point>> queue = new LinkedList<>();
 
         int[] offsetX = new int[] {0, 1, 0, -1};
@@ -32,7 +39,7 @@ public class GhostReturnStrategy implements IUpdateStrategy {
 
         Deque<Point> firstPath = new ArrayDeque<>();
         firstPath.add(new Point(ghostCol, ghostRow));
-
+        queue.add(firstPath);
         Set<Point> visited = new HashSet<>();
         visited.add(firstPath.getLast());
 
@@ -52,8 +59,7 @@ public class GhostReturnStrategy implements IUpdateStrategy {
                     continue;
                 }
                 visited.add(newLoc);
-                Deque<Point> newPath = new ArrayDeque<>();
-                newPath.addAll(path);
+                Deque<Point> newPath = new ArrayDeque<>(path);
                 newPath.addLast(newLoc);
                 queue.add(newPath);
             }
@@ -94,17 +100,25 @@ public class GhostReturnStrategy implements IUpdateStrategy {
     public void updateState(ACellObject context) {
         if (context instanceof Ghost) {
             Ghost ghost = (Ghost) context;
-            Deque<Point> path = eyeBack(doorUnit, ghost);
-            if (path != null) {
-                path.pollFirst();
-                if (!path.isEmpty()) {
-                    ACellObject.Direction direction = convertDirection(ghost, path.getFirst());
-                    ghost.setLastMove(context.getCurrentMove());
-                    ghost.setNextMove(direction);
-                    ghost.setCurrentMove(ghost.getNextMove());
-                    ghost.computeNextLocation();
+            if (ghost.getLocationX() == GameParam.GHOST_INIT_X[2] && ghost.getLocationY() == GameParam.PACMAN_INIT_Y) {
+                ghost.setUpdateStrategy(ChaseStrategy.getInstance(pacMan, board));
+            } else {
+                if (!hasPath) {
+                    this.cachePath = eyeBack(door, ghost);
+                    hasPath = true;
+                }
+                if (cachePath != null) {
+                    cachePath.pollFirst();
+                    if (!cachePath.isEmpty()) {
+                        ACellObject.Direction direction = convertDirection(ghost, cachePath.getFirst());
+                        ghost.setLastMove(context.getCurrentMove());
+                        ghost.setNextMove(direction);
+                        ghost.setCurrentMove(ghost.getNextMove());
+                        ghost.computeNextLocation();
+                    }
                 }
             }
+
         }
     }
 }
