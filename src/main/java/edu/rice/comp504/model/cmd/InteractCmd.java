@@ -80,10 +80,12 @@ public class InteractCmd implements IPaintObjCmd {
                     if (food.isBigFood()) {
                         // Make ghosts weak and change strategy
                         for (Ghost g : findGhosts()) {
-                            EscapeStrategy.cleanStrategy();
+//                            EscapeStrategy.cleanStrategy();
                             if (TimeCounter.getTime() > g.getReleaseTime()) {
                                 g.setWeak(true);
-                                g.setUpdateStrategy(EscapeStrategy.getInstance(pacMan, board, TimeCounter.getTime()));
+                                EscapeStrategy strategy = EscapeStrategy.getInstance(pacMan, board, TimeCounter.getTime());
+                                strategy.setEndTime(TimeCounter.getTime());
+                                g.setUpdateStrategy(strategy);
                             }
                         }
                     }

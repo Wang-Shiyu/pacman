@@ -20,7 +20,7 @@ public class EscapeStrategy implements IUpdateStrategy {
 
     private ACellObject[][] board;
 
-    private double endTime;
+    private static double endTime;
 
     // 0 zuoshang
     // 1 youshang
@@ -28,9 +28,11 @@ public class EscapeStrategy implements IUpdateStrategy {
     // 3 youxia
     private int escapeDir = 0;
 
-    private Map<Ghost, Integer> map;
+//    private Map<Ghost, Integer> map;
+    private Map<Integer, Integer> timeToDir;
+    private Map<Integer, ACellObject.Direction> timeToPrevDir;
 
-    private Map<Ghost, ACellObject.Direction> prevDir;
+//    private Map<Ghost, ACellObject.Direction> prevDir;
 
     /**
      * Constructor.
@@ -38,9 +40,9 @@ public class EscapeStrategy implements IUpdateStrategy {
     private EscapeStrategy(PacMan pacman, ACellObject[][] board, double currentTime) {
         this.pacman = pacman;
         this.board = board;
-        this.endTime = currentTime + GameParam.GHOST_ESCAPE_TIME;
-        map = new HashMap<>();
-        prevDir = new HashMap<>();
+        endTime = currentTime + GameParam.GHOST_ESCAPE_TIME;
+        timeToDir = new HashMap<>();
+        timeToPrevDir = new HashMap<>();
     }
 
     /**
@@ -50,6 +52,11 @@ public class EscapeStrategy implements IUpdateStrategy {
         if (INSTANCE == null) {
             INSTANCE = new EscapeStrategy(pacman, board, currentTime);
         }
+        return INSTANCE;
+    }
+
+    public EscapeStrategy setEndTime(double currentTime) {
+        endTime = currentTime + GameParam.GHOST_ESCAPE_TIME;
         return INSTANCE;
     }
 
@@ -78,19 +85,21 @@ public class EscapeStrategy implements IUpdateStrategy {
     }
 
     private void scatter(Ghost ghost) {
-        if (!map.containsKey(ghost)) {
-            map.put(ghost, escapeDir);
+        int current = ghost.getReleaseTime();
+//        System.out.println(current);
+        if (!timeToDir.containsKey(current)) {
+            timeToDir.put(current, escapeDir);
             if (escapeDir == 0 || escapeDir == 1) {
-                prevDir.put(ghost, ACellObject.Direction.UP);
+                timeToPrevDir.put(current, ACellObject.Direction.UP);
             } else {
-                prevDir.put(ghost, ACellObject.Direction.DOWN);
+                timeToPrevDir.put(current, ACellObject.Direction.DOWN);
             }
             escapeDir = (escapeDir + 1) % 4;
         }
 //        System.out.println("start scatter");
 
-        int dir = map.get(ghost);
-        ACellObject.Direction prev = prevDir.get(ghost);
+        int dir = timeToDir.get(current);
+        ACellObject.Direction prev = timeToPrevDir.get(current);
         if (ghost.getCurrentMove() == ACellObject.Direction.STOP) {
             if (dir == 0) {
                 if (prev == ACellObject.Direction.UP) {
@@ -152,7 +161,7 @@ public class EscapeStrategy implements IUpdateStrategy {
                 prev = ACellObject.Direction.DOWN;
             }
         }
-        prevDir.put(ghost, prev);
+        timeToPrevDir.put(current, prev);
 //        System.out.println("set next move");
         ghost.setLastMove(ghost.getCurrentMove());
         ghost.setNextMove(prev);

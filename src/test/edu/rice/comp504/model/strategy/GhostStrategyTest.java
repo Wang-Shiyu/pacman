@@ -194,7 +194,7 @@ public class GhostStrategyTest extends TestCase {
     }
 
     public void testGhostReturnStrategy(){
-        IUpdateStrategy re = new GhostReturnStrategy();
+        IUpdateStrategy re = new GhostReturnStrategy(null,null);
         re.getName();
         //pacMan.setUpdateStrategy(chase);
         pacMan.setLocation(10*31,10*31);
