@@ -41,6 +41,7 @@ function createApp(canvas) {
     };
 
     const drawPacManWorld = function (data) {
+        console.log(data);
         if (data.status === "START") {
             drawGameBoard(data.list);
             updateScore(data.score);

@@ -6,11 +6,9 @@ import edu.rice.comp504.model.paint.PacMan;
 import edu.rice.comp504.model.paint.WallUnit;
 import gameparam.GameParam;
 import gameparam.TimeCounter;
+import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.TreeMap;
+import java.util.*;
 
 public class EscapeStrategy implements IUpdateStrategy {
 
@@ -19,11 +17,25 @@ public class EscapeStrategy implements IUpdateStrategy {
      */
     private static EscapeStrategy INSTANCE;
 
+    @Getter
     private PacMan pacman;
 
+    @Getter
     private ACellObject[][] board;
 
-    private double endTime;
+    private static double endTime;
+
+    // 0 zuoshang
+    // 1 youshang
+    // 2 zuoxia
+    // 3 youxia
+    private int escapeDir = 0;
+
+//    private Map<Ghost, Integer> map;
+    private Map<Integer, Integer> timeToDir;
+    private Map<Integer, ACellObject.Direction> timeToPrevDir;
+
+//    private Map<Ghost, ACellObject.Direction> prevDir;
 
     /**
      * Constructor.
@@ -31,7 +43,9 @@ public class EscapeStrategy implements IUpdateStrategy {
     private EscapeStrategy(PacMan pacman, ACellObject[][] board, double currentTime) {
         this.pacman = pacman;
         this.board = board;
-        this.endTime = currentTime + GameParam.GHOST_ESCAPE_TIME;
+        endTime = currentTime + GameParam.GHOST_ESCAPE_TIME;
+        timeToDir = new HashMap<>();
+        timeToPrevDir = new HashMap<>();
     }
 
     /**
@@ -41,6 +55,11 @@ public class EscapeStrategy implements IUpdateStrategy {
         if (INSTANCE == null) {
             INSTANCE = new EscapeStrategy(pacman, board, currentTime);
         }
+        return INSTANCE;
+    }
+
+    public EscapeStrategy setEndTime(double currentTime) {
+        endTime = currentTime + GameParam.GHOST_ESCAPE_TIME;
         return INSTANCE;
     }
 
@@ -63,8 +82,94 @@ public class EscapeStrategy implements IUpdateStrategy {
             ghost.setUpdateStrategy(ChaseStrategy.getInstance(pacman, board));
         } else {
             // escape
-            escape(ghost);
+            scatter(ghost);
+//            escape(ghost);
         }
+    }
+
+    private void scatter(Ghost ghost) {
+        int current = ghost.getReleaseTime();
+//        System.out.println(current);
+        if (!timeToDir.containsKey(current)) {
+            timeToDir.put(current, escapeDir);
+            if (escapeDir == 0 || escapeDir == 1) {
+                timeToPrevDir.put(current, ACellObject.Direction.UP);
+            } else {
+                timeToPrevDir.put(current, ACellObject.Direction.DOWN);
+            }
+            escapeDir = (escapeDir + 1) % 4;
+        }
+//        System.out.println("start scatter");
+
+        int dir = timeToDir.get(current);
+        ACellObject.Direction prev = timeToPrevDir.get(current);
+        if (ghost.getCurrentMove() == ACellObject.Direction.STOP) {
+            if (dir == 0) {
+                if (prev == ACellObject.Direction.UP) {
+                    prev = ACellObject.Direction.LEFT;
+                } else if (prev == ACellObject.Direction.LEFT) {
+                    if(Math.random() > 0.5) {
+                        prev = ACellObject.Direction.DOWN;
+                    } else {
+                        prev = ACellObject.Direction.RIGHT;
+                    }
+                } else {
+                    prev = ACellObject.Direction.UP;
+                }
+            } else if (dir == 1) {
+                if (prev == ACellObject.Direction.UP) {
+                    prev = ACellObject.Direction.RIGHT;
+                } else if (prev == ACellObject.Direction.RIGHT) {
+                    if(Math.random() > 0.5) {
+                        prev = ACellObject.Direction.DOWN;
+                    } else {
+                        prev = ACellObject.Direction.LEFT;
+                    }
+                } else {
+                    prev = ACellObject.Direction.UP;
+                }
+            } else if (dir == 2) {
+                if (prev == ACellObject.Direction.DOWN) {
+                    prev = ACellObject.Direction.LEFT;
+                } else if (prev == ACellObject.Direction.LEFT) {
+                    if(Math.random() > 0.5) {
+                        prev = ACellObject.Direction.UP;
+                    } else {
+                        prev = ACellObject.Direction.RIGHT;
+                    }
+                } else {
+                    prev = ACellObject.Direction.DOWN;
+                }
+            } else {
+                if (prev == ACellObject.Direction.DOWN) {
+                    prev = ACellObject.Direction.RIGHT;
+                } else if (prev == ACellObject.Direction.RIGHT) {
+                    if(Math.random() > 0.5) {
+                        prev = ACellObject.Direction.UP;
+                    } else {
+                        prev = ACellObject.Direction.LEFT;
+                    }
+                } else {
+                    prev = ACellObject.Direction.DOWN;
+                }
+            }
+        } else {
+            if (dir == 0) {
+                prev = ACellObject.Direction.UP;
+            } else if (dir == 1) {
+                prev = ACellObject.Direction.UP;
+            } else if (dir == 2) {
+                prev = ACellObject.Direction.DOWN;
+            } else {
+                prev = ACellObject.Direction.DOWN;
+            }
+        }
+        timeToPrevDir.put(current, prev);
+//        System.out.println("set next move");
+        ghost.setLastMove(ghost.getCurrentMove());
+        ghost.setNextMove(prev);
+        ghost.setCurrentMove(ghost.getNextMove());
+        ghost.computeNextLocation();
     }
 
     private void escape(Ghost ghost) {
@@ -126,7 +231,7 @@ public class EscapeStrategy implements IUpdateStrategy {
         ghost.setNextMove(ghost.getCurrentMove());
         ghost.setCurrentMove(ghost.getLastMove());
 
-        if(!map.isEmpty()) {
+        if (!map.isEmpty()) {
             direction = map.lastEntry().getValue();
         }
         ghost.setLastMove(ghost.getCurrentMove());

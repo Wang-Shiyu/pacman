@@ -2,14 +2,20 @@ package edu.rice.comp504.model.strategy;
 
 import edu.rice.comp504.model.paint.*;
 import gameparam.GameParam;
+import lombok.Getter;
 
 import java.awt.*;
 import java.util.*;
 
 public class GhostReturnStrategy implements IUpdateStrategy {
     private static Point door;
-    private static ACellObject[][] board;
+
+    @Getter
+    private ACellObject[][] board;
+
+    @Getter
     private PacMan pacMan;
+
     private Deque<Point> cachePath;
     private boolean hasPath;
 
@@ -18,7 +24,7 @@ public class GhostReturnStrategy implements IUpdateStrategy {
      */
     public GhostReturnStrategy(Point door, PacMan pacMan, ACellObject[][] board) {
         GhostReturnStrategy.door = door;
-        GhostReturnStrategy.board = board;
+        this.board = board;
         this.pacMan = pacMan;
         this.hasPath = false;
     }
@@ -28,8 +34,8 @@ public class GhostReturnStrategy implements IUpdateStrategy {
         int ghostRow = (int) Math.round(ghost.getLocationY() / 31);
         Queue<Deque<Point>> queue = new LinkedList<>();
 
-        int[] offsetX = new int[] {0, 1, 0, -1};
-        int[] offsetY = new int[] {1, 0, -1, 0};
+        int[] offsetX = new int[]{0, 1, 0, -1};
+        int[] offsetY = new int[]{1, 0, -1, 0};
 
         Deque<Point> firstPath = new ArrayDeque<>();
         firstPath.add(new Point(ghostCol, ghostRow));
@@ -104,11 +110,13 @@ public class GhostReturnStrategy implements IUpdateStrategy {
                 if (cachePath != null) {
                     cachePath.pollFirst();
                     if (!cachePath.isEmpty()) {
-                        ACellObject.Direction direction = convertDirection(ghost, cachePath.getFirst());
-                        ghost.setLastMove(context.getCurrentMove());
-                        ghost.setNextMove(direction);
-                        ghost.setCurrentMove(ghost.getNextMove());
-                        ghost.computeNextLocation();
+                        Point p = cachePath.getFirst();
+                        ghost.setLocation(p.x, p.y);
+//                        ACellObject.Direction direction = convertDirection(ghost, cachePath.getFirst());
+//                        ghost.setLastMove(context.getCurrentMove());
+//                        ghost.setNextMove(direction);
+//                        ghost.setCurrentMove(ghost.getNextMove());
+//                        ghost.computeNextLocation();
                     }
                 }
             }
