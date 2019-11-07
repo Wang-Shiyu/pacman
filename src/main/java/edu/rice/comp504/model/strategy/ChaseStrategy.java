@@ -123,8 +123,7 @@ public class ChaseStrategy implements IUpdateStrategy {
                     continue;
                 }
                 visited.add(newLoc);
-                Deque<Point> newPath = new ArrayDeque<>();
-                newPath.addAll(path);
+                Deque<Point> newPath = new ArrayDeque<>(path);
                 newPath.addLast(newLoc);
                 queue.add(newPath);
             }
