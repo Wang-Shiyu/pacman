@@ -287,7 +287,7 @@ public class GameHost {
     }
 
     private void initGhosts() {
-        for (int i = 0; i < level; i++) {
+        for (int i = 0; i < level + 3; i++) {
             Ghost ghost = new Ghost("", 200, null,
                     GameParam.GHOST_INIT_X[i], GameParam.GHOST_INIT_Y, GameParam.ghostSpeed,
                     new GhostInitStrategy(GameParam.DOOR_Y - GameParam.pixelPerUnit, pacMan, board), GameParam.GHOST_RELEASE_TIME[i]);
