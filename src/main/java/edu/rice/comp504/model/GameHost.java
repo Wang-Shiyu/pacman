@@ -31,12 +31,12 @@ import static gameparam.GameParam.DOOR_Y;
 public class GameHost {
     private PropertyChangeSupport pcs;
 
-    enum Status {
+    public enum Status {
         UNKNOWN, PASS, OVER, INIT, START, WIN;
     }
 
     private int level;
-    private Status gameStatus;
+    Status gameStatus;
     private int score;
     private ACellObject[][] board;
     private PacMan pacMan;
