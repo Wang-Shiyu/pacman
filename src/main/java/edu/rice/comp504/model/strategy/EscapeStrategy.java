@@ -6,6 +6,7 @@ import edu.rice.comp504.model.paint.PacMan;
 import edu.rice.comp504.model.paint.WallUnit;
 import gameparam.GameParam;
 import gameparam.TimeCounter;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,10 @@ public class EscapeStrategy implements IUpdateStrategy {
      */
     private static EscapeStrategy INSTANCE;
 
+    @Getter
     private PacMan pacman;
 
+    @Getter
     private ACellObject[][] board;
 
     private double endTime;

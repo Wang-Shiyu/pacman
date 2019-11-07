@@ -2,14 +2,20 @@ package edu.rice.comp504.model.strategy;
 
 import edu.rice.comp504.model.paint.*;
 import gameparam.GameParam;
+import lombok.Getter;
 
 import java.awt.*;
 import java.util.*;
 
 public class GhostReturnStrategy implements IUpdateStrategy {
     private static Point door;
-    private static ACellObject[][] board;
+
+    @Getter
+    private ACellObject[][] board;
+
+    @Getter
     private PacMan pacMan;
+
     private Deque<Point> cachePath;
     private boolean hasPath;
 
@@ -18,7 +24,7 @@ public class GhostReturnStrategy implements IUpdateStrategy {
      */
     public GhostReturnStrategy(Point door, PacMan pacMan, ACellObject[][] board) {
         GhostReturnStrategy.door = door;
-        GhostReturnStrategy.board = board;
+        this.board = board;
         this.pacMan = pacMan;
         this.hasPath = false;
     }

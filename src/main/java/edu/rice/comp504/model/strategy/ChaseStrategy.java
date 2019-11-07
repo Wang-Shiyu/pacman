@@ -2,6 +2,7 @@ package edu.rice.comp504.model.strategy;
 
 import edu.rice.comp504.model.paint.*;
 import gameparam.TimeCounter;
+import lombok.Getter;
 
 import java.util.*;
 import java.awt.Point;
@@ -13,8 +14,10 @@ public class ChaseStrategy implements IUpdateStrategy {
      */
     private static ChaseStrategy INSTANCE;
 
+    @Getter
     private PacMan pacman;
 
+    @Getter
     private ACellObject[][] board;
 
     private Deque<Point> cachePath;

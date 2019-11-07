@@ -1,7 +1,7 @@
 package edu.rice.comp504.model.paint;
 
 import edu.rice.comp504.model.cmd.IPaintObjCmd;
-import edu.rice.comp504.model.strategy.IUpdateStrategy;
+import edu.rice.comp504.model.strategy.*;
 import gameparam.GameParam;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -61,7 +61,20 @@ public class Ghost extends ACellObject {
 
     @Override
     public void reset() {
-
+        setLocation(getInitX(), getInitY());
+        setWeak(false);
+        setEaten(false);
+        setReturning(false);
+        if (getUpdateStrategy().getName().equals("ChaseStrategy")) {
+            ChaseStrategy c = (ChaseStrategy) getUpdateStrategy();
+            setUpdateStrategy(new GhostInitStrategy(GameParam.DOOR_Y - GameParam.pixelPerUnit, c.getPacman(), c.getBoard()));
+        } else if (getUpdateStrategy().getName().equals("EscapeStrategy")) {
+            EscapeStrategy e = (EscapeStrategy) getUpdateStrategy();
+            setUpdateStrategy(new GhostInitStrategy(GameParam.DOOR_Y - GameParam.pixelPerUnit, e.getPacman(), e.getBoard()));
+        } else if (getUpdateStrategy().getName().equals("GhostReturn")) {
+            GhostReturnStrategy r = (GhostReturnStrategy) getUpdateStrategy();
+            setUpdateStrategy(new GhostInitStrategy(GameParam.DOOR_Y - GameParam.pixelPerUnit, r.getPacMan(), r.getBoard()));
+        }
     }
 
     public boolean isWeak() {
