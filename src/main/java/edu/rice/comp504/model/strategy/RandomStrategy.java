@@ -58,13 +58,13 @@ public class RandomStrategy implements IUpdateStrategy {
                     cross--;
                 }
             }
-            System.out.println(cross);
             if (ghost.getCurrentMove() == ACellObject.Direction.STOP || cross > 2 ) {
                 ACellObject.Direction direction = randomDirection();
                 ghost.setLastMove(ghost.getCurrentMove());
                 ghost.setNextMove(direction);
                 ghost.setCurrentMove(ghost.getNextMove());
                 ghost.computeNextLocation();
+
             } else {
                 ghost.computeNextLocation();
             }

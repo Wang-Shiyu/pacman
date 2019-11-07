@@ -71,8 +71,10 @@ public class GhostReturnStrategy implements IUpdateStrategy {
     }
 
     private boolean outsideBoard(Point loc) {
-        int height = board.length, width = board[0].length;
-        int row = loc.y, col = loc.x;
+        int height = board.length;
+        int width = board[0].length;
+        int row = loc.y;
+        int col = loc.x;
         return row < 0 || row >= height || col < 0 || col >= width;
     }
 

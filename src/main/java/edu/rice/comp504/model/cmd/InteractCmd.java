@@ -126,6 +126,7 @@ public class InteractCmd implements IPaintObjCmd {
         // TODO: update score/life in game board
     }
 
+
     private List<Ghost> findGhosts() {
         List<Ghost> ghosts = new LinkedList<>();
         for (PropertyChangeListener pcl : pcs.getPropertyChangeListeners("ghost")) {

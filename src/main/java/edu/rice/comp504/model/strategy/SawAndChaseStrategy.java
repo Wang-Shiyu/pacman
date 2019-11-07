@@ -77,7 +77,7 @@ public class SawAndChaseStrategy implements IUpdateStrategy {
                 return ACellObject.Direction.LEFT;
             }
         }
-        if (ghost.getCurrentMove() == ACellObject.Direction.STOP){
+        if (ghost.getCurrentMove() == ACellObject.Direction.STOP) {
             switch (getRnd(1, 4)) {
                 case 1:
                     return ACellObject.Direction.LEFT;

@@ -52,17 +52,17 @@ public class UpdateCmd implements IPaintObjCmd {
     /**
      * Check if moving object overlaps any wall.
      */
-    private boolean overlapWithWall(ACellObject context){
+    private boolean overlapWithWall(ACellObject context) {
         List<PropertyChangeListener> propertyChangeListenerList = new ArrayList<>();
         Collections.addAll(propertyChangeListenerList, pcs.getPropertyChangeListeners("Wall"));
         Collections.addAll(propertyChangeListenerList, pcs.getPropertyChangeListeners("Door"));
-        for (PropertyChangeListener pcl: propertyChangeListenerList){
+        for (PropertyChangeListener pcl: propertyChangeListenerList) {
             // TODO: WHAT is the property name of Wall?
             /*
             Loop all the moving objects in the pcs to check if any overlaps with walls
             */
             ACellObject wall = (ACellObject) pcl;
-            if(context.isOverlap(wall)){
+            if (context.isOverlap(wall)) {
                 return true;
             }
         }
@@ -97,7 +97,7 @@ public class UpdateCmd implements IPaintObjCmd {
             context.computeNextLocation();
 
             // Check if last valid moving direction is possible. If not, make the moving object STOP.
-            if(overlapWithWall(context)){
+            if (overlapWithWall(context)) {
                 context.revertLocation();
                 context.setCurrentMove(ACellObject.Direction.STOP);
             }

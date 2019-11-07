@@ -13,7 +13,7 @@ public class KeyboardInputCmd implements IPaintObjCmd {
     private static KeyboardInputCmd INSTANCE;
 
     /**
-     * Store the next move in the CMD and pass it to the Pacman through Keyboard CMD
+     * Store the next move in the CMD and pass it to the Pacman through Keyboard CMD.
      */
     private ACellObject.Direction move;
 

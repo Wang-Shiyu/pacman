@@ -108,7 +108,7 @@ public class EscapeStrategy implements IUpdateStrategy {
                 if (prev == ACellObject.Direction.UP) {
                     prev = ACellObject.Direction.LEFT;
                 } else if (prev == ACellObject.Direction.LEFT) {
-                    if(Math.random() > 0.5) {
+                    if (Math.random() > 0.5) {
                         prev = ACellObject.Direction.DOWN;
                     } else {
                         prev = ACellObject.Direction.RIGHT;
@@ -120,7 +120,7 @@ public class EscapeStrategy implements IUpdateStrategy {
                 if (prev == ACellObject.Direction.UP) {
                     prev = ACellObject.Direction.RIGHT;
                 } else if (prev == ACellObject.Direction.RIGHT) {
-                    if(Math.random() > 0.5) {
+                    if (Math.random() > 0.5) {
                         prev = ACellObject.Direction.DOWN;
                     } else {
                         prev = ACellObject.Direction.LEFT;
@@ -132,7 +132,7 @@ public class EscapeStrategy implements IUpdateStrategy {
                 if (prev == ACellObject.Direction.DOWN) {
                     prev = ACellObject.Direction.LEFT;
                 } else if (prev == ACellObject.Direction.LEFT) {
-                    if(Math.random() > 0.5) {
+                    if (Math.random() > 0.5) {
                         prev = ACellObject.Direction.UP;
                     } else {
                         prev = ACellObject.Direction.RIGHT;
@@ -144,7 +144,7 @@ public class EscapeStrategy implements IUpdateStrategy {
                 if (prev == ACellObject.Direction.DOWN) {
                     prev = ACellObject.Direction.RIGHT;
                 } else if (prev == ACellObject.Direction.RIGHT) {
-                    if(Math.random() > 0.5) {
+                    if (Math.random() > 0.5) {
                         prev = ACellObject.Direction.UP;
                     } else {
                         prev = ACellObject.Direction.LEFT;
@@ -247,7 +247,9 @@ public class EscapeStrategy implements IUpdateStrategy {
 
     private boolean overlapWithWall(Ghost ghost, List<ACellObject> walls) {
         for (ACellObject wall : walls) {
-            if (ghost.isOverlap(wall)) return true;
+            if (ghost.isOverlap(wall)) {
+                return true;
+            }
         }
         return false;
     }
