@@ -103,8 +103,10 @@ public class InteractCmd implements IPaintObjCmd {
                         // Ghost will be eaten and go back to jail
                         ghost.setEaten(true);
                         ghost.setReturning(true);
-                        ghost.setUpdateStrategy(
-                                new GhostReturnStrategy(new Point(GameParam.GHOST_INIT_X[2], GameParam.PACMAN_INIT_Y), pacMan, board));
+                        if (!(ghost.getUpdateStrategy() instanceof GhostReturnStrategy)) {
+                            ghost.setUpdateStrategy(
+                                    new GhostReturnStrategy(new Point(GameParam.GHOST_INIT_X[2], GameParam.GHOST_INIT_Y), pacMan, board));
+                        }
                     } else {
                         // Pacman will die
                         pacMan.setRemainingLife(pacMan.getRemainingLife() - 1);

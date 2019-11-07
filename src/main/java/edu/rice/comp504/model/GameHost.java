@@ -73,7 +73,7 @@ public class GameHost {
     public ReturnType updatePanManWorld() {
         if (gameStatus == Status.START) {
             TimeCounter.start();
-            System.out.println(pacMan.getRemainingLife());
+//            System.out.println(pacMan.getRemainingLife());
             // TODO: check life. set OVER
             if (pacMan.getRemainingLife() == 0) {
                 gameStatus = Status.OVER;

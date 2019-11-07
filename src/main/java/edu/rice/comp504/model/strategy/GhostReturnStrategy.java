@@ -23,13 +23,14 @@ public class GhostReturnStrategy implements IUpdateStrategy {
      * Constructor.
      */
     public GhostReturnStrategy(Point door, PacMan pacMan, ACellObject[][] board) {
-        GhostReturnStrategy.door = door;
+        GhostReturnStrategy.door = new Point(door.x / 31, door.y / 31);
         this.board = board;
         this.pacMan = pacMan;
         this.hasPath = false;
     }
 
     private Deque<Point> eyeBack(Point door, Ghost ghost) {
+
         int ghostCol = (int) Math.round(ghost.getLocationX() / 31);
         int ghostRow = (int) Math.round(ghost.getLocationY() / 31);
         Queue<Deque<Point>> queue = new LinkedList<>();
@@ -39,6 +40,8 @@ public class GhostReturnStrategy implements IUpdateStrategy {
 
         Deque<Point> firstPath = new ArrayDeque<>();
         firstPath.add(new Point(ghostCol, ghostRow));
+//        System.out.println(new Point(ghostCol, ghostRow));
+//        System.out.println(door);
         queue.add(firstPath);
         Set<Point> visited = new HashSet<>();
         visited.add(firstPath.getLast());
@@ -54,8 +57,7 @@ public class GhostReturnStrategy implements IUpdateStrategy {
                 if (visited.contains(newLoc) || outsideBoard(newLoc)) {
                     continue;
                 }
-                if (board[newLoc.y][newLoc.x] instanceof WallUnit
-                        || board[newLoc.y][newLoc.x] instanceof DoorUnit) {
+                if ("WallUnit".equals(board[newLoc.y][newLoc.x].getType())) {
                     continue;
                 }
                 visited.add(newLoc);
@@ -100,8 +102,10 @@ public class GhostReturnStrategy implements IUpdateStrategy {
     public void updateState(ACellObject context) {
         if (context instanceof Ghost) {
             Ghost ghost = (Ghost) context;
-            if (ghost.getLocationX() == GameParam.GHOST_INIT_X[2] && ghost.getLocationY() == GameParam.PACMAN_INIT_Y) {
-                ghost.setUpdateStrategy(ChaseStrategy.getInstance(pacMan, board));
+            if (ghost.getLocationX() == GameParam.GHOST_INIT_X[2] && ghost.getLocationY() == GameParam.GHOST_INIT_Y) {
+                ghost.setReturning(false);
+                ghost.setWeak(false);
+                ghost.setUpdateStrategy(new GhostInitStrategy(GameParam.DOOR_Y - GameParam.pixelPerUnit, pacMan, board));
             } else {
                 if (!hasPath) {
                     this.cachePath = eyeBack(door, ghost);
@@ -111,7 +115,7 @@ public class GhostReturnStrategy implements IUpdateStrategy {
                     cachePath.pollFirst();
                     if (!cachePath.isEmpty()) {
                         Point p = cachePath.getFirst();
-                        ghost.setLocation(p.x, p.y);
+                        ghost.setLocation(p.x * 31, p.y * 31);
 //                        ACellObject.Direction direction = convertDirection(ghost, cachePath.getFirst());
 //                        ghost.setLastMove(context.getCurrentMove());
 //                        ghost.setNextMove(direction);
