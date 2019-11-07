@@ -115,7 +115,7 @@ public class GameHost {
                 int randomChange = getRnd(0, pcs.getPropertyChangeListeners("Null").length);
                 PropertyChangeListener pcl = pcs.getPropertyChangeListeners("Null")[randomChange];
                 ((Food) pcl).setType("Food");
-                ((Food) pcl).setScore(1000);
+                ((Food) pcl).setScore(100);
                 ((Food) pcl).setFruit();
                 pcs.removePropertyChangeListener("Null", pcl);
                 pcs.addPropertyChangeListener("Food", pcl);
