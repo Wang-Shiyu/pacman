@@ -127,6 +127,7 @@ public abstract class ACellObject implements PropertyChangeListener {
             case RIGHT:
                 moveRight();
                 break;
+            default: break;
         }
         roundupLocation();
         // check hole

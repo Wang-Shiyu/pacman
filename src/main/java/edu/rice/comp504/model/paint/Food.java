@@ -17,6 +17,17 @@ public class Food extends ACellObject {
     private boolean bigFood;
     private boolean fruit;
 
+    /**
+     * Constructor.
+     * @param imageIcon img
+     * @param score score
+     * @param type food type
+     * @param locationX point x
+     * @param locationY point y
+     * @param vel cell speed
+     * @param updateStrategy strategy
+     * @param bigFood special food sign
+     */
     public Food(String imageIcon, int score, String type, double locationX, double locationY, double vel, IUpdateStrategy updateStrategy, boolean bigFood) {
         super(imageIcon, score, "Food", locationX, locationY, vel, updateStrategy);
         this.bigFood = bigFood;

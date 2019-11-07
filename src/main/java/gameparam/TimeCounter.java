@@ -14,13 +14,21 @@ public class TimeCounter {
         TimeCounter.boundary = boundary;
     }
 
+    /**
+     * check the counter.
+     * @return true if counter reach boundary.
+     */
     public static boolean timeOut() {
         boolean res = counter > boundary;
-        if(res)
+        if (res) {
             counter = 0;
+        }
         return res;
     }
 
+    /**
+     * reset fields in time counter.
+     */
     public static void reset() {
         time = 0;
         boundary = 0;

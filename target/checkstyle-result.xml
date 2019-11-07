@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="6.11.2">
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/controller/PacManController.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/WallUnit.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/DoorUnit.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/Ghost.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/NullUnit.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/ACellObject.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/PacMan.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/Food.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/cmd/IPaintObjCmd.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/cmd/KeyboardInputCmd.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/cmd/InteractCmd.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/cmd/UpdateCmd.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/GameHost.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/RandomStrategy.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/EscapeStrategy.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/GhostReturnStrategy.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/ChaseStrategy.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/IUpdateStrategy.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/NullUpdateStrategy.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/PacManMoveStrategy.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/SawAndChaseStrategy.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/GhostInitStrategy.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/gameparam/TimeCounter.java">
+</file>
+<file name="/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/gameparam/GameParam.java">
+</file>
+</checkstyle>

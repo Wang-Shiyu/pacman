@@ -133,7 +133,9 @@ public class GameHost {
      */
     public void move(String direction) {
         // TODO: Send a KeyboardInputCmd to Pacman when keyboard evt is triggered
-        if (gameStatus != Status.START) return;
+        if (gameStatus != Status.START) {
+            return;
+        }
         String dir = direction.split("=")[1];
 
         ACellObject.Direction move;

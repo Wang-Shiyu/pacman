@@ -89,6 +89,7 @@ public class RandomStrategy implements IUpdateStrategy {
                 return ACellObject.Direction.UP;
             case 4:
                 return ACellObject.Direction.DOWN;
+            default: break;
         }
         return ACellObject.Direction.STOP;
     }

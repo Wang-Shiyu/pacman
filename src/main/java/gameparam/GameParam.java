@@ -12,11 +12,11 @@ import java.util.Deque;
 import java.util.Map;
 
 public class GameParam {
-    public final static int fps = 60;
-    public final static int pixelPerUnit = 31;
-    public final static int unitPerRow = 20;
-    public final static int unitPerCol = 25;
-    public final static double stepSize = 0.05 * pixelPerUnit; // Pacman or ghosts' moving step size, eg: 0.02 cell per step
+    public static final int fps = 60;
+    public static final int pixelPerUnit = 31;
+    public static final  int unitPerRow = 20;
+    public static final int unitPerCol = 25;
+    public static final double stepSize = 0.05 * pixelPerUnit; // Pacman or ghosts' moving step size, eg: 0.02 cell per step
     public static double ghostSpeed = 1 * stepSize;
     public static double pacmanSpeed = 2 * stepSize;
     public static double foodScore = 10;
@@ -26,17 +26,23 @@ public class GameParam {
     public static int pacmanMaxLives = 3;
     public static String mazeMap;
     public static int cellSize;
-    public final static int PACMAN_INIT_Y = 31 * 4;
-    public final static int PACMAN_INIT_X = 31 * 12;
-    public final static int GHOST_INIT_Y = 31 * 12;
-    public final static int DOOR_Y = 31 * 11;
-    public final static int GHOST_INIT_X[] = {31 * 10, 31 * 11, 31 * 12, 31 * 13, 31 * 14};
-    public final static int GHOST_RELEASE_TIME[] = {2, 7, 15, 35, 55, 75, 95};
-    public final static int GHOST_ESCAPE_TIME = 5;
+    public static final int PACMAN_INIT_Y = 31 * 4;
+    public static final int PACMAN_INIT_X = 31 * 12;
+    public static final int GHOST_INIT_Y = 31 * 12;
+    public static final int DOOR_Y = 31 * 11;
+    public static final int[] GHOST_INIT_X = {31 * 10, 31 * 11, 31 * 12, 31 * 13, 31 * 14};
+    public static final int[] GHOST_RELEASE_TIME = {2, 7, 15, 35, 55, 75, 95};
+    public static final int GHOST_ESCAPE_TIME = 5;
     public static Map<String, Deque<Point>> cache;
 //    public static int strategyIndex = 0;
 //    public static String[] strategyName = new String[]{"Random", "Random", "Random", "Avoid", "Chase"};
 
+    /**
+     * randomly decide the strategy according to percent.
+     * @param pacMan pacman.
+     * @param board game board.
+     * @return an update strategy.
+     */
     public static IUpdateStrategy getGhostStrategy(PacMan pacMan, ACellObject[][] board) {
 //        String name = strategyName[strategyIndex];
 //        strategyIndex = (strategyIndex + 1) % strategyName.length;

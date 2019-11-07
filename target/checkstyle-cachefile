@@ -1,13 +1,26 @@
-#Wed Nov 06 23:05:00 CST 2019
-configuration*?=7694F9DCA33B7D4254C2BC6D129D284AAA1A32CD
-/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/cmd/IPaintObjCmd.java=1572883290868
+#Wed Nov 06 23:46:20 CST 2019
 /Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/PacMan.java=1572928489578
-/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/Ghost.java=1573088825437
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/GhostInitStrategy.java=1573104920696
 /Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/IUpdateStrategy.java=1572883290870
-/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/PacManMoveStrategy.java=1572883290870
-/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/DoorUnit.java=1572883290869
-/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/cmd/InteractCmd.java=1573103095797
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/Food.java=1573105510100
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/PacManMoveStrategy.java=1573104547441
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/gameparam/TimeCounter.java=1573105510104
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/ChaseStrategy.java=1573104547461
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/gameparam/GameParam.java=1573105577436
 /Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/NullUpdateStrategy.java=1572883290870
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/SawAndChaseStrategy.java=1573104547455
 /Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/NullUnit.java=1572971119804
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/ACellObject.java=1573105577432
+configuration*?=7694F9DCA33B7D4254C2BC6D129D284AAA1A32CD
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/cmd/UpdateCmd.java=1573104547462
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/cmd/IPaintObjCmd.java=1572883290868
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/Ghost.java=1573088825437
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/RandomStrategy.java=1573105251319
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/cmd/KeyboardInputCmd.java=1573104547463
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/DoorUnit.java=1572883290869
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/GhostReturnStrategy.java=1573104547457
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/strategy/EscapeStrategy.java=1573104547460
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/cmd/InteractCmd.java=1573104547464
 /Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/paint/WallUnit.java=1572883290869
+/Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/model/GameHost.java=1573105510096
 /Users/shiyuwang/edu/COMP504/game-big-bang/src/main/java/edu/rice/comp504/controller/PacManController.java=1573077796447
