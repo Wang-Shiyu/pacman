@@ -3,6 +3,7 @@ package edu.rice.comp504.model.strategy;
 import edu.rice.comp504.model.paint.ACellObject;
 import edu.rice.comp504.model.paint.Ghost;
 import edu.rice.comp504.model.paint.PacMan;
+import gameparam.GameParam;
 import gameparam.TimeCounter;
 
 public class GhostInitStrategy implements IUpdateStrategy {
@@ -45,7 +46,7 @@ public class GhostInitStrategy implements IUpdateStrategy {
         }
         // Check if the ghost has crossed the door. If so, switch to ChaseStrategy
         if (ghost.getLocationY() < switchLocationY) {
-            ghost.setUpdateStrategy(ChaseStrategy.getInstance(pacMan, board));
+            ghost.setUpdateStrategy(GameParam.getGhostStrategy(pacMan, board));
             ghost.setCanCollideDoor(false);
             ghost.setCurrentMove(ACellObject.Direction.LEFT);
         }

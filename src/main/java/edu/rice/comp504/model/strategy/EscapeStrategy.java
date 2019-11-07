@@ -79,7 +79,7 @@ public class EscapeStrategy implements IUpdateStrategy {
         if (TimeCounter.getTime() >= endTime) {
             // change to chase
             ghost.setWeak(false);
-            ghost.setUpdateStrategy(ChaseStrategy.getInstance(pacman, board));
+            ghost.setUpdateStrategy(GameParam.getGhostStrategy(pacman, board));
         } else {
             // escape
             scatter(ghost);
