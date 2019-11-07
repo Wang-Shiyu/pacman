@@ -46,8 +46,8 @@ public class GhostStrategyTest extends TestCase {
     }
 
     public void testAvoidStrategy(){
-        AvoidStrategy.cleanStrategy();
-        IUpdateStrategy avoid = AvoidStrategy.getInstance(pacMan, board);
+        SawAndChaseStrategy.cleanStrategy();
+        IUpdateStrategy avoid = SawAndChaseStrategy.getInstance(pacMan, board);
         avoid.getName();
         //pacMan.setUpdateStrategy(avoid);
         pacMan.setLocation(10,10);
@@ -95,7 +95,7 @@ public class GhostStrategyTest extends TestCase {
 
     public void testRandomStrategy(){
         RandomStrategy.cleanStrategy();
-        IUpdateStrategy ran = RandomStrategy.getInstance();
+        IUpdateStrategy ran = RandomStrategy.getInstance(board);
         ran.getName();
         //pacMan.setUpdateStrategy(chase);
         pacMan.setLocation(10*31,10*31);

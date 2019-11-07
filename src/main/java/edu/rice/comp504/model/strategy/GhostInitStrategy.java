@@ -45,7 +45,7 @@ public class GhostInitStrategy implements IUpdateStrategy {
         }
         // Check if the ghost has crossed the door. If so, switch to ChaseStrategy
         if (ghost.getLocationY() < switchLocationY) {
-            ghost.setUpdateStrategy(ChaseStrategy.getInstance(pacMan, board));
+            ghost.setUpdateStrategy(RandomStrategy.getInstance(board));
             ghost.setCanCollideDoor(false);
             ghost.setCurrentMove(ACellObject.Direction.LEFT);
         }

@@ -76,22 +76,22 @@ public class GhostReturnStrategy implements IUpdateStrategy {
         return row < 0 || row >= height || col < 0 || col >= width;
     }
 
-    private ACellObject.Direction convertDirection(Ghost ghost, Point target) {
-        int ghostCol = (int) Math.round(ghost.getLocationX() / 31);
-        int ghostRow = (int) Math.round(ghost.getLocationY() / 31);
-
-        if (target.x - ghostCol < 0) {
-            return ACellObject.Direction.LEFT;
-        } else if (target.x - ghostCol > 0) {
-            return ACellObject.Direction.RIGHT;
-        } else if (target.y - ghostRow < 0) {
-            return ACellObject.Direction.UP;
-        } else if (target.y - ghostRow > 0) {
-            return ACellObject.Direction.DOWN;
-        }
-
-        return ACellObject.Direction.STOP;
-    }
+//    private ACellObject.Direction convertDirection(Ghost ghost, Point target) {
+//        int ghostCol = (int) Math.round(ghost.getLocationX() / 31);
+//        int ghostRow = (int) Math.round(ghost.getLocationY() / 31);
+//
+//        if (target.x - ghostCol < 0) {
+//            return ACellObject.Direction.LEFT;
+//        } else if (target.x - ghostCol > 0) {
+//            return ACellObject.Direction.RIGHT;
+//        } else if (target.y - ghostRow < 0) {
+//            return ACellObject.Direction.UP;
+//        } else if (target.y - ghostRow > 0) {
+//            return ACellObject.Direction.DOWN;
+//        }
+//
+//        return ACellObject.Direction.STOP;
+//    }
 
     @Override
     public String getName() {
