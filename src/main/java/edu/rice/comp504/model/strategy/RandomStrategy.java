@@ -54,14 +54,7 @@ public class RandomStrategy implements IUpdateStrategy {
             int ghostCol = (int) Math.round(ghost.getLocationX() / 31);
             int ghostRow = (int) Math.round(ghost.getLocationY() / 31);
             Point lastPoint = new Point(ghostCol, ghostRow);
-            int cross = 4;
-            for (int i = 0; i < 4; i++) {
-                Point newLoc = new Point(lastPoint.x + offsetX[i], lastPoint.y + offsetY[i]);
-                if (board[newLoc.y][newLoc.x] instanceof WallUnit || board[newLoc.y][newLoc.x] instanceof DoorUnit) {
-                    cross--;
-                }
-            }
-            if (ghost.getCurrentMove() == ACellObject.Direction.STOP || cross > 2 ) {
+            if (ghost.getCurrentMove() == ACellObject.Direction.STOP) {
                 ACellObject.Direction direction = randomDirection();
                 ghost.setLastMove(ghost.getCurrentMove());
                 ghost.setNextMove(direction);
