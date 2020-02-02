@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"edu.rice.comp504.controller"},{"l":"edu.rice.comp504.model"},{"l":"edu.rice.comp504.model.cmd"},{"l":"edu.rice.comp504.model.paint"},{"l":"edu.rice.comp504.model.strategy"},{"l":"gameparam"}]

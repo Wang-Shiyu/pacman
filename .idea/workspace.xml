@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_TEST_SOURCES" value="false" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f22c5551-c67f-4cac-82d5-cfef5dea3f23" name="Default Changelist" comment="random strategy">
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/rice/comp504/model/strategy/ChaseStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/rice/comp504/model/strategy/ChaseStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/controller/PacManController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/controller/PacManController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost$ReturnType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost$ReturnType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost$Status.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost$Status.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/IPaintObjCmd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/IPaintObjCmd.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/InteractCmd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/InteractCmd.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/KeyboardInputCmd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/KeyboardInputCmd.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/UpdateCmd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/UpdateCmd.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/ACellObject$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/ACellObject$Direction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/ACellObject$Direction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/ACellObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/ACellObject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/DoorUnit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/DoorUnit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/Food.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/Food.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/Ghost.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/Ghost.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/NullUnit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/NullUnit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/PacMan.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/PacMan.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/WallUnit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/WallUnit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/ChaseStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/ChaseStrategy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/EscapeStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/EscapeStrategy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/GhostInitStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/GhostInitStrategy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/GhostReturnStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/GhostReturnStrategy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/IUpdateStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/IUpdateStrategy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/NullUpdateStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/NullUpdateStrategy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/PacManMoveStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/PacManMoveStrategy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/RandomStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/RandomStrategy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/SawAndChaseStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/SawAndChaseStrategy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gameparam/GameParam.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gameparam/GameParam.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gameparam/TimeCounter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gameparam/TimeCounter.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="ProjectId" id="1T9rqL5xkQSnwlKuzyCm0VgNnit" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RunManager" selected="Application.Unnamed">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.rice.comp504.controller.PacManController" />
+      <module name="Pacman" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GhostStrategyTest.testRandomStrategy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Pacman" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.rice.comp504.model.strategy.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.rice.comp504.model.strategy" />
+      <option name="MAIN_CLASS_NAME" value="edu.rice.comp504.model.strategy.GhostStrategyTest" />
+      <option name="METHOD_NAME" value="testRandomStrategy" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Unnamed" />
+      <item itemvalue="JUnit.GhostStrategyTest.testRandomStrategy" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.GhostStrategyTest.testRandomStrategy" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f22c5551-c67f-4cac-82d5-cfef5dea3f23" name="Default Changelist" comment="" />
+      <created>1572883341693</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572883341693</updated>
+      <workItem from="1572883344456" duration="53776000" />
+      <workItem from="1573528675373" duration="1068000" />
+      <workItem from="1573609265217" duration="1734000" />
+      <workItem from="1573658317893" duration="46000" />
+      <workItem from="1574357962824" duration="1000000" />
+      <workItem from="1578978120259" duration="211000" />
+      <workItem from="1580059651587" duration="38000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="random strategy" />
+    <option name="LAST_COMMIT_MESSAGE" value="random strategy" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="397" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1580059652218">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="397" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1580059652218" />
+    <state x="362" y="248" key="git4idea.merge.GitPullDialog" timestamp="1580622646773">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="362" y="248" key="git4idea.merge.GitPullDialog/0.0.1440.900@0.0.1440.900" timestamp="1580622646773" />
+  </component>
+</project>

@@ -101,12 +101,9 @@ public class ChaseStrategy implements IUpdateStrategy {
 //        System.out.println(ghostRow);
 
         Queue<Deque<Point>> queue = new LinkedList<>();
-
         Deque<Point> firstPath = new ArrayDeque<>();
         firstPath.add(new Point(ghostCol, ghostRow));
-
         queue.add(firstPath);
-
         Set<Point> visited = new HashSet<>();
         visited.add(firstPath.getLast());
 
