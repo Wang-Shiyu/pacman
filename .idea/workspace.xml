@@ -5,35 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f22c5551-c67f-4cac-82d5-cfef5dea3f23" name="Default Changelist" comment="random strategy">
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/rice/comp504/model/strategy/ChaseStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/rice/comp504/model/strategy/ChaseStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/controller/PacManController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/controller/PacManController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost$ReturnType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost$ReturnType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost$Status.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost$Status.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/GameHost.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/IPaintObjCmd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/IPaintObjCmd.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/InteractCmd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/InteractCmd.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/KeyboardInputCmd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/KeyboardInputCmd.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/UpdateCmd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/cmd/UpdateCmd.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/ACellObject$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/ACellObject$Direction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/ACellObject$Direction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/ACellObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/ACellObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/DoorUnit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/DoorUnit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/Food.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/Food.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/Ghost.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/Ghost.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/NullUnit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/NullUnit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/PacMan.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/PacMan.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/WallUnit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/paint/WallUnit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/ChaseStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/ChaseStrategy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/EscapeStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/EscapeStrategy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/GhostInitStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/GhostInitStrategy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/GhostReturnStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/GhostReturnStrategy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/IUpdateStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/IUpdateStrategy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/NullUpdateStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/NullUpdateStrategy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/PacManMoveStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/PacManMoveStrategy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/RandomStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/RandomStrategy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/SawAndChaseStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/rice/comp504/model/strategy/SawAndChaseStrategy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gameparam/GameParam.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gameparam/GameParam.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gameparam/TimeCounter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gameparam/TimeCounter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,6 +104,7 @@
       <workItem from="1574357962824" duration="1000000" />
       <workItem from="1578978120259" duration="211000" />
       <workItem from="1580059651587" duration="38000" />
+      <workItem from="1580622455154" duration="854000" />
     </task>
     <servers />
   </component>
